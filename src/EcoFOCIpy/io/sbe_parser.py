@@ -4,6 +4,6 @@
 These include:
 
 Moored SBE (cnv files):
-* 16,19,37,39,47,56
+* 16,19,26,37,39,56
 
 """
