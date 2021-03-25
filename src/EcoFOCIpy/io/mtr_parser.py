@@ -1,4 +1,3 @@
-# EcoFOCI
 """Contains a collection of MTR equipment parsing.
 
 These include:

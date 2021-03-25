@@ -1,4 +1,3 @@
-# EcoFOCI
 """Contains a collection of RBR equipment parsing.
 
 These include:
