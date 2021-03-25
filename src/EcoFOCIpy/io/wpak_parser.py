@@ -23,19 +23,7 @@ class wpak(object):
     """
 
     @staticmethod
-    def get_data(filename=None, **kwargs):
-        r"""
-        Basic Method to open files.  Specific actions can be passes as kwargs for instruments
-        """
-
-        fobj = open(filename)
-        data = fobj.read()
-
-        buf = data
-        return BytesIO(buf.strip())
-
-    @staticmethod
-    def parse(fobj, argos_file=False):
+    def parse(filename=None, argos_file=False):
         r"""
         Basic Method to open and read wpak csv files 
 
@@ -43,8 +31,9 @@ class wpak(object):
 
         returns pandas dataframe
         """
+        assert filename != None , 'Must provide a datafile'
 
-        rawdata_df = pd.read_csv(fobj, header=0, delimiter="s+")
+        rawdata_df = pd.read_csv(filename, header=0, delimiter="s+")
         rawdata_df["date_time"] = pd.to_datetime(
             rawdata_df["DATE"] + " " + rawdata_df["TIME"], format="%y/%m/%d %H:%M:%S"
         )
