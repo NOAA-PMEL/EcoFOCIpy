@@ -1,0 +1,78 @@
+---
+AT_21: 
+  name: "AT"
+  generic_name: "atemp"
+  fortran: ""
+  EPIC_KEY: 21
+  units: "C"
+  longname: "AIR TEMPERATURE (C)"
+BP_915: 
+  name: "BP"
+  generic_name: ""
+  fortran: ""
+  EPIC_KEY: 915
+  units: "mbar"
+  longname: "BAROMETRIC PRESSURE (MB)"
+WD_410: 
+  name: "WD"
+  generic_name: ""
+  fortran: ""
+  EPIC_KEY: 410
+  units: "degrees"
+  longname: "WIND DIRECTION"
+Teq_1800: 
+  name: "Teq"
+  generic_name: ""
+  fortran: "f10.2"
+  EPIC_KEY: 1800
+  units: "degree C"
+  longname: "Equilibrator Temperature"
+BAT_106: 
+  name: "BAT"
+  generic_name: "bat"
+  fortran: "f6.2"
+  EPIC_KEY: 70
+  units: "volts"
+  longname: "BATTERY VOLTAGE"
+RH_910: 
+  name: "RH"
+  generic_name: "rh"
+  fortran: ""
+  EPIC_KEY: 910
+  units: "%"
+  longname: "RELATIVE HUMIDITY (%)"
+Qs_133: 
+  name: "QS"
+  generic_name: ""
+  fortran: ""
+  EPIC_KEY: 133
+  units: "w m-2"
+  longname: "SHORTWAVE RADIATION"
+WV_423: 
+  name: "WV"
+  generic_name: "V"
+  fortran: ""
+  EPIC_KEY: 423
+  units: "m s-1"
+  longname: "WIND V (M/S)"
+comp_1404: 
+  name: "comp"
+  generic_name: "comp"
+  fortran: "f10.1"
+  EPIC_KEY: 1404
+  units: "degreeM"
+  longname: "COMPASS (m)"
+WS_401: 
+  name: "WS"
+  generic_name: ""
+  fortran: ""
+  EPIC_KEY: 401
+  units: "m s-1"
+  longname: "WIND SPEED (M/S)"
+WU_422: 
+  name: "WU"
+  generic_name: "U"
+  fortran: ""
+  EPIC_KEY: 422
+  units: "m s-1"
+  longname: "WIND U (M/S)"
