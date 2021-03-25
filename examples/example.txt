@@ -1,0 +1,14 @@
+#Parse data 
+#output initial files (pandas csv)
+#data meta from instrument yaml files and/or header info
+
+#ingest metadata
+#process data beyond simple file translate
+#apply any calibrations or correction
+#adjust time bounds and sample frequency
+#convert to xarray
+#add meta data
+#save as CF netcdf
+
+#--#
+#preview images (indiv or collectively?)
