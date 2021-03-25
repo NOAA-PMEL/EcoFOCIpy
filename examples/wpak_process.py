@@ -32,10 +32,12 @@ slightly more complex method - valid when data is far enough from the hour
 wpak_grid_decimate = wpak_data.resample('10T').mean().interpolate(limit=6)
 wpak_grid_decimate = wpak_grid_decimate[wpak_grid_decimate.index.minute == 0]
 
+#TODO: Output CSV file for NRT erddap?
+
 # Ingest instrumenttype parameter config file for meta information
 # Ingest mooring yaml status file for deployment meta information
 
-
+# Convert to xarray and add meta information - save as CF netcdf file
 
 # tests 
 def sample_data_size_test(data=wpak_data):
