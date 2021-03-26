@@ -7,10 +7,23 @@ These include:
 * adding variable attributes
 
 """
-import xarray as xr
- 
+import datetime
 
-class EcoFOCI_CFnc(object):
+import xarray as xr
+
+
+class EcoFOCI_CFnc_moored(object):
+    """Designed for moored instrumentation.
+
+    CTD data will use the seabird cnv package
+
+    Other platforms:
+        prawler
+        glider
+        saildrone
+
+    will use their own class
+    """
 
     def __init__(self, df=None, instrument_yaml='', mooring_yaml=None, instrument_id='', inst_shortname=''):
         """data is a pandas dataframe
@@ -27,26 +40,62 @@ class EcoFOCI_CFnc(object):
         pass
 
     def deployment_meta_add(self):
-        
-        attributes = {'MooringID':self.mooring_yaml['MooringID'],
-                    'Deployment_Cruise': self.mooring_yaml['Deployment']['DeploymentCruise'],
-                    'Recovery_Cruise': self.mooring_yaml['Recovery']['RecoveryCruise'],
-                    'WaterDepth':self.mooring_yaml['Deployment']['DeploymentDepth'],
-                    'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
-                    'Longitude-Deg_MM.dd_N':self.mooring_yaml['Deployment']['DeploymentLongitude']}
+        """TODO: Validate content of times"""
 
-        self.xdf.attrs = attributes
+        attributes = {
+            'MooringID':self.mooring_yaml['MooringID'],
+            'platform_deployment_date':self.mooring_yaml['Deployment']['DeploymentDateTimeGMT'].strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'platform_deployment_cruise_name': self.mooring_yaml['Deployment']['DeploymentCruise'],
+            'platform_recovery_date':self.mooring_yaml['Recovery']['RecoveryDateTimeGMT'].strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'platform_recovery_cruise_name': self.mooring_yaml['Recovery']['RecoveryCruise'],
+            'platform_deployment_recovery_comments': self.mooring_yaml['Notes'],
+            'WaterDepth':self.mooring_yaml['Deployment']['DeploymentDepth']}
 
-    def institution_meta_data(self,):
+        self.xdf.attrs.update(attributes)
+
+    def institution_meta_data(self):
+        """Add EcoFOCI base metadata"""
         pass
 
+    def temporal_geospatioal_meta_data(self):
+        """Add min/max lat/lon/time bounds"""
+        attributes = {
+            'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
+            'Longitude-Deg_MM.dd_N':self.mooring_yaml['Deployment']['DeploymentLongitude']}
+        self.xdf.attrs.update(attributes)
+
+    def provinance_meta_add(self):
+        """add creation time and placeholder for modified time"""
+        attributes = {
+            'date_created':datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'date_modified': ''}
+        self.xdf.attrs.update(attributes)
+
+    ### Break out following methods for modification to existing data
+    def history(self, history_text=''):
+        """TODO: prevent overwriting?"""
+
+        self.xdf.attrs.update({'history':history_text})
+
+    def qc_status(self,qc_status='unknown'):
+        """QC_indicator: Unknown, Excellent, ProbablyGood, Mixed"""
+        attributes = {'QC_indicator':qc_status}
+        self.xdf.attrs.update(attributes)
+
+    ###
     def autotrim_time(self):
-        """using the recorded deployment/recovery records - trim array
+        """using the recorded deployment/recovery records - trim time array
         """
         starttime = self.mooring_yaml['Deployment']['DeploymentDateTimeGMT']
         endtime = self.mooring_yaml['Recovery']['RecoveryDateTimeGMT']
         
+        try:   
+            self.history(history_text=self.xdf.attrs['history'] + '\nTrimmed to deployment.')
+        except:   
+            self.history(history_text='Trimmed to deployment.')
+
         return self.xdf.sel(date_time=slice(starttime,endtime))
+
 
     def filename_const(self):
 
