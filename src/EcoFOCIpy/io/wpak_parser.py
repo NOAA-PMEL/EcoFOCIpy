@@ -15,7 +15,7 @@ import pandas as pd
 class wpak(object):
     r""" MetOcean WeatherPak
     
-    remove software lines up to header-row for downloaded data
+    remove software lines up to header-row for downloaded data - add test for this
 
     see staticdata/wpak_test.txt for example
     """
