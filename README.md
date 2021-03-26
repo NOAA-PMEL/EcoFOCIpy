@@ -27,6 +27,10 @@ It is also a source for testing github integrations, github Actions, and other t
 
 ### Additional Notes/Guidance
 
+Examples of usage can be found in the examples folder
+
+Configuration YAML files are necessary for any supplementary meta_information - these are in a seperate folder from the source files
+
 ## Requirements
 
 Found in the ci/requirements.txt
