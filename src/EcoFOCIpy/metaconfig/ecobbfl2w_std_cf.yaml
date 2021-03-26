@@ -1,0 +1,79 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v66
+#
+# Wetlabs (or others) Fluorometry, Turbidity, CDOM (ecobbfl2w) 
+#             (chlorophyll fluorescence, nephelometric turbidity units, cdom as ppb) 
+# with standard deviation of sample average for burst measurements
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+timeseries_id:
+  cf_role: 'timeseries_id'
+  long_name: "timeseries id"
+  standard_name: ''
+#variables
+fluor_counts:
+  epic_key: fluor_3031
+  generic_name: fluor_counts
+  long_name: "Digital Counts from fluorometer"
+  standard_name: fluorometer_digital_counts
+  units: counts
+chlor_fluorescence:
+  epic_key: Fch_906
+  generic_name: chlor_fluorescence
+  long_name: "Mass Concdentration of chlorophyll from chlorophyll fluorescence"
+  standard_name: mass_concentration_of_chlorophyll_in_sea_water
+  units: ugrams/l
+fluor_counts_std:
+  epic_key: fluor_2031
+  generic_name: fluor_counts_std
+  long_name: "Standard Deviation of Digital Counts from fluorometer"
+  standard_name: fluorometer_digital_counts_std
+  units: counts
+turbidity:
+  epic_key: Trb_980
+  generic_name: turbidity
+  long_name: "turbidity in nephelometric turbidity units"
+  standard_name: sea_water_turbidity
+  units: 'NTU'
+  #note - this used to use FNU as units in EPIC as NTU was not existent
+  #counts and std should be here too
+cdom:
+  epic_key: CDOM_2980
+  generic_name: cdom
+  long_name: "concentration of CDOM in ppb"
+  standard_name: concentration_of_colored_dissolved_organic_matter_in_sea_water
+  units: 'ppb'  

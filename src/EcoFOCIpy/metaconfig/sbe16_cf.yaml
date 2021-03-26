@@ -1,0 +1,108 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v66
+#
+# SeaBird CT(P) Seacat (sbe16)
+# Occasionally has additional instruments recording off it
+#   but just because they may exist doesn't mean they were installed
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+timeseries_id:
+  cf_role: 'timeseries_id'
+  long_name: "timeseries id"
+  standard_name: ''
+#variables
+temp:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+pres: 
+  epic_key: P_1
+  generic_name: pres
+  units: decibar
+  long_name: "Sea water pressure, equals 0 at sea-level"
+  standard_name: sea_water_pressure_due_to_sea_water
+cond: 
+  epic_key: C_50
+  generic_name: cond
+  units: 'mmho/cm'
+  long_name: "Sea water conductivity"
+  standard_name: 'sea_water_electrical_conductivity'
+psal: 
+  epic_key: S_41
+  generic_name: psal
+  units: PSU
+  long_name: "Practical salinity in-situ PSS-78 scale"
+  standard_name: sea_water_practical_salinity
+chlor_fluorescence:
+  epic_key: Fch_906
+  generic_name: chlor_fluorescence
+  long_name: "Mass Concdentration of chlorophyll from chlorophyll fluorescence"
+  standard_name: mass_concentration_of_chlorophyll_in_sea_water
+  units: ugrams/l
+fluor_volts:
+  epic_key: Fvt_900
+  generic_name: fluor_volts
+  long_name: "Voltage recorded from fluorometer"
+  standard_name: fluorometer_voltage
+  units: Volts
+par: 
+  generic_name: par
+  epic_key: PAR_908
+  long_name: 'Photosynthetic Active Radiation'
+  standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
+  units: 'uEin cm-2 s-1'
+par_volts: 
+  generic_name: par_volts
+  epic_key: PAR_916
+  long_name: 'Photosynthetic Active Radiation Volts'
+  standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water_volts
+  units: Volts
+oxy_conc:
+  generic_name: oxy_conc
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
+oxy_psat: 
+  generic_name: oxy_psat
+  epic_key: OST_62
+  units: 'percent'
+  long_name: 'Percent Saturation of oxygen over air' 
+  standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+

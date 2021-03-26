@@ -1,0 +1,54 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v66
+#
+# SeaBird T Temperature Recorder (sbe56)
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+timeseries_id:
+  cf_role: 'timeseries_id'
+  long_name: "timeseries id"
+  standard_name: ''
+#variables
+temp:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+
+
+

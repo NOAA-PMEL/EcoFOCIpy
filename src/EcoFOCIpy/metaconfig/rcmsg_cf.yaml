@@ -1,0 +1,107 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v67
+#
+# RCMSG, Seaguards
+# These are platforms and can have oxy, turb, sal/cond on them as well
+# but we (FOCI) usually only have oxy/turb.  Salinity is captured from a 
+# nearby instrument to correct the oxygen measurements
+#
+# Historically - epic has distinguished between currents from RCM's and ADCPS
+# This may be seen in the EPIC Key - brought along but wont be reflected in the 
+# variable nomenclature/standard name
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+timeseries_id:
+  cf_role: 'timeseries_id'
+  long_name: "timeseries id"
+  standard_name: ''
+#variables
+temp:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+psal: 
+  epic_key: S_41
+  generic_name: psal
+  units: PSU
+  long_name: "Practical salinity in-situ PSS-78 scale"
+  standard_name: sea_water_practical_salinity
+pres: 
+  epic_key: P_1
+  generic_name: pres
+  units: decibar
+  long_name: "Sea water pressure, equals 0 at sea-level"
+  standard_name: sea_water_pressure_due_to_sea_water
+oxy_conc:
+  generic_name: oxy_conc
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
+oxy_psat: 
+  generic_name: oxy_psat
+  epic_key: OST_62
+  units: 'percent'
+  long_name: 'Percent Saturation of oxygen over air' 
+  standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+u_curr_comp:
+  generic_name: u_curr_comp
+  epic_key: U_320
+  units: 'cm s-1'
+  long_name: 'Zonal Current (Eastward) cm/s'
+  standard_name: eastward_sea_water_velocity
+v_curr_comp:
+  generic_name: v_curr_comp
+  epic_key: V_321
+  units: 'cm s-1'
+  long_name: 'Meridional Current (Northward) cm/s'
+  standard_name: northward_sea_water_velocity
+current_speed:
+  generic_name: current_speed
+  epic_key: CS_300
+  units: 'cm s-1'
+  long_name: 'Magnitude of Current speed cm/s'
+  standard_name: sea_water_current_speed
+current_direction:
+  generic_name: current_direction
+  epic_key: CD_310
+  units: 'degrees'
+  long_name: 'Direction of Current speed  - degrees from North'
+  standard_name: sea_water_current_direction
+
