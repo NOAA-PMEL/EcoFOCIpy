@@ -40,7 +40,7 @@ parser.add_argument('MooringID', metavar='MooringID', type=str, help='MooringID 
 parser.add_argument('-db', '--db_ini', 
                     type=str, 
                     help='path to db .yaml file', 
-                    default='_/dbconfig/db_config_mooring.yaml')               
+                    default='_secret/db_config_mooring.yaml')               
 parser.add_argument('-yaml', '--yaml_format', 
                     action="store_true", 
                     help='format for yaml files')               
@@ -49,7 +49,7 @@ args = parser.parse_args()
  
 #its a view only user so hardcoding is ok... config file needs to be edited if
 #  machine changes
-config_file = '_/dbconfig/db_config_mooring.yaml'
+config_file = '_secret/db_config_mooring.yaml'
 
 
 EcoFOCI_db = EcoFOCI_db_datastatus()
