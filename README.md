@@ -31,6 +31,8 @@ Examples of usage can be found in the examples folder
 
 Configuration YAML files are necessary for any supplementary meta_information - these are in a seperate folder from the source files
 
+* in the `tools` directory is a utility called `mooring_config_creator.py` - you will need login credentials for this to work.  Contact the developer for this (only program members will get a response)
+
 ## Requirements
 
 Found in the ci/requirements.txt
