@@ -12,39 +12,39 @@ import xarray as xr
 
 class EcoFOCI_CFnc(object):
 
-    def __init__(self, df=None, instrument_meta=None, mooring_meta=None, instrument_id='', inst_shortname=''):
+    def __init__(self, df=None, instrument_yaml='', mooring_yaml=None, instrument_id='', inst_shortname=''):
         """data is a pandas dataframe
         Wich is immediatly converted to xarray
         """
         
         self.xdf = df.to_xarray()
-        self.instrument_meta = instrument_meta
-        self.mooring_meta = mooring_meta
+        self.instrument_yaml = instrument_yaml
+        self.mooring_yaml = mooring_yaml
         self.instrument_id = instrument_id
         self.inst_shortname = inst_shortname
 
-    def inst_meta_add(self):
+    def institution_meta_add(self, institution_yaml=''):
         pass
 
     def deployment_meta_add(self):
         
-        attributes = {'MooringID':self.mooring_meta['MooringID'],
-                    'Deployment_Cruise': self.mooring_meta['Deployment']['DeploymentCruise'],
-                    'Recovery_Cruise': self.mooring_meta['Recovery']['RecoveryCruise'],
-                    'WaterDepth':self.mooring_meta['Deployment']['DeploymentDepth'],
-                    'Latitude-Deg_MM.dd_W':self.mooring_meta['Deployment']['DeploymentLatitude'],
-                    'Longitude-Deg_MM.dd_N':self.mooring_meta['Deployment']['DeploymentLongitude']}
+        attributes = {'MooringID':self.mooring_yaml['MooringID'],
+                    'Deployment_Cruise': self.mooring_yaml['Deployment']['DeploymentCruise'],
+                    'Recovery_Cruise': self.mooring_yaml['Recovery']['RecoveryCruise'],
+                    'WaterDepth':self.mooring_yaml['Deployment']['DeploymentDepth'],
+                    'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
+                    'Longitude-Deg_MM.dd_N':self.mooring_yaml['Deployment']['DeploymentLongitude']}
 
         self.xdf.attrs = attributes
 
-    def institution_meta_data(self):
+    def institution_meta_data(self,):
         pass
 
     def autotrim_time(self):
         """using the recorded deployment/recovery records - trim array
         """
-        starttime = self.mooring_meta['Deployment']['DeploymentDateTimeGMT']
-        endtime = self.mooring_meta['Recovery']['RecoveryDateTimeGMT']
+        starttime = self.mooring_yaml['Deployment']['DeploymentDateTimeGMT']
+        endtime = self.mooring_yaml['Recovery']['RecoveryDateTimeGMT']
         
         return self.xdf.sel(date_time=slice(starttime,endtime))
 
@@ -53,7 +53,7 @@ class EcoFOCI_CFnc(object):
         #EcoFOCI standard mooring naming
         #18bsm2a_wpak.nc - {mooringid}_{instshortname}_{depth}m.nc
         try:
-            mooringID_simple = "".join(self.mooring_meta['MooringID'].split('-')).lower()
+            mooringID_simple = "".join(self.mooring_yaml['MooringID'].split('-')).lower()
         except:
             mooringID_simple = 'xxxxxx'
         

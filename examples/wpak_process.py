@@ -61,15 +61,15 @@ with open(mooring_meta_file) as file:
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
 wpak_nc = ncCFsave.EcoFOCI_CFnc(df=wpak_grid_decimate, 
-                                instrument_meta=inst_config, 
-                                mooring_meta=mooring_config, 
+                                instrument_yaml=inst_config, 
+                                mooring_yaml=mooring_config, 
                                 instrument_id=instrument, 
                                 inst_shortname=inst_shortname)
 
-#add global attributes
+#add global attributes - not mandatory
 wpak_nc.deployment_meta_add()
 
-# combine trim and filename together
+# combine trim (not mandatory) and filename together (saves to test.nc without name)
 wpak_nc.xarray2netcdf_save(xdf = wpak_nc.autotrim_time(),
                            filename=wpak_nc.filename_const())
 
