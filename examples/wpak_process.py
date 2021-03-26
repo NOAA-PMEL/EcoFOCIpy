@@ -8,16 +8,16 @@ Not valid for argos data (NRT - only)
 """
 import yaml
 
-import src.EcoFOCIpy.io.wpak_parser as wpak_parser
-import src.EcoFOCIpy.io.ncCFsave as ncCFsave
-import src.EcoFOCIpy.metaconfig.load_config as load_config
+import EcoFOCIpy.io.wpak_parser as wpak_parser
+import EcoFOCIpy.io.ncCFsave as ncCFsave
+import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
-datafile = 'staticdata/wpak_test.txt'
+datafile = '../staticdata/wpak_test.txt'
 instrument = 'Weatherpak 1361'
-mooring_meta_file = 'staticdata/mooring_example.yaml'
-inst_meta_file = 'src/EcoFOCIpy/metaconfig/wpak_epickeys.yaml'
+mooring_meta_file = '../staticdata/mooring_example.yaml'
+inst_meta_file = '../src/EcoFOCIpy/metaconfig/wpak_epickeys.yaml'
 inst_shortname = 'wpak'
 ###############################################################
 
