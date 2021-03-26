@@ -24,3 +24,18 @@ def load_config(filename):
         raise RuntimeError(f"{filename} not found")
 
     return d
+
+def write_config(infile, data):
+    """ Input - full path to config file
+        Dictionary of parameters to write
+        
+        Output - None
+    """
+    infile = str(infile)
+
+    assert 'yaml' in infile, 'File possibly not a yaml config file'
+
+    try:
+        yaml.safe_dump(data, open(infile, "w"), default_flow_style=False, sort_keys=False)
+    except:
+        raise RuntimeError("{0} not found".format(infile))

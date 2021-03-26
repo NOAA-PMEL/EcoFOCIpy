@@ -17,7 +17,7 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 datafile = '../staticdata/wpak_test.txt'
 instrument = 'Weatherpak 1361'
 mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../src/EcoFOCIpy/metaconfig/wpak_epickeys.yaml'
+inst_meta_file = '../staticdata/instr_metaconfig/wpak_epickeys.yaml'
 inst_shortname = 'wpak'
 ###############################################################
 
