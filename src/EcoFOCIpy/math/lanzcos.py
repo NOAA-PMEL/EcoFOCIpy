@@ -9,7 +9,7 @@ modiefied matlab code from https://gist.github.com/janeshdev/5847127
 """
 
 __all__ = ["low_pass_weights", "spectral_window",
-           "spectral_filtering", "lanzcos35", "lanzcos2p86"]
+           "spectral_filtering", "lanzcos"]
 
 import numpy as np
 
