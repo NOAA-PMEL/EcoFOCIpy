@@ -107,7 +107,7 @@ class EcoFOCI_CFnc_moored(object):
             mooringID_simple = 'xxxxxx'
         
         try:
-            depth = str(int(self.mooring_confg['Instrumentation'][self.instrument_id]['ActualDepth'])).zfill(4)
+            depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth'])).zfill(4)
         except:
             depth = '0000'
 
