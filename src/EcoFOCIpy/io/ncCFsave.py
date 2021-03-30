@@ -57,7 +57,11 @@ class EcoFOCI_CFnc_moored(object):
         """Add EcoFOCI base metadata"""
         pass
 
+<<<<<<< Updated upstream
     def temporal_geospatioal_meta_data(self):
+=======
+    def temporal_geospatioal_meta_data(self,positiveE=True,depth='designed'):
+>>>>>>> Stashed changes
         """Add min/max lat/lon/time bounds"""
         attributes = {
             'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
@@ -97,7 +101,11 @@ class EcoFOCI_CFnc_moored(object):
         return self.xdf.sel(date_time=slice(starttime,endtime))
 
 
+<<<<<<< Updated upstream
     def filename_const(self):
+=======
+    def filename_const(self, depth='designed', manual_label=''):
+>>>>>>> Stashed changes
 
         #EcoFOCI standard mooring naming
         #18bsm2a_wpak.nc - {mooringid}_{instshortname}_{depth}m.nc
@@ -105,14 +113,20 @@ class EcoFOCI_CFnc_moored(object):
             mooringID_simple = "".join(self.mooring_yaml['MooringID'].split('-')).lower()
         except:
             mooringID_simple = 'xxxxxx'
-        
-        try:
+
+        if depth.lower() in ['designed']:
+            depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth'])).zfill(4)
+        elif depth.lower() in ['actual']:
             depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth'])).zfill(4)
-        except:
+        else:
             depth = '0000'
 
         return( mooringID_simple+'_'+self.inst_shortname+'_'+depth+'m.nc' )
 
+<<<<<<< Updated upstream
     def xarray2netcdf_save(self, xdf=None, filename='temp.nc'):
+=======
+    def xarray2netcdf_save(self, xdf=None, filename='temp.nc',**kwargs):
+>>>>>>> Stashed changes
                 
         xdf.to_netcdf(filename)
