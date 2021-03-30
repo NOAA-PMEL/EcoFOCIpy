@@ -17,6 +17,7 @@ def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
     return yaml.load(stream, OrderedLoader)
 
 def load_config(filename):
+    """TODO: deprecate since py38 orderes inherently"""
 
     try:
         d = ordered_load(open(filename))

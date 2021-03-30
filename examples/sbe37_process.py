@@ -1,7 +1,7 @@
 """
-SBE39 Example
+SBE37 Example
 =============
-Demonstrate how to use the routines to process downloaded sbe39 cnv data
+Demonstrate how to use the routines to process downloaded sbe37 cnv data
 Usable as a template for all other sbe-39 processing
 
 * with pressure and without pressure
@@ -16,20 +16,20 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
-datafile = '../staticdata/sbe39_wopress.cnv'
-instrument = 'SBE-39 1777'
+datafile = '../staticdata/sbe37_wpress.cnv'
+instrument = 'SBE-37 1807'
 mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../staticdata/instr_metaconfig/sbe39_cf.yaml'
-inst_shortname = 's39'
+inst_meta_file = '../staticdata/instr_metaconfig/sbe37_cf.yaml'
+inst_shortname = 's37'
 ###############################################################
 
 #init and load data
-sbe39_wop = sbe_parser.sbe39()
-(sbe39_wop_data,sbe39_wop_header) = sbe39_wop.parse(filename=datafile,
+sbe37_wop = sbe_parser.sbe37()
+(sbe37_wop_data,sbe37_wop_header) = sbe37_wop.parse(filename=datafile,
                                                     return_header=True,
                                                     datetime_index=True) 
 
-sbe39_wop_data = sbe39_wop_data.resample('10min').mean()
+sbe37_wop_data = sbe37_wop_data.resample('10min').mean()
 
 # Ingest instrumenttype parameter config file for meta information
 # undefined variables in the data may not make it past this point if not 
@@ -48,7 +48,7 @@ with open(mooring_meta_file) as file:
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
 ### 1
-sbe39_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe39_wop_data, 
+sbe37_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe37_wop_data, 
                                 instrument_yaml=inst_config, 
                                 mooring_yaml=mooring_config, 
                                 instrument_id=instrument, 
@@ -61,29 +61,29 @@ sbe39_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe39_wop_data,
 #--------------------------------------------------------------------------------------#
 # expand the dimensions and coordinate variables
 # renames them appropriatley and prepares them for meta-filled values
-sbe39_wop_nc.expand_dimensions()
+sbe37_wop_nc.expand_dimensions()
 
-sbe39_wop_nc.variable_meta_data(variable_keys=['temperature'])
-sbe39_wop_nc.temporal_geospatioal_meta_data(depth='designed')
+sbe37_wop_nc.variable_meta_data(variable_keys=['temperature'])
+sbe37_wop_nc.temporal_geospatioal_meta_data(depth='designed')
 #adding dimension meta needs to come after updating the dimension values... BUG?
-sbe39_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
+sbe37_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
 
 #add global attributes
-sbe39_wop_nc.deployment_meta_add()
-sbe39_wop_nc.get_xdf()
+sbe37_wop_nc.deployment_meta_add()
+sbe37_wop_nc.get_xdf()
 
 #add instituitonal global attributes
-sbe39_wop_nc.institution_meta_add()
+sbe37_wop_nc.institution_meta_add()
 
 #add creation date/time - provenance data
-sbe39_wop_nc.provinance_meta_add()
+sbe37_wop_nc.provinance_meta_add()
 
 #provide intial qc status field
-sbe39_wop_nc.qc_status(qc_status='unknown')
+sbe37_wop_nc.qc_status(qc_status='unknown')
 #--------------------------------------------------------------------------------------#
 
 ### 2
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
-sbe39_wop_nc.xarray2netcdf_save(xdf = sbe39_wop_nc.autotrim_time(),
-                           filename=sbe39_wop_nc.filename_const(),format="NETCDF3_CLASSIC")
+sbe37_wop_nc.xarray2netcdf_save(xdf = sbe37_wop_nc.autotrim_time(),
+                           filename=sbe37_wop_nc.filename_const(),format="NETCDF3_CLASSIC")
 
