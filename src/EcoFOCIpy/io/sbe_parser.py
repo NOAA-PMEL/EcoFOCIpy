@@ -68,7 +68,7 @@ class sbe37(object):
 
         With or without header
 
-        With or without pressure - assume 5 cols = w/press, 4 cols = w/o press.  There is at least one unit that does not 
+        With or without pressure - assume 6 cols = w/press, 5 cols = w/o press.  There is at least one unit that does not 
         automatically output salinity, but does have pressure - thus it has only 4 columns.  It needs to be treated
         specially.
 
@@ -99,12 +99,13 @@ class sbe37(object):
                         skiprows=headercount)
 
         #column names must be consistent with later used CF variable names (not the standard names, just the variable names)
-        if len(rawdata_df.columns) == 5:
+        if len(rawdata_df.columns) == 6: #T,C,P,S
             rawdata_df.columns = ['temperature','conductivity','pressure','salinity','date','time']
-        elif len(rawdata_df.columns) == 4:
+        elif len(rawdata_df.columns) == 5: #T,C,S or maybe T,C,P
             rawdata_df.columns = ['temperature','conductivity','salinity','date','time']
         else:
-            sys.exit('Unknown number of columns in raw data')
+            sys.exit(f'Unknown number of columns in raw data {len(rawdata_df.columns)}')
+
 
         rawdata_df["date_time"] = pd.to_datetime(rawdata_df["date"] + " " + rawdata_df["time"], format=" %d %b %Y %H:%M:%S")
 
@@ -112,3 +113,4 @@ class sbe37(object):
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','date','time'],axis=1)        
 
         return (rawdata_df,header)
+

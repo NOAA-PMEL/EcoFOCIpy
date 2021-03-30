@@ -159,7 +159,8 @@ class EcoFOCI_CFnc_moored(object):
 
         return self.xdf
 
-    def filename_const(self,manual_label=''):
+
+    def filename_const(self, depth='designed', manual_label=''):
 
         #EcoFOCI standard mooring naming
         #18bsm2a_wpak.nc - {mooringid}_{instshortname}_{depth}m.nc
@@ -167,10 +168,12 @@ class EcoFOCI_CFnc_moored(object):
             mooringID_simple = "".join(self.mooring_yaml['MooringID'].split('-')).lower()
         except:
             mooringID_simple = 'xxxxxx'
-        
-        try:
+
+        if depth.lower() in ['designed']:
+            depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth'])).zfill(4)
+        elif depth.lower() in ['actual']:
             depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth'])).zfill(4)
-        except:
+        else:
             depth = '0000'
 
         if not manual_label:

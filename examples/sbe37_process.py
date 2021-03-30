@@ -85,5 +85,6 @@ sbe37_wop_nc.qc_status(qc_status='unknown')
 ### 2
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
 sbe37_wop_nc.xarray2netcdf_save(xdf = sbe37_wop_nc.autotrim_time(),
-                           filename=sbe37_wop_nc.filename_const(),format="NETCDF3_CLASSIC")
+                           filename=sbe37_wop_nc.filename_const(depth='designed'),format="NETCDF3_CLASSIC")
+
 
