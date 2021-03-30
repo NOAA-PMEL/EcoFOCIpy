@@ -37,7 +37,10 @@ class EcoFOCI_CFnc_moored(object):
         self.inst_shortname = inst_shortname
 
     def institution_meta_add(self, institution_yaml=''):
-        pass
+        """Add EcoFOCI base metadata"""
+        attributes = {}
+
+        self.xdf.attrs.update(attributes)
 
     def deployment_meta_add(self):
         """TODO: Validate content of times"""
@@ -53,20 +56,70 @@ class EcoFOCI_CFnc_moored(object):
 
         self.xdf.attrs.update(attributes)
 
-    def institution_meta_data(self):
-        """Add EcoFOCI base metadata"""
-        pass
+    def instrument_meta_data(self):
+        """Add Instrument deployment specific global meta data:
+        Serial No:
+        Calibration Information:
+        Associated Instruments (for platforms like SBE16/RCM)
+        """
+        attributes = {
+            'InstrumentSerialNumber':self.mooring_yaml['Instrumentation'][self.instrument_id]}
 
-<<<<<<< Updated upstream
-    def temporal_geospatioal_meta_data(self):
-=======
-    def temporal_geospatioal_meta_data(self,positiveE=True,depth='designed'):
->>>>>>> Stashed changes
+        self.xdf.attrs.update(attributes)
+
+    def expand_dimensions(self,dim_names=['latitude','longitude','depth'],geophys_sort=True):
+        """provide other dimensions in our usual x,y,z,t framework
+        For moorings, this adds lat,lon,depth
+
+        also rename the time dimension from `date_time` to `time`
+        """
+        self.xdf = self.xdf.expand_dims(dim_names).rename({'date_time':'time'})
+
+        if geophys_sort:
+            self.xdf = self.xdf.transpose('time','depth','latitude','longitude')
+            self.xdf = self.xdf.assign_coords({"longitude": ("longitude", [1e35])})
+            self.xdf = self.xdf.assign_coords({"latitude": ("latitude", [1e35])})
+            self.xdf = self.xdf.assign_coords({"depth": ("depth", [1e35])})
+
+    def variable_meta_data(self,variable_keys=None):
+        """Add CF meta_data to each known variable"""
+        assert variable_keys != None , 'Must provide a list of variable names'
+
+        for var in variable_keys:
+            self.xdf[var].attrs = self.instrument_yaml[var]
+
+    def dimension_meta_data(self,variable_keys=None):
+        """Add CF meta_data to each known dimension"""
+        assert variable_keys != None , 'Must provide a list of variable names'
+
+        for var in variable_keys:
+            self.xdf[var].attrs = self.instrument_yaml[var]
+
+    def temporal_geospatioal_meta_data(self,positiveE=True,depth=['designed']):
         """Add min/max lat/lon/time bounds"""
         attributes = {
             'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
             'Longitude-Deg_MM.dd_N':self.mooring_yaml['Deployment']['DeploymentLongitude']}
         self.xdf.attrs.update(attributes)
+
+        dd,mm,hh = self.mooring_yaml['Deployment']['DeploymentLongitude'].split()
+        longitude = float(dd)+float(mm)/60
+        ddlon,mmlon,hhlon = self.mooring_yaml['Deployment']['DeploymentLatitude'].split()
+        latitude = float(ddlon)+float(mmlon)/60
+
+        if 'w' in hh.lower():
+            self.xdf['longitude'] = [-1*longitude]
+            self.xdf['latitude'] = [latitude]
+        else:
+            self.xdf['longitude'] = [longitude]
+            self.xdf['latitude'] = [latitude]
+
+        if depth.lower() in ['designed']:
+            self.xdf['depth'] = [self.mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth']]
+        elif depth.lower() in ['actual']:
+            self.xdf['depth'] = [self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth']]
+        else:
+            self.xdf['depth'] = 1e35
 
     def provinance_meta_add(self):
         """add creation time and placeholder for modified time"""
@@ -98,14 +151,16 @@ class EcoFOCI_CFnc_moored(object):
         except:   
             self.history(history_text='Trimmed to deployment.')
 
-        return self.xdf.sel(date_time=slice(starttime,endtime))
+        return self.xdf.sel(time=slice(starttime,endtime))
+
+    def get_xdf(self):
+        """
+        """
+
+        return self.xdf
 
 
-<<<<<<< Updated upstream
-    def filename_const(self):
-=======
     def filename_const(self, depth='designed', manual_label=''):
->>>>>>> Stashed changes
 
         #EcoFOCI standard mooring naming
         #18bsm2a_wpak.nc - {mooringid}_{instshortname}_{depth}m.nc
@@ -121,12 +176,11 @@ class EcoFOCI_CFnc_moored(object):
         else:
             depth = '0000'
 
-        return( mooringID_simple+'_'+self.inst_shortname+'_'+depth+'m.nc' )
+        if not manual_label:
+            return( mooringID_simple+'_'+self.inst_shortname+'_'+depth+'m.nc' )
+        else:
+            return( manual_label+'.nc' )
 
-<<<<<<< Updated upstream
-    def xarray2netcdf_save(self, xdf=None, filename='temp.nc'):
-=======
-    def xarray2netcdf_save(self, xdf=None, filename='temp.nc',**kwargs):
->>>>>>> Stashed changes
+    def xarray2netcdf_save(self, xdf=None, filename='temp.nc', **kwargs):
                 
-        xdf.to_netcdf(filename)
+        xdf.to_netcdf(filename,format=kwargs['format'])

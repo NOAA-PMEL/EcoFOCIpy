@@ -26,9 +26,6 @@ class sbe39(object):
     def parse(filename=None, return_header=True, datetime_index=True):
         r"""
         Basic Method to open and read sbe39 csv files
-            
-            kwargs
-            truncate_seconds : boolean (truncates down to nearest minute)
 
         """
         assert filename != None , 'Must provide a datafile'
@@ -49,6 +46,7 @@ class sbe39(object):
                         header=None, 
                         skiprows=headercount)
 
+        #column names must be consistent with later used CF variable names (not the standard names, just the variable names)
         if len(rawdata_df.columns) == 4:
             rawdata_df.columns = ['temperature','pressure','date','time']
         elif len(rawdata_df.columns) == 3:
@@ -56,15 +54,13 @@ class sbe39(object):
         else:
             sys.exit('Unknown number of columns in raw data')
 
-        rawdata_df["date_time"] = pd.to_datetime(rawdata_df["date"] + " " + rawdata_df["time"], format="%d %b %Y %H:%M:%S")
+        rawdata_df["date_time"] = pd.to_datetime(rawdata_df["date"] + " " + rawdata_df["time"], format=" %d %b %Y %H:%M:%S")
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','DATE','TIME'],axis=1)        
+            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','date','time'],axis=1)        
 
         return (rawdata_df,header)
 
-<<<<<<< Updated upstream
-=======
 class sbe37(object):
     r""" Seabird 37 Microcat CTD (with optional pressure)
         
@@ -110,10 +106,11 @@ class sbe37(object):
         else:
             sys.exit(f'Unknown number of columns in raw data {len(rawdata_df.columns)}')
 
+
         rawdata_df["date_time"] = pd.to_datetime(rawdata_df["date"] + " " + rawdata_df["time"], format=" %d %b %Y %H:%M:%S")
 
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','date','time'],axis=1)        
 
         return (rawdata_df,header)
->>>>>>> Stashed changes
+

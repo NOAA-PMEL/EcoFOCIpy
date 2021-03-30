@@ -79,6 +79,9 @@ wpak_nc.provinance_meta_add()
 #provide intial qc status field
 wpak_nc.qc_status(qc_status='unknown')
 
+# add variable attributes, if not listed here, it just doesn't get an attribute
+wpak_nc.variable_meta_data(variable_keys=['AT_21', 'BP_915', 'WD_410', 'Teq_1800', 'BAT_106', 'RH_910', 'Qs_133', 'WV_423', 'comp_1404', 'WS_401', 'WU_422'])
+
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
 wpak_nc.xarray2netcdf_save(xdf = wpak_nc.autotrim_time(),
                            filename=wpak_nc.filename_const())
