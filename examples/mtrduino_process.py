@@ -6,11 +6,10 @@ Demonstrate how to use the routines to process downloaded mtr data.
 
 Only for the 5k Arduino Series
 """
-import yaml
-
 import EcoFOCIpy.io.mtr_parser as mtr_parser
 import EcoFOCIpy.io.ncCFsave as ncCFsave
 import EcoFOCIpy.metaconfig.load_config as load_config
+import yaml
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)

@@ -2,17 +2,16 @@
 SBE37 Example
 =============
 Demonstrate how to use the routines to process downloaded sbe37 cnv data
-Usable as a template for all other sbe-39 processing
+Usable as a template for all other sbe-37 processing
 
 * with pressure and without pressure
 
 See Jupyter Notebook for commentary, walkthrough, and output
 """
-import yaml
-
-import EcoFOCIpy.io.sbe_parser as sbe_parser
 import EcoFOCIpy.io.ncCFsave as ncCFsave
+import EcoFOCIpy.io.sbe_parser as sbe_parser
 import EcoFOCIpy.metaconfig.load_config as load_config
+import yaml
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
