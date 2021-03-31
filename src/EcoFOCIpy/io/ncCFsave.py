@@ -81,12 +81,18 @@ class EcoFOCI_CFnc_moored(object):
             self.xdf = self.xdf.assign_coords({"latitude": ("latitude", [1e35])})
             self.xdf = self.xdf.assign_coords({"depth": ("depth", [1e35])})
 
-    def variable_meta_data(self,variable_keys=None):
+    def variable_meta_data(self,variable_keys=None,drop_missing=True):
         """Add CF meta_data to each known variable"""
         assert variable_keys != None , 'Must provide a list of variable names'
 
         for var in variable_keys:
-            self.xdf[var].attrs = self.instrument_yaml[var]
+            try:
+                self.xdf[var].attrs = self.instrument_yaml[var]
+            except:
+                if drop_missing:
+                    self.xdf = self.xdf.drop_vars(var)
+                else:
+                    pass
 
     def dimension_meta_data(self,variable_keys=None):
         """Add CF meta_data to each known dimension"""
