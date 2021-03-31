@@ -272,6 +272,7 @@ class sbe56(object):
                         names=var_names.values(), 
                         skiprows=headercount)
 
+
         #time deffinition selector
         if 'timeJ' in var_names.values():
             rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJ']]

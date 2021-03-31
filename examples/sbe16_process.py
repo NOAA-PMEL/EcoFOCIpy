@@ -38,6 +38,7 @@ sbe16_wop = sbe_parser.sbe16()
 sbe16_wop_data.index = sbe16_wop_data.index.round(freq='1H')
 #resample to fix non-monotonic times (missing data) and fill linearly up to one hour
 sbe16_wop_data = sbe16_wop_data.resample('1H').mean().interpolate(limit=6)
+
 ###############################################################
 
 # Ingest instrumenttype parameter config file for meta information
@@ -66,6 +67,7 @@ sbe16_wop_data = sbe16_wop_data.rename(columns={'t090C':'temperature',
                         'flECO-AFL':'chlor_fluorescence',
                         'flag':'flag'})
 
+
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
@@ -87,6 +89,7 @@ sbe16_wop_nc.expand_dimensions()
 
 
 sbe16_wop_nc.variable_meta_data(variable_keys=list(sbe16_wop_data.columns.values),drop_missing=True)
+
 sbe16_wop_nc.temporal_geospatioal_meta_data(depth='designed')
 #adding dimension meta needs to come after updating the dimension values... BUG?
 sbe16_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
@@ -109,4 +112,5 @@ sbe16_wop_nc.qc_status(qc_status='unknown')
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
 sbe16_wop_nc.xarray2netcdf_save(xdf = sbe16_wop_nc.autotrim_time(),
                            filename=sbe16_wop_nc.filename_const(depth='designed'),format="NETCDF3_CLASSIC")
+
 

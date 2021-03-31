@@ -36,10 +36,4 @@ class mtrduino(object):
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)
 
-        #previous algorithms rounded to 10min
-        ## all time manipulation should either be outside the instrument methods
-        ##  or optional via a method call... maybe not a flag like here??
-        if kwargs["round_10min_interval"]:
-            rawdata.index = rawdata.index.round("10min", inplace=True)
-
         return rawdata_df
