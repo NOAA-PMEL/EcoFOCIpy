@@ -1,7 +1,8 @@
+@@ -0,0 +1,111 @@
 """
-sbe56 Example
+sbe16 Example
 =============
-Demonstrate how to use the routines to process downloaded sbe56 cnv data
+Demonstrate how to use the routines to process downloaded sbe16 cnv data
 Usable as a template for all other sbe-39 processing
 
 * with pressure and without pressure
@@ -16,28 +17,29 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to {instrument sepcific} raw datafile 
-datafile = '../staticdata/example_data/sbe56_timeJ.cnv'
-instrument = 'SBE-56 2453'
+datafile = '../staticdata/example_data/sbe16_sample1.cnv'
+instrument = 'SBE-16 7166'
 mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../staticdata/instr_metaconfig/sbe56_cf.yaml'
-inst_shortname = 's56'
+inst_meta_file = '../staticdata/instr_metaconfig/sbe16_cf.yaml'
+inst_shortname = 's16'
 ###############################################################
 
 #init and load data
-sbe56_wop = sbe_parser.sbe56()
-(sbe56_wop_data,sbe56_wop_header) = sbe56_wop.parse(filename=datafile,
+sbe16_wop = sbe_parser.sbe16()
+(sbe16_wop_data,sbe16_wop_header) = sbe16_wop.parse(filename=datafile,
                                                     return_header=True,
                                                     datetime_index=True) 
 
-##### time frequency adjustment
+###############################################################
+# ##### time frequency adjustment
 # this step can be done at any point and is usually a small shift for
 # most instruments
-#####
 
 #round off times to nearest sample frequency
-sbe56_wop_data.index = sbe56_wop_data.index.round(freq='10min')
+sbe16_wop_data.index = sbe16_wop_data.index.round(freq='1H')
 #resample to fix non-monotonic times (missing data) and fill linearly up to one hour
-sbe56_wop_data = sbe56_wop_data.resample('10min').mean().interpolate(limit=6)
+sbe16_wop_data = sbe16_wop_data.resample('1H').mean().interpolate(limit=6)
+###############################################################
 
 # Ingest instrumenttype parameter config file for meta information
 # undefined variables in the data may not make it past this point if not 
@@ -52,9 +54,9 @@ with open(inst_meta_file) as file:
 with open(mooring_meta_file) as file:
     mooring_config = yaml.full_load(file)
 
-#sbe56 data uses header info to name variables... but we want standard names from the dictionary I've created, so we need to rename column variables appropriately
+#sbe16 data uses header info to name variables... but we want standard names from the dictionary I've created, so we need to rename column variables appropriately
 #rename values to appropriate names, if a value isn't in the .yaml file, you can add it
-sbe56_wop_data = sbe56_wop_data.rename(columns={'t090C':'temperature',
+sbe16_wop_data = sbe16_wop_data.rename(columns={'t090C':'temperature',
                         'sal00':'salinity',
                         'sbeox0Mm/Kg':'oxy_conc',
                         'sbeox0ML/L':'oxy_concM',
@@ -63,12 +65,12 @@ sbe56_wop_data = sbe56_wop_data.rename(columns={'t090C':'temperature',
                         'CStarTr0':'Transmittance',
                         'flECO-AFL':'chlor_fluorescence',
                         'flag':'flag'})
-
+sbe16_wop_data.sample()
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
 ### 1
-sbe56_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe56_wop_data, 
+sbe16_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe16_wop_data, 
                                 instrument_yaml=inst_config, 
                                 mooring_yaml=mooring_config, 
                                 instrument_id=instrument, 
@@ -81,30 +83,29 @@ sbe56_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe56_wop_data,
 #--------------------------------------------------------------------------------------#
 # expand the dimensions and coordinate variables
 # renames them appropriatley and prepares them for meta-filled values
-sbe56_wop_nc.expand_dimensions()
+sbe16_wop_nc.expand_dimensions()
 
-sbe56_wop_nc.variable_meta_data(variable_keys=list(sbe56_wop_data.columns.values),drop_missing=True)
-sbe56_wop_nc.temporal_geospatioal_meta_data(depth='designed')
+sbe16_wop_nc.variable_meta_data(variable_keys=list(sbe16_wop_data.columns.values),drop_missing=True)
+sbe16_wop_nc.temporal_geospatioal_meta_data(depth='designed')
 #adding dimension meta needs to come after updating the dimension values... BUG?
-sbe56_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
+sbe16_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
 
 #add global attributes
-sbe56_wop_nc.deployment_meta_add()
-sbe56_wop_nc.get_xdf()
+sbe16_wop_nc.deployment_meta_add()
+sbe16_wop_nc.get_xdf()
 
 #add instituitonal global attributes
-sbe56_wop_nc.institution_meta_add()
+sbe16_wop_nc.institution_meta_add()
 
 #add creation date/time - provenance data
-sbe56_wop_nc.provinance_meta_add()
+sbe16_wop_nc.provinance_meta_add()
 
 #provide intial qc status field
-sbe56_wop_nc.qc_status(qc_status='unknown')
+sbe16_wop_nc.qc_status(qc_status='unknown')
 #--------------------------------------------------------------------------------------#
 
 ### 2
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
-sbe56_wop_nc.xarray2netcdf_save(xdf = sbe56_wop_nc.autotrim_time(),
-                           filename=sbe56_wop_nc.filename_const(depth='designed'),format="NETCDF3_CLASSIC")
-
+sbe16_wop_nc.xarray2netcdf_save(xdf = sbe16_wop_nc.autotrim_time(),
+                           filename=sbe16_wop_nc.filename_const(depth='designed'),format="NETCDF3_CLASSIC")
 
