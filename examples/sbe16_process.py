@@ -28,15 +28,17 @@ sbe16_wop = sbe_parser.sbe16()
                                                     return_header=True,
                                                     datetime_index=True) 
 
-##### time frequency adjustment
+
+###############################################################
+# ##### time frequency adjustment
 # this step can be done at any point and is usually a small shift for
 # most instruments
-#####
 
 #round off times to nearest sample frequency
 sbe16_wop_data.index = sbe16_wop_data.index.round(freq='1H')
 #resample to fix non-monotonic times (missing data) and fill linearly up to one hour
 sbe16_wop_data = sbe16_wop_data.resample('1H').mean().interpolate(limit=6)
+###############################################################
 
 # Ingest instrumenttype parameter config file for meta information
 # undefined variables in the data may not make it past this point if not 
@@ -50,6 +52,19 @@ with open(inst_meta_file) as file:
 #TODO: migrate db->yaml tool into this package
 with open(mooring_meta_file) as file:
     mooring_config = yaml.full_load(file)
+
+
+#sbe16 data uses header info to name variables... but we want standard names from the dictionary I've created, so we need to rename column variables appropriately
+#rename values to appropriate names, if a value isn't in the .yaml file, you can add it
+sbe16_wop_data = sbe16_wop_data.rename(columns={'t090C':'temperature',
+                        'sal00':'salinity',
+                        'sbeox0Mm/Kg':'oxy_conc',
+                        'sbeox0ML/L':'oxy_concM',
+                        'sigma-È00':'sigma_theta',
+                        'CStarAt0':'Attenuation',
+                        'CStarTr0':'Transmittance',
+                        'flECO-AFL':'chlor_fluorescence',
+                        'flag':'flag'})
 
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
@@ -70,7 +85,8 @@ sbe16_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe16_wop_data,
 # renames them appropriatley and prepares them for meta-filled values
 sbe16_wop_nc.expand_dimensions()
 
-sbe16_wop_nc.variable_meta_data(variable_keys=['temperature'])
+
+sbe16_wop_nc.variable_meta_data(variable_keys=list(sbe16_wop_data.columns.values),drop_missing=True)
 sbe16_wop_nc.temporal_geospatioal_meta_data(depth='designed')
 #adding dimension meta needs to come after updating the dimension values... BUG?
 sbe16_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
@@ -93,5 +109,4 @@ sbe16_wop_nc.qc_status(qc_status='unknown')
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
 sbe16_wop_nc.xarray2netcdf_save(xdf = sbe16_wop_nc.autotrim_time(),
                            filename=sbe16_wop_nc.filename_const(depth='designed'),format="NETCDF3_CLASSIC")
-
 
