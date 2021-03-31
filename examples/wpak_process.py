@@ -14,10 +14,10 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
-datafile = '../staticdata/wpak_test.txt'
+datafile = '../example_data/staticdata/wpak_test.txt'
 instrument = 'Weatherpak 1361'
-mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../staticdata/instr_metaconfig/wpak_epickeys.yaml'
+mooring_meta_file = '../example_data/mooring_example.yaml'
+inst_meta_file = '../example_data/instr_metaconfig/wpak_epickeys.yaml'
 inst_shortname = 'wpak'
 ###############################################################
 
