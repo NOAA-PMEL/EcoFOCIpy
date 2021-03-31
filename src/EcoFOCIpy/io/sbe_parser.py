@@ -235,7 +235,7 @@ class sbe56(object):
 
         With or without header
 
-        Use CNV meta to label data
+        No pressure, all cnv files are 4 columns (count, time, temp, flag)
 
     """
 
@@ -269,24 +269,27 @@ class sbe56(object):
         rawdata_df = pd.read_csv(filename, 
                         delimiter="\s+", 
                         parse_dates=True, 
-                        header=None,
-                        names=var_names.values(), 
+                        header=None, 
                         skiprows=headercount)
 
+
+        #column names must be consistent with later used CF variable names (not the standard names, just the variable names)
+        if len(rawdata_df.columns) == 4:
+            rawdata_df.columns = ['index','time_param','temperature','flag']
+        else:
+            sys.exit('Unknown number of columns in raw data')
 
         #time deffinition selector
 
         if 'timeJ' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJ']]
-        elif 'timeJV2' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJV2']]
+            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['time_param']]
         elif 'timeS' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['timeS']]
+            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['time_param']]
         else:
             print(f'no time index identified: {var_names.values()}')
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)        
+            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','time_param'],axis=1)        
 
         return (rawdata_df,header)
 
