@@ -29,7 +29,7 @@ sbe39_wop = sbe_parser.sbe39()
                                                     return_header=True,
                                                     datetime_index=True) 
 
-sbe39_wop_data = sbe39_wop_data.resample('10min').mean()
+sbe39_wop_data.index = sbe39_wop_data.index.round(freq='10min')
 
 # Ingest instrumenttype parameter config file for meta information
 # undefined variables in the data may not make it past this point if not 
