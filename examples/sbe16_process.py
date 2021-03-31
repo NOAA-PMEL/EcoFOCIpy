@@ -1,19 +1,17 @@
-@@ -0,0 +1,111 @@
 """
 sbe16 Example
 =============
 Demonstrate how to use the routines to process downloaded sbe16 cnv data
-Usable as a template for all other sbe-39 processing
+Usable as a template for all other sbe-16 processing
 
 * with pressure and without pressure
 
 See Jupyter Notebook for commentary, walkthrough, and output
 """
-import yaml
-
-import EcoFOCIpy.io.sbe_parser as sbe_parser
 import EcoFOCIpy.io.ncCFsave as ncCFsave
+import EcoFOCIpy.io.sbe_parser as sbe_parser
 import EcoFOCIpy.metaconfig.load_config as load_config
+import yaml
 
 ###############################################################
 # edit to point to {instrument sepcific} raw datafile 
@@ -29,6 +27,7 @@ sbe16_wop = sbe_parser.sbe16()
 (sbe16_wop_data,sbe16_wop_header) = sbe16_wop.parse(filename=datafile,
                                                     return_header=True,
                                                     datetime_index=True) 
+
 
 ###############################################################
 # ##### time frequency adjustment
@@ -54,6 +53,7 @@ with open(inst_meta_file) as file:
 with open(mooring_meta_file) as file:
     mooring_config = yaml.full_load(file)
 
+
 #sbe16 data uses header info to name variables... but we want standard names from the dictionary I've created, so we need to rename column variables appropriately
 #rename values to appropriate names, if a value isn't in the .yaml file, you can add it
 sbe16_wop_data = sbe16_wop_data.rename(columns={'t090C':'temperature',
@@ -65,7 +65,7 @@ sbe16_wop_data = sbe16_wop_data.rename(columns={'t090C':'temperature',
                         'CStarTr0':'Transmittance',
                         'flECO-AFL':'chlor_fluorescence',
                         'flag':'flag'})
-sbe16_wop_data.sample()
+
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
@@ -84,6 +84,7 @@ sbe16_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe16_wop_data,
 # expand the dimensions and coordinate variables
 # renames them appropriatley and prepares them for meta-filled values
 sbe16_wop_nc.expand_dimensions()
+
 
 sbe16_wop_nc.variable_meta_data(variable_keys=list(sbe16_wop_data.columns.values),drop_missing=True)
 sbe16_wop_nc.temporal_geospatioal_meta_data(depth='designed')
