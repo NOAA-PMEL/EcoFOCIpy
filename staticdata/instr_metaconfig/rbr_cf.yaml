@@ -43,17 +43,16 @@ timeseries_id:
   long_name: "timeseries id"
   standard_name: ''
 #variables
-temp:
+#variables
+temperature:
   epic_key: T_20
   generic_name: temp
   long_name: "Sea temperature in-situ ITS-90 scale"
   standard_name: sea_water_temperature
   units: degree_C
-pres: 
+pressure: 
   epic_key: P_1
   generic_name: pres
   units: decibar
   long_name: "Sea water pressure, equals 0 at sea-level"
   standard_name: sea_water_pressure_due_to_sea_water
-
-

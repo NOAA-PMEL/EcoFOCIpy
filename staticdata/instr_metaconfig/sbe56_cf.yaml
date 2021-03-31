@@ -38,12 +38,8 @@ longitude:
   units: degrees_east
   long_name: 'longitude'
   standard_name: 'longitude'
-timeseries_id:
-  cf_role: 'timeseries_id'
-  long_name: "timeseries id"
-  standard_name: ''
 #variables
-temp:
+temperature:
   epic_key: T_20
   generic_name: temp
   long_name: "Sea temperature in-situ ITS-90 scale"

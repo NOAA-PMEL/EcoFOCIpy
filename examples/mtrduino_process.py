@@ -14,10 +14,10 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
-datafile = '../staticdata/'
+datafile = '../example_data/staticdata/'
 instrument = ''
-mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../staticdata/instr_metaconfig/mtr.yaml'
+mooring_meta_file = '../example_data/mooring_example.yaml'
+inst_meta_file = '../example_data/instr_metaconfig/mtr.yaml'
 inst_shortname = 'mtr'
 ###############################################################
 

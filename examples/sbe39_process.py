@@ -16,10 +16,10 @@ import EcoFOCIpy.metaconfig.load_config as load_config
 
 ###############################################################
 # edit to point to wpak raw datafile (arg parse?)
-datafile = '../staticdata/sbe39_wopress.cnv'
+datafile = '../example_data/staticdata/sbe39_wopress.cnv'
 instrument = 'SBE-39 1777'
-mooring_meta_file = '../staticdata/mooring_example.yaml'
-inst_meta_file = '../staticdata/instr_metaconfig/sbe39_cf.yaml'
+mooring_meta_file = '../example_data/mooring_example.yaml'
+inst_meta_file = '../example_data/instr_metaconfig/sbe39_cf.yaml'
 inst_shortname = 's39'
 ###############################################################
 
