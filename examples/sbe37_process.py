@@ -29,7 +29,15 @@ sbe37_wop = sbe_parser.sbe37()
                                                     return_header=True,
                                                     datetime_index=True) 
 
-sbe37_wop_data = sbe37_wop_data.resample('10min').mean()
+##### time frequency adjustment
+# this step can be done at any point and is usually a small shift for
+# most instruments
+#####
+
+#round off times to nearest sample frequency
+sbe37_wop_data.index = sbe37_wop_data.index.round(freq='10min')
+#resample to fix non-monotonic times (missing data) and fill linearly up to one hour
+sbe37_wop_data = sbe37_wop_data.resample('10min').mean().interpolate(limit=6)
 
 # Ingest instrumenttype parameter config file for meta information
 # undefined variables in the data may not make it past this point if not 
