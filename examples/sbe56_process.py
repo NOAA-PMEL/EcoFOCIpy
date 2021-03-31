@@ -15,10 +15,10 @@ import yaml
 
 ###############################################################
 # edit to point to {instrument sepcific} raw datafile 
-datafile = sample_data_dir+'staticdata/example_data/sbe56_timeJ.cnv'
+datafile = '../staticdata/example_data/sbe56_timeJ.cnv'
 instrument = 'SBE-56 2453'
-mooring_meta_file = sample_data_dir+'staticdata/mooring_example.yaml'
-inst_meta_file = sample_data_dir+'staticdata/instr_metaconfig/sbe56_cf.yaml'
+mooring_meta_file = '../staticdata/mooring_example.yaml'
+inst_meta_file = '../staticdata/instr_metaconfig/sbe56_cf.yaml'
 inst_shortname = 's56'
 ###############################################################
 
@@ -51,6 +51,18 @@ with open(inst_meta_file) as file:
 with open(mooring_meta_file) as file:
     mooring_config = yaml.full_load(file)
 
+#sbe56 data uses header info to name variables... but we want standard names from the dictionary I've created, so we need to rename column variables appropriately
+#rename values to appropriate names, if a value isn't in the .yaml file, you can add it
+sbe56_wop_data = sbe56_wop_data.rename(columns={'t090C':'temperature',
+                        'sal00':'salinity',
+                        'sbeox0Mm/Kg':'oxy_conc',
+                        'sbeox0ML/L':'oxy_concM',
+                        'sigma-È00':'sigma_theta',
+                        'CStarAt0':'Attenuation',
+                        'CStarTr0':'Transmittance',
+                        'flECO-AFL':'chlor_fluorescence',
+                        'flag':'flag'})
+
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
@@ -70,7 +82,7 @@ sbe56_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe56_wop_data,
 # renames them appropriatley and prepares them for meta-filled values
 sbe56_wop_nc.expand_dimensions()
 
-sbe56_wop_nc.variable_meta_data(variable_keys=['temperature'])
+sbe56_wop_nc.variable_meta_data(variable_keys=list(sbe56_wop_data.columns.values),drop_missing=True)
 sbe56_wop_nc.temporal_geospatioal_meta_data(depth='designed')
 #adding dimension meta needs to come after updating the dimension values... BUG?
 sbe56_wop_nc.dimension_meta_data(variable_keys=['depth','latitude','longitude'])
