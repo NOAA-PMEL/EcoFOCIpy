@@ -231,6 +231,15 @@ Instrumentation:
     PostDeploymentNotes: ''
     Deployed: y
     Recovered: y
+  SBE-56 2453:
+    InstType: SBE-56
+    SerialNo: '2453'
+    DesignedDepth: 0.0
+    ActualDepth: 0.0
+    PreDeploymentNotes: 300s
+    PostDeploymentNotes: ''
+    Deployed: n
+    Recovered: n
   SBE-56 4611:
     InstType: SBE-56
     SerialNo: '4611'
