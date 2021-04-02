@@ -25,9 +25,13 @@ class wetlabs(object):
     you must provide the right cal coefs for the data
 
     """
-
-    @staticmethod
-    def parse(filename=None, return_header=True, datetime_index=True):
+    def __init__(self):
+        """data is a pandas dataframe
+        Wich is immediatly converted to xarray
+        """
+        pass
+    
+    def parse(self, filename=None, return_header=True, datetime_index=True):
         r"""
         Basic Method to open and read fls(b) cnv files
 
@@ -76,14 +80,30 @@ class wetlabs(object):
             rawdata_df['date'] + " " + rawdata_df['time'], format="%m/%d/%y %H:%M:%S"
         )
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)        
+            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','date','time'],axis=1)        
+
+        self.rawdata_df = rawdata_df
 
         return (rawdata_df,header)
 
-    def engr2sci(self,cal_coef=[],channels=1):
-        """convert counts to quantity using wetlabs coefficients"""
-        pass
+    def engr2sci(self,cal_coef={}):
+        """convert counts to quantity using wetlabs coefficients
+        
+        requires a dictionary of dictionaries with {channel_name:{scaleF:0,darkCounts:0,name=None}}
+        where channel_name = wavelength that the column gets labeled. scaleF and darkCounts are wetlabs
+        provided cal coefficients and name is the measurement name (chlor, turb, scatter, CDOM, etc)
+        """
+        for channel in cal_coef.keys():
+            try:
+                self.rawdata_df[cal_coef[channel]['outname']] = cal_coef[channel]['scaleFactor'] * (self.rawdata_df[str(channel)]-cal_coef[channel]['darkCounts'])
+            except:
+                print(f'error with {channel}')
+                pass #no data with that key
+
+        return (self.rawdata_df)
 
     def time_correction(self,offset=None):
         """ apply a time offset in seconds"""
-        pass
+        self.rawdata_df.index = self.rawdata_df.index + pd.Timedelta(seconds=offset) 
+
+        return (self.rawdata_df)

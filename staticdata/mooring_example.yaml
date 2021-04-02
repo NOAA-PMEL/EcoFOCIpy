@@ -41,6 +41,24 @@ Instrumentation:
     PostDeploymentNotes: ''
     Deployed: y
     Recovered: y
+  ECO-Fluorometer BBFL2W 1419:
+    InstType: Eco-Fluorometer BBFL2W
+    SerialNo: '1419'
+    DesignedDepth: 0.0
+    ActualDepth: 0.0
+    PreDeploymentNotes: Not actually deployed - test instrument
+    PostDeploymentNotes: ''
+    Deployed: n
+    Recovered: n
+  ECO-Fluorometer FLNTUS 1075:
+    InstType: Eco-Fluorometer FLNTUS
+    SerialNo: '1075'
+    DesignedDepth: 0.0
+    ActualDepth: 0.0
+    PreDeploymentNotes: Not actually deployed - test instrument
+    PostDeploymentNotes: ''
+    Deployed: n
+    Recovered: n
   ECO-Fluorometer FLSB 2694:
     InstType: Eco-Fluorometer FLSB
     SerialNo: '2694'
