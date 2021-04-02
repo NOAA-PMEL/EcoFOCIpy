@@ -55,3 +55,19 @@ chlor_fluorescence:
   long_name: "Mass Concentration of chlorophyll from chlorophyll fluorescence"
   standard_name: mass_concentration_of_chlorophyll_in_sea_water
   units: ugrams/l
+turbidity:
+  epic_key: Trb_980
+  fortran: f10.2
+  generic_name: turbidity
+  longname: 'Turbidity (NTU)'
+  long_name: "turbidity in nephelometric turbidity units"
+  standard_name: sea_water_turbidity
+  units: 'NTU'
+  #note - this used to use FNU as units in EPIC as NTU was not existent
+  #counts and std should be here too
+cdom:
+  epic_key: CDOM_2980
+  generic_name: cdom
+  long_name: "concentration of CDOM in ppb"
+  standard_name: concentration_of_colored_dissolved_organic_matter_in_sea_water
+  units: 'ppb'  
