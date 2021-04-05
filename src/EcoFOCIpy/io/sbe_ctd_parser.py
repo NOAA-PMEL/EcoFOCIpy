@@ -8,19 +8,14 @@ Profile SBE (cnv files):
 * 9/11+
 * FastCats
 
+TODO: .btl, .ros
 """
-import pandas as pd
-import ctd
-import sys
 import datetime
+import sys
 
-def sbetime_conversion(time_type='timeJ',data=None):
-    """Seabird offers multiple time output options:
-    timeJ:
-    timeS:
-    timeJV2:
-    """
-    pass
+import ctd
+import pandas as pd
+
 
 def seabird_header(filename=None):
     r""" Seabird Instruments have a header usually defined by *END with a significant amount of
@@ -55,44 +50,19 @@ class sbe9_11p(object):
 
 
     @staticmethod
-    def parse(filename=None, return_header=True, datetime_index=True):
+    def parse(file_list=[None], return_header=True, datetime_index=True):
         r"""
         Basic Method to open and read sbe9_11 .cnv files
 
         """
-        assert filename.split('.')[-1] == 'cnv' , 'Must provide a cnv file - use sbe software to convert'
+        assert file_list[0].split('.')[-1] == 'cnv' , 'Must provide a cnv file - use sbe software to convert'
 
-        header = []
-        var_names = {}
-        with open(filename) as fobj:
-            for k, line in enumerate(fobj.readlines()):
-                header = header + [line]
-                if "# name" in line:
-                    var_names[int(line.split("=")[0].split()[-1])] = line.split("=")[1].split()[0].split(':')[0]
-                if "# start_time" in line:
-                    start_time = line.split("[")[0].split("=")[-1].strip()
-                if "*END*" in line:
-                    headercount=k+1
-                    break
+        df_dic = {}
+        header_dic = {}
+        for ctdfile in file_list:
 
+            ctd_df = ctd.from_cnv(ctdfile)
 
-        rawdata_df = pd.read_csv(filename, 
-                        delimiter="\s+", 
-                        parse_dates=True, 
-                        header=None,
-                        names=var_names.values(), 
-                        skiprows=headercount)
+            df_dic.update({ctdfile.split('/')[-1]:ctd_df})
 
-        if 'timeJ' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJ']]
-        elif 'timeJV2' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJV2']]
-        elif 'timeS' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['timeS']]
-        else:
-            print(f'no time index identified: {var_names.values()}')
-
-        if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)        
-
-        return (rawdata_df,header)
+        return (df_dic, header_dic)
