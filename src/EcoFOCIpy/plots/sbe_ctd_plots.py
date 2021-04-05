@@ -71,17 +71,17 @@ class CTDProfilePlot(object):
         mpl.rcParams['ytick.color'] = 'grey'
         mpl.rcParams['xtick.color'] = 'grey'
         
-    def plot2var(self, epic_key=None, xdata=None, ydata=None, xlabel=None, secondary=False, **kwargs):
+    def plot2var(self, varname=None, xdata=None, ydata=None, xlabel=None, secondary=False, **kwargs):
         fig, ax1 = plt.subplots(figsize=(5.5, 4.25))
         p1 = ax1.plot(xdata[0], ydata)
-        plt.setp(p1, color=self.var2format(epic_key[0])['color'],
-                   linestyle=self.var2format(epic_key[0])['linestyle'],
-                   linewidth=self.var2format(epic_key[0])['linewidth'])
+        plt.setp(p1, color=self.var2format(varname[0])['color'],
+                   linestyle=self.var2format(varname[0])['linestyle'],
+                   linewidth=self.var2format(varname[0])['linewidth'])
         if secondary and not (xdata[1].size == 0):
             p1 = ax1.plot(xdata[1],ydata)
-            plt.setp(p1, color=self.var2format(epic_key[1])['color'],
-                         linestyle=self.var2format(epic_key[1])['linestyle'],
-                         linewidth=self.var2format(epic_key[1])['linewidth'])
+            plt.setp(p1, color=self.var2format(varname[1])['color'],
+                         linestyle=self.var2format(varname[1])['linestyle'],
+                         linewidth=self.var2format(varname[1])['linewidth'])
             #set plot limits for two vars by finding the absolute range and adding 10%
             abmin=np.min([np.nanmin(xdata[0]),np.nanmin(xdata[1])])
             abmax=np.max([np.nanmax(xdata[0]),np.nanmax(xdata[1])])
@@ -91,21 +91,21 @@ class CTDProfilePlot(object):
         plt.ylabel('Depth (dB)', fontsize=self.labelsize, fontweight='bold')
         plt.xlabel(xlabel[0], fontsize=self.labelsize, fontweight='bold')
 
-        fmt=mpl.ticker.StrMethodFormatter(self.var2format(epic_key[0])['format'])
+        fmt=mpl.ticker.StrMethodFormatter(self.var2format(varname[0])['format'])
         ax1.xaxis.set_major_formatter(fmt)
         ax1.tick_params(axis='both', which='major', labelsize=self.labelsize)
 
         #plot second param
         ax2 = ax1.twiny()
         p1 = ax2.plot(xdata[2], ydata)
-        plt.setp(p1, color=self.var2format(epic_key[2])['color'],
-                   linestyle=self.var2format(epic_key[2])['linestyle'],
-                   linewidth=self.var2format(epic_key[2])['linewidth'])
+        plt.setp(p1, color=self.var2format(varname[2])['color'],
+                   linestyle=self.var2format(varname[2])['linestyle'],
+                   linewidth=self.var2format(varname[2])['linewidth'])
         if secondary and not (xdata[3].size == 0):
             p1 = ax2.plot(xdata[3],ydata)
-            plt.setp(p1, color=self.var2format(epic_key[3])['color'],
-                         linestyle=self.var2format(epic_key[3])['linestyle'],
-                         linewidth=self.var2format(epic_key[3])['linewidth'])
+            plt.setp(p1, color=self.var2format(varname[3])['color'],
+                         linestyle=self.var2format(varname[3])['linestyle'],
+                         linewidth=self.var2format(varname[3])['linewidth'])
             #set plot limits for two vars by finding the absolute range and adding 10%
             abmin=np.min([np.nanmin(xdata[2]),np.nanmin(xdata[3])])
             abmax=np.max([np.nanmax(xdata[2]),np.nanmax(xdata[3])])
@@ -121,24 +121,24 @@ class CTDProfilePlot(object):
         ax1.set_xticks(np.linspace(ax1.get_xbound()[0], ax1.get_xbound()[1], self.max_xticks))
         ax2.set_xticks(np.linspace(ax2.get_xbound()[0], ax2.get_xbound()[1], self.max_xticks))
 
-        fmt=mpl.ticker.StrMethodFormatter(self.var2format(epic_key[2])['format'])
+        fmt=mpl.ticker.StrMethodFormatter(self.var2format(varname[2])['format'])
         ax2.xaxis.set_major_formatter(fmt)
         ax2.tick_params(axis='x', which='major', labelsize=self.labelsize)
 
 
         return plt, fig
 
-    def plot2var_2y(self, epic_key=None, xdata=None, ydata=None, xlabel=None, secondary=False, **kwargs):
+    def plot2var_2y(self, varname=None, xdata=None, ydata=None, xlabel=None, secondary=False, **kwargs):
         fig, ax1 = plt.subplots(figsize=(5.5, 4.25))
         p1 = ax1.plot(xdata[0], ydata[0])
-        plt.setp(p1, color=self.var2format(epic_key[0])['color'],
-                   linestyle=self.var2format(epic_key[0])['linestyle'],
-                   linewidth=self.var2format(epic_key[0])['linewidth'])
+        plt.setp(p1, color=self.var2format(varname[0])['color'],
+                   linestyle=self.var2format(varname[0])['linestyle'],
+                   linewidth=self.var2format(varname[0])['linewidth'])
         if secondary and not (xdata[1].size == 0):
             p1 = ax1.plot(xdata[1],ydata[0])
-            plt.setp(p1, color=self.var2format(epic_key[1])['color'],
-                         linestyle=self.var2format(epic_key[1])['linestyle'],
-                         linewidth=self.var2format(epic_key[1])['linewidth'])
+            plt.setp(p1, color=self.var2format(varname[1])['color'],
+                         linestyle=self.var2format(varname[1])['linestyle'],
+                         linewidth=self.var2format(varname[1])['linewidth'])
             #set plot limits for two vars by finding the absolute range and adding 10%
             abmin=np.min([np.nanmin(xdata[0]),np.nanmin(xdata[1])])
             abmax=np.max([np.nanmax(xdata[0]),np.nanmax(xdata[1])])
@@ -148,21 +148,21 @@ class CTDProfilePlot(object):
         plt.ylabel('Depth (dB)', fontsize=self.labelsize, fontweight='bold')
         plt.xlabel(xlabel[0], fontsize=self.labelsize, fontweight='bold')
 
-        fmt=mpl.ticker.StrMethodFormatter(self.var2format(epic_key[0])['format'])
+        fmt=mpl.ticker.StrMethodFormatter(self.var2format(varname[0])['format'])
         ax1.xaxis.set_major_formatter(fmt)
         ax1.tick_params(axis='both', which='major', labelsize=self.labelsize)
 
         #plot second param
         ax2 = ax1.twiny()
         p1 = ax2.plot(xdata[2], ydata[1])
-        plt.setp(p1, color=self.var2format(epic_key[2])['color'],
-                   linestyle=self.var2format(epic_key[2])['linestyle'],
-                   linewidth=self.var2format(epic_key[2])['linewidth'])
+        plt.setp(p1, color=self.var2format(varname[2])['color'],
+                   linestyle=self.var2format(varname[2])['linestyle'],
+                   linewidth=self.var2format(varname[2])['linewidth'])
         if secondary and not (xdata[3].size == 0):
             p1 = ax2.plot(xdata[3],ydata[1])
-            plt.setp(p1, color=self.var2format(epic_key[3])['color'],
-                         linestyle=self.var2format(epic_key[3])['linestyle'],
-                         linewidth=self.var2format(epic_key[3])['linewidth'])
+            plt.setp(p1, color=self.var2format(varname[3])['color'],
+                         linestyle=self.var2format(varname[3])['linestyle'],
+                         linewidth=self.var2format(varname[3])['linewidth'])
             #set plot limits for two vars by finding the absolute range and adding 10%
             abmin=np.min([np.nanmin(xdata[0]),np.nanmin(xdata[1])])
             abmax=np.max([np.nanmax(xdata[0]),np.nanmax(xdata[1])])
@@ -178,54 +178,54 @@ class CTDProfilePlot(object):
         ax1.set_xticks(np.linspace(ax1.get_xbound()[0], ax1.get_xbound()[1], self.max_xticks))
         ax2.set_xticks(np.linspace(ax2.get_xbound()[0], ax2.get_xbound()[1], self.max_xticks))
 
-        fmt=mpl.ticker.StrMethodFormatter(self.var2format(epic_key[2])['format'])
+        fmt=mpl.ticker.StrMethodFormatter(self.var2format(varname[2])['format'])
         ax2.xaxis.set_major_formatter(fmt)
         ax2.tick_params(axis='x', which='major', labelsize=self.labelsize)
 
 
         return plt, fig    
     @staticmethod
-    def var2format(epic_key):
+    def var2format(varname):
       """list of plot specifics based on variable name"""
       plotdic={}
-      if epic_key in ['T_28']:
+      if varname in ['temperature_ch1']:
         plotdic['color']='red'
         plotdic['linestyle']='-'
         plotdic['linewidth']=0.5
         plotdic['format']='{x:.3f}'
-      elif epic_key in ['T2_35']:
+      elif varname in ['temperature_ch2']:
         plotdic['color']='magenta'
         plotdic['linestyle']='--'
         plotdic['linewidth']=0.5
         plotdic['format']='{x:.3f}'
-      elif epic_key in ['S_41', 'OST_62', 'O_65']:
+      elif varname in ['salinity_ch1', 'oxygen_psat_ch1', 'oxygen_conc_ch1']:
         plotdic['color']='blue'
         plotdic['linestyle']='-'
         plotdic['linewidth']=0.5
-        if epic_key in ['S_41']:
+        if varname in ['salinity_ch1']:
           plotdic['format']='{x:.3f}'
         else:
           plotdic['format']='{x:3.1f}'
-      elif epic_key in ['S_42', 'CTDOST_4220', 'CTDOXY_4221']:
+      elif varname in ['salinity_ch2', 'oxygen_psat_ch2', 'oxygen_conc_ch2']:
         plotdic['color']='cyan'
         plotdic['linestyle']='--'
         plotdic['linewidth']=0.5
         plotdic['format']='{x:3.1f}'
-        if epic_key in ['S_42']:
+        if varname in ['salinity_ch2']:
           plotdic['format']='{x:.3f}'
         else:
           plotdic['format']='{x:3.1f}'
-      elif epic_key in ['ST_70','Trb_980','SigmaT']:
+      elif varname in ['sigmatheta','turbidity','sigmaT']:
         plotdic['color']='black'
         plotdic['linestyle']='-'
         plotdic['linewidth']=0.5
         plotdic['format']='{x:.3f}'
-      elif epic_key in ['F_903','fWS_973','Fch_906']:
+      elif varname in ['chlorophyl_fluor']:
         plotdic['color']='green'
         plotdic['linestyle']='-'
         plotdic['linewidth']=0.5
         plotdic['format']='{x:.2f}'
-      elif epic_key in ['PAR_905']:
+      elif varname in ['par']:
         plotdic['color']='darkorange'
         plotdic['linestyle']='-'
         plotdic['linewidth']=0.75
@@ -247,7 +247,7 @@ class CTDProfilePlot(object):
             sp.set_visible(False)
             
 
-def plot_salvtemp(salt, temp, press, srange=[28,34], trange=[-2,15], ptitle=""): 
+def plot_salvtemp(cruise=None, cast=None, salt=None, temp=None, press=None, srange=[28,34], trange=[-2,15], ptitle=""): 
     plt.style.use('ggplot')
     
     # Figure out boudaries (mins and maxs)
@@ -298,5 +298,5 @@ def plot_salvtemp(salt, temp, press, srange=[28,34], trange=[-2,15], ptitle=""):
     ax1.set_ylabel('Temperature (C)',fontsize=16)
 
     
-    t = fig.suptitle(ptitle, fontsize=18, fontweight='bold')
+    fig.suptitle(ptitle, fontsize=18, fontweight='bold')
     return fig  
