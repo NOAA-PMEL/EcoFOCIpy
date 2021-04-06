@@ -229,7 +229,7 @@ class EcoFOCI_db_datastatus(object):
         try:
             self.cursor.execute(sql)
             for row in self.cursor:
-                result_dic[row["CruiseID"]] = {
+                result_dic[row["ConsecutiveCastNo"]] = {
                     keys: row[keys] for val, keys in enumerate(row.keys())
                 }
             return result_dic

@@ -72,7 +72,7 @@ if args.yaml_format:
         #build a dictionary of dictionaries for ctd casts
         CTDDic = {}
         for profile in sorted(Cruise_Castlogs_sum.keys()):
-            CTDDic[Cruise_Castlogs_sum[profile]['ConsecutiveCastNumber']] = Cruise_Castlogs_sum[profile]
+            CTDDic[profile] = Cruise_Castlogs_sum[profile]
             
         data_dic.update({"CTDCasts":CTDDic})
     except:
