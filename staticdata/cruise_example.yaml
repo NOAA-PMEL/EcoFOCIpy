@@ -1,0 +1,2837 @@
+DY1805:
+  CruiseID: DY1805
+  CruiseID_Historic: null
+  CruiseID_Alternates: null
+  Project_Leg: ''
+  Vessel: R/V Oscar Dyson
+  ShipID: DY
+  StartDate: 2018-04-29
+  EndDate: 2018-05-10
+  Project: EcoFOCI
+  ChiefScientist: Peter Proctor
+  StartPort: Dutch Harbor, AK
+  EndPort: Dutch Harbor, AK
+  CruiseLocation: Bering Sea
+  Description: FOCI Spring Mooring Survey
+  CruiseYear: 2018
+  ctdlogs_pdf_name: DY1805_CastLogs.pdf
+CTDCasts:
+  CTD001:
+    id: 22869
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s1h1
+    ConsecutiveCastNo: CTD001
+    LatitudeDeg: 56
+    LatitudeMin: 52.28
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 2.92
+    GMTDay: 30
+    GMTMonth: Apr
+    GMTYear: 2018
+    GMTTime: 69660
+    DryBulb: 3.7
+    RelativeHumidity: 98
+    WetBulb: -99.9
+    Pressure: 1013
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 230
+    WindSpd: 21.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 65
+    StationNameID: M2C
+    MaxDepth: 72
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "Niskin 2 did not close - bottom cap\r\nNiskin 10 did not close\r\nRBRbrevio\
+      \ in Niskin 5 Position, PAR in Niskin 12 position"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11;12
+    NutrientBtlNumbers: 1;2;3;4;;5;6;7;8;9;10;
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '182'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '1'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11;12
+    ChlorophyllBtlVolumes: ;;283;285;;283;285;289;283;283;279;
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 18BSM-2A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD002:
+    id: 22870
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s2h1
+    ConsecutiveCastNo: CTD002
+    LatitudeDeg: 56
+    LatitudeMin: 56.61
+    GeoLocation: null
+    LongitudeDeg: 163
+    LongitudeMin: 49.67
+    GMTDay: 1
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 14280
+    DryBulb: 4.0
+    RelativeHumidity: 94
+    WetBulb: -99.9
+    Pressure: 1015
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 219
+    WindSpd: 15.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 70
+    StationNameID: M2E
+    MaxDepth: 70
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: BON001 hit bottom
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 11;12;13;14;;15;16;17
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '275'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;283;279
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD003:
+    id: 22871
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s3h1
+    ConsecutiveCastNo: CTD003
+    LatitudeDeg: 56
+    LatitudeMin: 40.16
+    GeoLocation: null
+    LongitudeDeg: 163
+    LongitudeMin: 51.86
+    GMTDay: 1
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 28920
+    DryBulb: 3.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1016
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 232
+    WindSpd: 13.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 77
+    StationNameID: M2S
+    MaxDepth: 70
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "Pri O2 went flaky on upcast ~50m\r\n\r\nNutrient Sample Bottle 24 lost\
+      \ overboard #2 niskin hung upon rail"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 18;19;20;21;;22;23;25
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '348'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;283;279
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD004:
+    id: 22872
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s4h1
+    ConsecutiveCastNo: CTD004
+    LatitudeDeg: 57
+    LatitudeMin: 1.0
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 13.12
+    GMTDay: 1
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 42000
+    DryBulb: 3.2
+    RelativeHumidity: 95
+    WetBulb: -99.9
+    Pressure: 1016
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 237
+    WindSpd: 16.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 68
+    StationNameID: 70M2N
+    MaxDepth: 62
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: Niskin 2 did not close
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 26;;27;28;;29;30;31;32
+    OxygenBtlNiskinNo: ' 1'
+    OxygenBtlNumbers: '146'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD005:
+    id: 22873
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s5h1
+    ConsecutiveCastNo: CTD005
+    LatitudeDeg: 56
+    LatitudeMin: 46.17
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 20.04
+    GMTDay: 1
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 50160
+    DryBulb: 2.8
+    RelativeHumidity: 97
+    WetBulb: -99.9
+    Pressure: 1017
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 236
+    WindSpd: 13.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 74
+    StationNameID: 70M2W
+    MaxDepth: 66
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: '&quot;It was a dark and stormy night...&quot;'
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 33;;34;35;36;;37;38;39
+    OxygenBtlNiskinNo: '9'
+    OxygenBtlNumbers: '244'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '2'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;;283;285;;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD006:
+    id: 22874
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s6h1
+    ConsecutiveCastNo: CTD006
+    LatitudeDeg: 56
+    LatitudeMin: 48.41
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 34.8
+    GMTDay: 1
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 55980
+    DryBulb: 3.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1017
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 231
+    WindSpd: 17.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M3
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 40;41;42;43;;44;45;46
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '247'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD007:
+    id: 22875
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s7h1
+    ConsecutiveCastNo: CTD007
+    LatitudeDeg: 56
+    LatitudeMin: 51.74
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 4.28
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 10800
+    DryBulb: 4.2
+    RelativeHumidity: 95
+    WetBulb: -99.9
+    Pressure: 1018
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 205
+    WindSpd: 13.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: M2C
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "Post-deployment calibration cast\r\nO2 samples 254&amp;262 on 008 cast"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    NutrientBtlNumbers: 47;48;;50;;51;52;53;54;55
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '252'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '3'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    ChlorophyllBtlVolumes: ;283;;283;;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 18BSM-2A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD008:
+    id: 22876
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s7h5
+    ConsecutiveCastNo: CTD008
+    LatitudeDeg: 56
+    LatitudeMin: 51.86
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 4.07
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 16500
+    DryBulb: 3.6
+    RelativeHumidity: 98
+    WetBulb: -99.9
+    Pressure: 1018
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 211
+    WindSpd: 9.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: M2C
+    MaxDepth: 55
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "Post deployment calibration - 2nd cast\r\nbutton not pushed at bottom"
+    NutrientBtlNiskinNo: 1;2;3;4
+    NutrientBtlNumbers: 49;;;55
+    OxygenBtlNiskinNo: 1;3
+    OxygenBtlNumbers: 254;262
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4
+    ChlorophyllBtlVolumes: ;;;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 18BSM-2A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD009:
+    id: 22877
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s8h1
+    ConsecutiveCastNo: CTD009
+    LatitudeDeg: 56
+    LatitudeMin: 54.55
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 49.19
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 28560
+    DryBulb: 3.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1016
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 164
+    WindSpd: 8.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M4
+    MaxDepth: 61
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 56;57;58;59;;60;61;62
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '255'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD010:
+    id: 22878
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s9h1
+    ConsecutiveCastNo: CTD010
+    LatitudeDeg: 56
+    LatitudeMin: 51.5
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 7.27
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 36240
+    DryBulb: 3.2
+    RelativeHumidity: 98
+    WetBulb: -99.9
+    Pressure: 1015
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 141
+    WindSpd: 9.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 74
+    StationNameID: 70M5
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR, 20m/min
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 63;64;65;66;;67;68;69
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '328'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '4'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD011:
+    id: 22879
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s10h1
+    ConsecutiveCastNo: CTD011
+    LatitudeDeg: 56
+    LatitudeMin: 59.64
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 22.99
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 41940
+    DryBulb: 3.1
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1013
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 133
+    WindSpd: 15.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 72
+    StationNameID: 70M6
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 70;71;72;73;;74;75;76
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '296'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD012:
+    id: 22880
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s11h1
+    ConsecutiveCastNo: CTD012
+    LatitudeDeg: 57
+    LatitudeMin: 6.55
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 36.67
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 48000
+    DryBulb: 3.3
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1012
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 135
+    WindSpd: 15.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 70
+    StationNameID: 70M7
+    MaxDepth: 62
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "2nd sal is off, primary may have gone wonky at depth\r\nMaybe it is the\
+      \ primary? Probably whole cast may be bad"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 77;78;79;80;;81;82;83
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '332'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '5'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD013:
+    id: 22881
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s12h1
+    ConsecutiveCastNo: CTD013
+    LatitudeDeg: 57
+    LatitudeMin: 15.808
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 45.178
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 53040
+    DryBulb: 2.8
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1010
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 132
+    WindSpd: 16.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 69
+    StationNameID: 70M8
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "System rinsed since last ctd, sal sensor look better\r\nnuts not rinsed\
+      \ 3x"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 84;85;86;87;;88;89;90
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '330'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD014:
+    id: 22882
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s13h1
+    ConsecutiveCastNo: CTD014
+    LatitudeDeg: 57
+    LatitudeMin: 19.465
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 0.528
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 58860
+    DryBulb: 2.8
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1008
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 124
+    WindSpd: 15.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 68
+    StationNameID: 70M9
+    MaxDepth: 60
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 91;92;93;94;;95;96;97
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '279'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD015:
+    id: 22883
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s14h1
+    ConsecutiveCastNo: CTD015
+    LatitudeDeg: 57
+    LatitudeMin: 19.33
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 19.46
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 64260
+    DryBulb: 2.8
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1008
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 125
+    WindSpd: 16.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 70
+    StationNameID: 70M10
+    MaxDepth: 62
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "NO RBR\r\n\r\nLanyards on bottles to wrong position so depths wrong, nut\
+      \ bottle 103 dropped over side\r\nNiskin 1 at 50\r\nNiskin 2 at 40\r\nNiskin\
+      \ 3 at 40\r\nNiskin 4 not fired\r\nall others ok"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 98;99;100;101;;;102;104
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '365'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: 283;283;285;;;;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD016:
+    id: 22884
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s15h1
+    ConsecutiveCastNo: CTD016
+    LatitudeDeg: 57
+    LatitudeMin: 26.201
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 30.62
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 71340
+    DryBulb: 3.1
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1004
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 123
+    WindSpd: 16.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 69
+    StationNameID: 70M11
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "switched out niskin 6 with new bottle\r\nNo RBR"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 105;106;107;108;;109;110;111
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '366'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '6'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;277;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD017:
+    id: 22885
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s16h1
+    ConsecutiveCastNo: CTD017
+    LatitudeDeg: 57
+    LatitudeMin: 25.784
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 48.83
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 77100
+    DryBulb: 3.5
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1003
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 149
+    WindSpd: 9.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 69
+    StationNameID: 70M12
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 112;113;114;115;;116;117;118
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '359'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD018:
+    id: 22886
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s17h1
+    ConsecutiveCastNo: CTD018
+    LatitudeDeg: 57
+    LatitudeMin: 31.27
+    GeoLocation: null
+    LongitudeDeg: 167
+    LongitudeMin: 2.49
+    GMTDay: 2
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 83400
+    DryBulb: 3.3
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1001
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 175
+    WindSpd: 10.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 69
+    StationNameID: 70M13
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 119;120;121;122;;123;124;125
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '361'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD019:
+    id: 22887
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s18h1
+    ConsecutiveCastNo: CTD019
+    LatitudeDeg: 57
+    LatitudeMin: 29.82
+    GeoLocation: null
+    LongitudeDeg: 167
+    LongitudeMin: 21.02
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 2100
+    DryBulb: 3.3
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 1000
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 154
+    WindSpd: 8.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: 70M14
+    MaxDepth: 66
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "No-RBR\r\nBottle #2 o-ring missing - has been for all previous casts\r\
+      \nBottle 6 - vent open slightly"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 126;127;128;129;;130;131;132
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '362'
+    SalinityBtlNiskinNo: '8'
+    SalinityBtlNumbers: '7'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD020:
+    id: 22888
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s19h1
+    ConsecutiveCastNo: CTD020
+    LatitudeDeg: 57
+    LatitudeMin: 30.19
+    GeoLocation: null
+    LongitudeDeg: 167
+    LongitudeMin: 39.88
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 8340
+    DryBulb: 3.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 998
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 192
+    WindSpd: 5.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: 70M15
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "No-RBR\r\nBottle #2 o-ring missing - has been for all previous casts\r\
+      \nBottle 6 - vent open slightl"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 133;134;135;136;;137;138;139
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '360'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD021:
+    id: 22889
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s20h1
+    ConsecutiveCastNo: CTD021
+    LatitudeDeg: 57
+    LatitudeMin: 30.18
+    GeoLocation: null
+    LongitudeDeg: 167
+    LongitudeMin: 59.48
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 12660
+    DryBulb: 3.4
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 998
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 169
+    WindSpd: 4.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: 70M16
+    MaxDepth: 66
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: stepian/elz samples
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 140;141;142;143;;144;145;146
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '364'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD022:
+    id: 22890
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s21h1
+    ConsecutiveCastNo: CTD022
+    LatitudeDeg: 57
+    LatitudeMin: 31.26
+    GeoLocation: null
+    LongitudeDeg: 168
+    LongitudeMin: 18.08
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 18600
+    DryBulb: 3.1
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 997
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 204
+    WindSpd: -99.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 72
+    StationNameID: 70M17
+    MaxDepth: 66
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR failed - &quot;garbled response from instrument&quot;
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 147;148;149;150;;151;152;153
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '363'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD023:
+    id: 22891
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s22h1
+    ConsecutiveCastNo: CTD023
+    LatitudeDeg: 57
+    LatitudeMin: 31.6
+    GeoLocation: null
+    LongitudeDeg: 168
+    LongitudeMin: 36.67
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 23460
+    DryBulb: 2.1
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 997
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 274
+    WindSpd: 9.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 72
+    StationNameID: 70M18
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 154;;155;156;;157;158;159;160
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '369'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;;283;285;;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD024:
+    id: 22892
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s23h1
+    ConsecutiveCastNo: CTD024
+    LatitudeDeg: 57
+    LatitudeMin: 45.99
+    GeoLocation: null
+    LongitudeDeg: 168
+    LongitudeMin: 27.82
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 30720
+    DryBulb: 2.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 996
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 230
+    WindSpd: 5.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: 70M4E
+    MaxDepth: 62
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 161;162;163;164;;165;166;167
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '372'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD025:
+    id: 22893
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s24h1
+    ConsecutiveCastNo: CTD025
+    LatitudeDeg: 57
+    LatitudeMin: 39.19
+    GeoLocation: null
+    LongitudeDeg: 169
+    LongitudeMin: 1.05
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 39840
+    DryBulb: 2.3
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 995
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 10
+    WindSpd: 4.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 69
+    StationNameID: 70M4S
+    MaxDepth: 61
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: Stepian/Elz sampes
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 168;169;170;171;;172;173;174
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '368'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD026:
+    id: 22894
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s25h1
+    ConsecutiveCastNo: CTD026
+    LatitudeDeg: 57
+    LatitudeMin: 52.42
+    GeoLocation: null
+    LongitudeDeg: 168
+    LongitudeMin: 53.36
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 47100
+    DryBulb: 2.2
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 994
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 65
+    WindSpd: 12.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 71
+    StationNameID: 70M4C
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 175;176;177;178;;179;180;181
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '374'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 16BS-4A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD027:
+    id: 22895
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s26h1
+    ConsecutiveCastNo: CTD027
+    LatitudeDeg: 58
+    LatitudeMin: 4.127
+    GeoLocation: null
+    LongitudeDeg: 168
+    LongitudeMin: 43.56
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 67980
+    DryBulb: 1.3
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 37
+    WindSpd: 25.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 70
+    StationNameID: 70M4N
+    MaxDepth: 61
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 182;183;184;185;;186;187;188
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '303'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '9'
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD028:
+    id: 22896
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s27h1
+    ConsecutiveCastNo: CTD028
+    LatitudeDeg: 57
+    LatitudeMin: 55.514
+    GeoLocation: null
+    LongitudeDeg: 169
+    LongitudeMin: 19.72
+    GMTDay: 3
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 79380
+    DryBulb: 1.0
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 30
+    WindSpd: 30.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 66
+    StationNameID: 70M4W
+    MaxDepth: 60
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 189;190;191;192;;193;194;195
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '300'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD029:
+    id: 22900
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s29h1
+    ConsecutiveCastNo: CTD029
+    LatitudeDeg: -99
+    LatitudeMin: -999.9
+    GeoLocation: null
+    LongitudeDeg: 99
+    LongitudeMin: -999.9
+    GMTDay: 4
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 0
+    DryBulb: -99.0
+    RelativeHumidity: -999
+    WetBulb: -99.9
+    Pressure: -9999
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: -999
+    WindSpd: -99.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: -99
+    StationNameID: MT3A
+    MaxDepth: -99
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: 'MT3A Cal Cast - no meta records recorded... need to get from MOA/CTD data
+
+      No station 28'
+    NutrientBtlNiskinNo: 1;2;3;4;5;6
+    NutrientBtlNumbers: 196;197;198;199;;200
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '338'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6
+    ChlorophyllBtlVolumes: 283;285;289;283;;279
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 16MT-3A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD030:
+    id: 22901
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s30h1
+    ConsecutiveCastNo: CTD030
+    LatitudeDeg: 61
+    LatitudeMin: 58.71
+    GeoLocation: null
+    LongitudeDeg: 174
+    LongitudeMin: 36.94
+    GMTDay: 5
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 73380
+    DryBulb: -5.0
+    RelativeHumidity: 77
+    WetBulb: -99.9
+    Pressure: 1002
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 326
+    WindSpd: 21.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 76
+    StationNameID: M8S
+    MaxDepth: 69
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 201;202;203;204;;205;206;207
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '336'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '10'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD031:
+    id: 22902
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s31h1
+    ConsecutiveCastNo: CTD031
+    LatitudeDeg: 62
+    LatitudeMin: 12.018
+    GeoLocation: null
+    LongitudeDeg: 174
+    LongitudeMin: 17.88
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 1320
+    DryBulb: -5.0
+    RelativeHumidity: 73
+    WetBulb: -99.9
+    Pressure: 1003
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 325
+    WindSpd: 12.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 68
+    StationNameID: M8E
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: RBR on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 208;209;210;2211;;212;213;214
+    OxygenBtlNiskinNo: 7;8
+    OxygenBtlNumbers: 335;304
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD032:
+    id: 22903
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s32h1
+    ConsecutiveCastNo: CTD032
+    LatitudeDeg: 62
+    LatitudeMin: 25.36
+    GeoLocation: null
+    LongitudeDeg: 174
+    LongitudeMin: 42.27
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 13260
+    DryBulb: -4.4
+    RelativeHumidity: 74
+    WetBulb: -99.9
+    Pressure: 1003
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 301
+    WindSpd: 7.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M8N
+    MaxDepth: 66
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: secondary O2 channels are divergent. Turbidity high
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 215;216;217;218;;219;220;221
+    OxygenBtlNiskinNo: 1;2
+    OxygenBtlNumbers: 340;343
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD033:
+    id: 22904
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s33h1
+    ConsecutiveCastNo: CTD033
+    LatitudeDeg: 62
+    LatitudeMin: 12.08
+    GeoLocation: null
+    LongitudeDeg: 175
+    LongitudeMin: 12.05
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 22500
+    DryBulb: -3.8
+    RelativeHumidity: 73
+    WetBulb: -99.9
+    Pressure: 1004
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 40
+    WindSpd: 4.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 80
+    StationNameID: 70M8W
+    MaxDepth: 75
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "O2 sensors are very different\r\nRBR on DY1805Cast033.?"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 222;223;224;225;;226;227;228
+    OxygenBtlNiskinNo: 7;8
+    OxygenBtlNumbers: 331;337
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '11'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD034:
+    id: 22905
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s34h1
+    ConsecutiveCastNo: CTD034
+    LatitudeDeg: 62
+    LatitudeMin: 12.1
+    GeoLocation: null
+    LongitudeDeg: 174
+    LongitudeMin: 40.21
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 33060
+    DryBulb: -3.7
+    RelativeHumidity: 68
+    WetBulb: -99.9
+    Pressure: 1006
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 90
+    WindSpd: 3.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 74
+    StationNameID: 70M8C
+    MaxDepth: 67
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: "secondary O2 is really off, flushed system but still off\r\nno RBR"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 229;;230;231;;232;233;234;235
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '333'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;;283;285;;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD035:
+    id: 22906
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s35h1
+    ConsecutiveCastNo: CTD035
+    LatitudeDeg: 61
+    LatitudeMin: 51.67
+    GeoLocation: null
+    LongitudeDeg: 174
+    LongitudeMin: 5.66
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 47880
+    DryBulb: -3.1
+    RelativeHumidity: 61
+    WetBulb: -99.9
+    Pressure: 1007
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 91
+    WindSpd: 10.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M54
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: jelly in 2nd salinity @ ~28m on downcast O2 traces widely divergent
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 236;237;238;239;;240l241l242
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '339'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD036:
+    id: 22907
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s36h1
+    ConsecutiveCastNo: CTD036
+    LatitudeDeg: 61
+    LatitudeMin: 33.477
+    GeoLocation: null
+    LongitudeDeg: 173
+    LongitudeMin: 42.21
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 57120
+    DryBulb: -2.4
+    RelativeHumidity: 77
+    WetBulb: -99.9
+    Pressure: 1007
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 107
+    WindSpd: 12.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M52
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 0904, Turbid SN = FLNTUS-2057
+    Notes: 2nd O2 sensor bad - will switch out for next cast
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 243;244;245;246;;;247;248;249
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '341'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283;
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD037:
+    id: 22908
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s37h1
+    ConsecutiveCastNo: CTD037
+    LatitudeDeg: 61
+    LatitudeMin: 14.91
+    GeoLocation: null
+    LongitudeDeg: 173
+    LongitudeMin: 44.57
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 66000
+    DryBulb: -1.5
+    RelativeHumidity: 79
+    WetBulb: -99.9
+    Pressure: 1008
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 154
+    WindSpd: 13.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 75
+    StationNameID: 70M50
+    MaxDepth: 67
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: New O2 Sensor
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 250;251;252;253;;254;255;256
+    OxygenBtlNiskinNo: 1;8
+    OxygenBtlNumbers: 334;329
+    SalinityBtlNiskinNo: '8'
+    SalinityBtlNumbers: '12'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD038:
+    id: 22909
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s38h1
+    ConsecutiveCastNo: CTD038
+    LatitudeDeg: 60
+    LatitudeMin: 54.31
+    GeoLocation: null
+    LongitudeDeg: 173
+    LongitudeMin: 49.69
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 75720
+    DryBulb: -0.5
+    RelativeHumidity: 74
+    WetBulb: -99.9
+    Pressure: 1009
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 125
+    WindSpd: 14.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 81
+    StationNameID: 70M48
+    MaxDepth: 76
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 257;258;259;260;;261;262;263
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '342'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD039:
+    id: 22910
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s39h1
+    ConsecutiveCastNo: CTD039
+    LatitudeDeg: 60
+    LatitudeMin: 34.254
+    GeoLocation: null
+    LongitudeDeg: 173
+    LongitudeMin: 38.46
+    GMTDay: 6
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 85800
+    DryBulb: 0.4
+    RelativeHumidity: 61
+    WetBulb: -99.9
+    Pressure: 1010
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 144
+    WindSpd: 13.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 68
+    StationNameID: 70M46
+    MaxDepth: 63
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: "RBR on\r\nNiskin 7 Nut - says 297 but i believe that is a typo (sb)"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 264;265;266;267;;268;269;270
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '132'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD040:
+    id: 22911
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s40h1
+    ConsecutiveCastNo: CTD040
+    LatitudeDeg: 60
+    LatitudeMin: 14.91
+    GeoLocation: null
+    LongitudeDeg: 173
+    LongitudeMin: 22.0
+    GMTDay: 7
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 10500
+    DryBulb: 0.9
+    RelativeHumidity: 62
+    WetBulb: -99.9
+    Pressure: 1009
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 96
+    WindSpd: 18.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 66
+    StationNameID: 70M44
+    MaxDepth: 61
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: "18SM-2A post-deployment \r\nRBR on - Cast 40"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 271;272;273;274;;275;276;277
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '146'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '13'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 18MTP-2A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD041:
+    id: 22913
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s41h1
+    ConsecutiveCastNo: CTD041
+    LatitudeDeg: 60
+    LatitudeMin: 1.89
+    GeoLocation: null
+    LongitudeDeg: 172
+    LongitudeMin: 54.21
+    GMTDay: 7
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 20280
+    DryBulb: 0.9
+    RelativeHumidity: 62
+    WetBulb: -99.9
+    Pressure: 1007
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 90
+    WindSpd: 17.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 66
+    StationNameID: 70M42
+    MaxDepth: 60
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: "RBR - on cast041\r\n70m42 and ITAE cal cast\r\nsome structure in the water!"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 278;279;280;281;;282;283;284
+    OxygenBtlNiskinNo: '2'
+    OxygenBtlNumbers: '182'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: y
+    MooringID: 18MTITAEPR-1A
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD042:
+    id: 22914
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s42h1
+    ConsecutiveCastNo: CTD042
+    LatitudeDeg: 59
+    LatitudeMin: 54.46
+    GeoLocation: null
+    LongitudeDeg: 172
+    LongitudeMin: 18.14
+    GMTDay: 7
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 31020
+    DryBulb: 1.6
+    RelativeHumidity: 90
+    WetBulb: -99.9
+    Pressure: 1004
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 75
+    WindSpd: 25.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 73
+    StationNameID: 70M40
+    MaxDepth: 65
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: "Elz/Stepien Samples\r\nsec TandS not working - no output\r\nRBR on"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 285;286;287;288;;289;290;291
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '244'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD043:
+    id: 22915
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s43h1
+    ConsecutiveCastNo: CTD043
+    LatitudeDeg: 59
+    LatitudeMin: 54.9
+    GeoLocation: null
+    LongitudeDeg: 171
+    LongitudeMin: 43.46
+    GMTDay: 7
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 48000
+    DryBulb: 0.9
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 999
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 75
+    WindSpd: 26.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 70
+    StationNameID: ''
+    MaxDepth: 59
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: Very bumpy No RBR No Bongo
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8
+    NutrientBtlNumbers: 292;293;294;295;;296;297;298
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '247'
+    SalinityBtlNiskinNo: '8'
+    SalinityBtlNumbers: '14'
+    ChlorophyllBtlNiskinNo: ''
+    ChlorophyllBtlVolumes: ''
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD044:
+    id: 22916
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s44h1
+    ConsecutiveCastNo: CTD044
+    LatitudeDeg: 55
+    LatitudeMin: 3.24
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 5.79
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 34680
+    DryBulb: 4.6
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 992
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 166
+    WindSpd: 25.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 113
+    StationNameID: UBN6
+    MaxDepth: 104
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: May have use the wrong .xmlcon file for this cast, may explain why O2 are
+      different
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 299;300;301;302;;303;304;305;306
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '359'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '15'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;;283;285;;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD045:
+    id: 22917
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s45h1
+    ConsecutiveCastNo: CTD045
+    LatitudeDeg: 54
+    LatitudeMin: 56.21
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 59.39
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 40500
+    DryBulb: 4.4
+    RelativeHumidity: 100
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 167
+    WindSpd: 23.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 92
+    StationNameID: UBE1
+    MaxDepth: 84
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: '#2 Niskin did not close, #8 Niskin Broken'
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 307;308;309;310;;311;312;313;314
+    OxygenBtlNiskinNo: '9'
+    OxygenBtlNumbers: '360'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;;283;285;;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD046:
+    id: 22918
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s46h1
+    ConsecutiveCastNo: CTD046
+    LatitudeDeg: 54
+    LatitudeMin: 49.57
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 53.45
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 46260
+    DryBulb: 4.2
+    RelativeHumidity: 93
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 171
+    WindSpd: 20.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 75
+    StationNameID: UBE2
+    MaxDepth: 68
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: ''
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    NutrientBtlNumbers: 315;316;317;318;;319;320;321;
+    OxygenBtlNiskinNo: '8'
+    OxygenBtlNumbers: '361'
+    SalinityBtlNiskinNo: '8'
+    SalinityBtlNumbers: '16'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9
+    ChlorophyllBtlVolumes: ;283;285;289;;283;279;283;
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD047:
+    id: 22919
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s47h1
+    ConsecutiveCastNo: CTD047
+    LatitudeDeg: 54
+    LatitudeMin: 42.96
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 47.39
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 49980
+    DryBulb: 4.5
+    RelativeHumidity: 84
+    WetBulb: -99.9
+    Pressure: 992
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 173
+    WindSpd: 23.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 48
+    StationNameID: UBE3
+    MaxDepth: 39
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6
+    NutrientBtlNumbers: 322;323;324;325;;326
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '362'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6
+    ChlorophyllBtlVolumes: 285;289;283;279;;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD048:
+    id: 22921
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s48h1
+    ConsecutiveCastNo: CTD048
+    LatitudeDeg: 54
+    LatitudeMin: 26.667
+    GeoLocation: null
+    LongitudeDeg: 164
+    LongitudeMin: 59.09
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 58980
+    DryBulb: 4.4
+    RelativeHumidity: 85
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 154
+    WindSpd: 16.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 47
+    StationNameID: UBS1
+    MaxDepth: 38
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6
+    NutrientBtlNumbers: 327;328;329;330;;331
+    OxygenBtlNiskinNo: '6'
+    OxygenBtlNumbers: '363'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6
+    ChlorophyllBtlVolumes: 285;289;283;279;;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD049:
+    id: 22922
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s49h1
+    ConsecutiveCastNo: CTD049
+    LatitudeDeg: 54
+    LatitudeMin: 25.288
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 8.56
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 64560
+    DryBulb: 4.4
+    RelativeHumidity: 80
+    WetBulb: -99.9
+    Pressure: 993
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 163
+    WindSpd: 18.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 137
+    StationNameID: UBS2
+    MaxDepth: 127
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    NutrientBtlNumbers: 332;333;334;335;;336;337;338;339;340
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '364'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '17'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    ChlorophyllBtlVolumes: ;;;283;;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD050:
+    id: 22923
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s50h1
+    ConsecutiveCastNo: CTD050
+    LatitudeDeg: 54
+    LatitudeMin: 22.539
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 16.71
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 73200
+    DryBulb: 4.2
+    RelativeHumidity: 81
+    WetBulb: -99.9
+    Pressure: 992
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 157
+    WindSpd: 20.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 172
+    StationNameID: UBS3
+    MaxDepth: 150
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR-on
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    NutrientBtlNumbers: 341;342;343;344;;345;346;347;348;349
+    OxygenBtlNiskinNo: '9'
+    OxygenBtlNumbers: '365'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '18'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10
+    ChlorophyllBtlVolumes: ;;;283;;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD051:
+    id: 22924
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s51h1
+    ConsecutiveCastNo: CTD051
+    LatitudeDeg: 54
+    LatitudeMin: 20.381
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 25.53
+    GMTDay: 9
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 80400
+    DryBulb: 4.4
+    RelativeHumidity: 82
+    WetBulb: -99.9
+    Pressure: 992
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 140
+    WindSpd: 20.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 161
+    StationNameID: UBS4
+    MaxDepth: 155
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: RBR
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    NutrientBtlNumbers: 350;351;352;353;;354;355;356;357;358;359
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '366'
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    ChlorophyllBtlVolumes: ;;;;;283;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD052:
+    id: 22925
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s52h1
+    ConsecutiveCastNo: CTD052
+    LatitudeDeg: 54
+    LatitudeMin: 21.77
+    GeoLocation: null
+    LongitudeDeg: 165
+    LongitudeMin: 55.75
+    GMTDay: 10
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 7140
+    DryBulb: 4.4
+    RelativeHumidity: 74
+    WetBulb: -99.9
+    Pressure: 990
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 140
+    WindSpd: 19.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 477
+    StationNameID: UBW1
+    MaxDepth: 453
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: "RBR on 30m/min\r\nprimary O2 went flakey @90m on upcast - jelly?"
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    NutrientBtlNumbers: 360;361;362;363;;364;365;366;367;368;369
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '367'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '19'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    ChlorophyllBtlVolumes: ;;;;;283;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD053:
+    id: 22927
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s53h1
+    ConsecutiveCastNo: CTD053
+    LatitudeDeg: 54
+    LatitudeMin: 28.26
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 2.19
+    GMTDay: 10
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 16920
+    DryBulb: 4.3
+    RelativeHumidity: 75
+    WetBulb: -99.9
+    Pressure: 990
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 143
+    WindSpd: 12.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 537
+    StationNameID: ''
+    MaxDepth: 531
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: chl in upper 40m, primary O2 flakey @ 50m on upcast
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    NutrientBtlNumbers: 370;371;372;373;374;375;376;377;378;379;380
+    OxygenBtlNiskinNo: 2;11
+    OxygenBtlNumbers: 369;368
+    SalinityBtlNiskinNo: ''
+    SalinityBtlNumbers: ''
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    ChlorophyllBtlVolumes: ;;;;;283;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null
+  CTD054:
+    id: 22926
+    Vessel: R/V Oscar Dyson
+    CruiseID: DY1805
+    Project_Leg: ''
+    UniqueCruiseID: DY1805
+    Project: FOCI Spring Mooring Survey
+    StationNo_altname: s54h1
+    ConsecutiveCastNo: CTD054
+    LatitudeDeg: 54
+    LatitudeMin: 35.08
+    GeoLocation: null
+    LongitudeDeg: 166
+    LongitudeMin: 7.4
+    GMTDay: 10
+    GMTMonth: May
+    GMTYear: 2018
+    GMTTime: 24780
+    DryBulb: 3.1
+    RelativeHumidity: 93
+    WetBulb: -99.9
+    Pressure: 990
+    SeaState: '-99'
+    Visibility: '-99'
+    WindDir: 98
+    WindSpd: 14.0
+    CloudAmt: '-99'
+    CloudType: '-99'
+    Weather: '-99'
+    SurfaceTemp: -99.9
+    BottomDepth: 411
+    StationNameID: ''
+    MaxDepth: 401
+    InstrumentSerialNos: Press SN =291, Pri Temp SN = 4379, Sec Temp SN =2376, Pri
+      Cond SN = 04-2985, Sec Cond Sn =04-3127, PAR Sn =70547, Fluor Sn = FLNTUS-2057,
+      pri O2 Sn = 1961, sec O2 Sn = 1876, Turbid SN = FLNTUS-2057
+    Notes: primary O2 flakey @ 40m
+    NutrientBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    NutrientBtlNumbers: 381;382;383;384;;385;386;387;388;389;390
+    OxygenBtlNiskinNo: '1'
+    OxygenBtlNumbers: '370'
+    SalinityBtlNiskinNo: '1'
+    SalinityBtlNumbers: '20'
+    ChlorophyllBtlNiskinNo: 1;2;3;4;5;6;7;8;9;10;11
+    ChlorophyllBtlVolumes: ;;;;;283;285;289;283;279;283
+    InstrumentType: Seabird SBE 911plus CTD
+    WaterMassCode: B
+    isMooringProfileCast: n
+    MooringID: ''
+    QualityControlled: n
+    FileName: ''
+    MeasuredParameters: null

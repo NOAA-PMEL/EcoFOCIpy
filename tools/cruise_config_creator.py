@@ -63,10 +63,8 @@ EcoFOCI_db.close()
 
 #replace timedelta with strings
 for entries in sorted(Cruise_Castlogs_sum.keys()):
-    print(entries)
     for subentries in (Cruise_Castlogs_sum[entries].keys()):
         try:
-            print(Cruise_Castlogs_sum[entries][subentries])
             if isinstance(Cruise_Castlogs_sum[entries][subentries], datetime.timedelta):
                 Cruise_Castlogs_sum[entries][subentries] = (Cruise_Castlogs_sum[entries][subentries]).seconds
         except:
@@ -85,5 +83,4 @@ if args.yaml_format:
         print("An issue exists in the CTDcasts records")
         sys.exit()        
 
-    print(Cruise_Meta_sum)
     load_config.write_config(args.CruiseID+'.yaml', Cruise_Meta_sum)

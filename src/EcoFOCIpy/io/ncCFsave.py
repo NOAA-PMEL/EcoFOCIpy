@@ -12,10 +12,9 @@ import datetime
 import xarray as xr
 
 
-class EcoFOCI_CFnc_moored(object):
-    """Designed for moored instrumentation.
 
-    CTD data will use the seabird cnv package
+class EcoFOCI_CFnc_profile(object):
+    """Designed for ctd profiles.
 
     Other platforms:
         prawler
@@ -25,34 +24,28 @@ class EcoFOCI_CFnc_moored(object):
     will use their own class
     """
 
-    def __init__(self, df=None, instrument_yaml='', mooring_yaml=None, instrument_id='', inst_shortname=''):
+    def __init__(self, df=None, instrument_yaml='', cruise_yaml=None, instrument_id=''):
         """data is a pandas dataframe
         Wich is immediatly converted to xarray
         """
         
         self.xdf = df.to_xarray()
         self.instrument_yaml = instrument_yaml
-        self.mooring_yaml = mooring_yaml
-        self.instrument_id = instrument_id
-        self.inst_shortname = inst_shortname
+        self.cruise_yaml = cruise_yaml
 
     def institution_meta_add(self, institution_yaml=''):
         """Add EcoFOCI base metadata"""
-        attributes = {}
+        attributes = institution_yaml
 
         self.xdf.attrs.update(attributes)
 
-    def deployment_meta_add(self):
+    def deployment_meta_add(self,conscastno=''):
         """TODO: Validate content of times"""
 
         attributes = {
-            'MooringID':self.mooring_yaml['MooringID'],
-            'platform_deployment_date':self.mooring_yaml['Deployment']['DeploymentDateTimeGMT'].strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'platform_deployment_cruise_name': self.mooring_yaml['Deployment']['DeploymentCruise'],
-            'platform_recovery_date':self.mooring_yaml['Recovery']['RecoveryDateTimeGMT'].strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'platform_recovery_cruise_name': self.mooring_yaml['Recovery']['RecoveryCruise'],
-            'platform_deployment_recovery_comments': self.mooring_yaml['Notes'],
-            'WaterDepth':self.mooring_yaml['Deployment']['DeploymentDepth']}
+            'CruiseID':self.cruise_yaml['CTDCasts'][conscastno]['UniqueCruiseID'],
+            'VesselName':self.cruise_yaml['CTDCasts'][conscastno]['Vessel'],
+            'WaterDepth':self.cruise_yaml['CTDCasts'][conscastno]['BottomDepth']}
 
         self.xdf.attrs.update(attributes)
 
@@ -63,23 +56,23 @@ class EcoFOCI_CFnc_moored(object):
         Associated Instruments (for platforms like SBE16/RCM)
         """
         attributes = {
-            'InstrumentSerialNumber':self.mooring_yaml['Instrumentation'][self.instrument_id]}
+            'InstrumentSerialNumber':None}
 
         self.xdf.attrs.update(attributes)
 
-    def expand_dimensions(self,dim_names=['latitude','longitude','depth'],geophys_sort=True):
+    def expand_dimensions(self,dim_names=['latitude','longitude','time'],geophys_sort=True):
         """provide other dimensions in our usual x,y,z,t framework
-        For moorings, this adds lat,lon,depth
+        For moorings, this adds lat,lon,time
 
-        also rename the time dimension from `date_time` to `time`
         """
-        self.xdf = self.xdf.expand_dims(dim_names).rename({'date_time':'time'})
+        self.xdf = self.xdf.expand_dims(dim_names).rename({'Pressure [dbar]':'depth'})
 
         if geophys_sort:
             self.xdf = self.xdf.transpose('time','depth','latitude','longitude')
             self.xdf = self.xdf.assign_coords({"longitude": ("longitude", [1e35])})
             self.xdf = self.xdf.assign_coords({"latitude": ("latitude", [1e35])})
-            self.xdf = self.xdf.assign_coords({"depth": ("depth", [1e35])})
+            #self.xdf = self.xdf.assign_coords({"depth": ("depth", [1e35])})
+            self.xdf = self.xdf.assign_coords({"time": ("time", [1e35])})
 
     def variable_meta_data(self,variable_keys=None,drop_missing=True):
         """Add CF meta_data to each known variable"""
@@ -101,31 +94,6 @@ class EcoFOCI_CFnc_moored(object):
         for var in variable_keys:
             self.xdf[var].attrs = self.instrument_yaml[var]
 
-    def temporal_geospatioal_meta_data(self,positiveE=True,depth=['designed']):
-        """Add min/max lat/lon/time bounds"""
-        attributes = {
-            'Latitude-Deg_MM.dd_W':self.mooring_yaml['Deployment']['DeploymentLatitude'],
-            'Longitude-Deg_MM.dd_N':self.mooring_yaml['Deployment']['DeploymentLongitude']}
-        self.xdf.attrs.update(attributes)
-
-        dd,mm,hh = self.mooring_yaml['Deployment']['DeploymentLongitude'].split()
-        longitude = float(dd)+float(mm)/60
-        ddlon,mmlon,hhlon = self.mooring_yaml['Deployment']['DeploymentLatitude'].split()
-        latitude = float(ddlon)+float(mmlon)/60
-
-        if 'w' in hh.lower():
-            self.xdf['longitude'] = [-1*longitude]
-            self.xdf['latitude'] = [latitude]
-        else:
-            self.xdf['longitude'] = [longitude]
-            self.xdf['latitude'] = [latitude]
-
-        if depth.lower() in ['designed']:
-            self.xdf['depth'] = [self.mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth']]
-        elif depth.lower() in ['actual']:
-            self.xdf['depth'] = [self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth']]
-        else:
-            self.xdf['depth'] = 1e35
 
     def provinance_meta_add(self):
         """add creation time and placeholder for modified time"""
@@ -145,19 +113,6 @@ class EcoFOCI_CFnc_moored(object):
         attributes = {'QC_indicator':qc_status}
         self.xdf.attrs.update(attributes)
 
-    ###
-    def autotrim_time(self):
-        """using the recorded deployment/recovery records - trim time array
-        """
-        starttime = self.mooring_yaml['Deployment']['DeploymentDateTimeGMT']
-        endtime = self.mooring_yaml['Recovery']['RecoveryDateTimeGMT']
-        
-        try:   
-            self.history(history_text=self.xdf.attrs['history'] + '\nTrimmed to deployment.')
-        except:   
-            self.history(history_text='Trimmed to deployment.')
-
-        return self.xdf.sel(time=slice(starttime,endtime))
 
     def get_xdf(self):
         """
@@ -166,24 +121,13 @@ class EcoFOCI_CFnc_moored(object):
         return self.xdf
 
 
-    def filename_const(self, depth='designed', manual_label=''):
+    def filename_const(self, manual_label=''):
 
-        #EcoFOCI standard mooring naming
-        #18bsm2a_wpak.nc - {mooringid}_{instshortname}_{depth}m.nc
-        try:
-            mooringID_simple = "".join(self.mooring_yaml['MooringID'].split('-')).lower()
-        except:
-            mooringID_simple = 'xxxxxx'
-
-        if depth.lower() in ['designed']:
-            depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth'])).zfill(4)
-        elif depth.lower() in ['actual']:
-            depth = str(int(self.mooring_yaml['Instrumentation'][self.instrument_id]['ActualDepth'])).zfill(4)
-        else:
-            depth = '0000'
+        #EcoFOCI standard ctd naming
+        #DY1805c001_ctd.nc - {cruiseid}c{consecutivecastnumber}_ctd.nc
 
         if not manual_label:
-            return( mooringID_simple+'_'+self.inst_shortname+'_'+depth+'m.nc' )
+            print('not implemented for profiles')
         else:
             return( manual_label+'.nc' )
 
