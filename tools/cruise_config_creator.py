@@ -60,6 +60,15 @@ Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args
 
 EcoFOCI_db.close()
 
+#replace datatime with strings
+for entries in sorted(Cruise_Meta_sum.keys()):
+    if isinstance(entries, datetime.timedelta):
+        Cruise_Meta_sum[entries] = str(entries.total_seconds())
+
+for entries in sorted(Cruise_Castlogs_sum.keys()):
+    if isinstance(entries, datetime.timedelta):
+        Cruise_Castlogs_sum[entries] = str(entries.total_seconds())
+
 
 if args.yaml_format:
     data_dic = {}
