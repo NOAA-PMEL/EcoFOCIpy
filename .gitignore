@@ -16,5 +16,5 @@ build/*
 *.egg-info
 MANIFEST
 .eggs/
-tools/_secret/db_config_mooring.yaml
+tools/_secret/*.yaml
 notebooks/*.nc
