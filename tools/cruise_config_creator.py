@@ -54,9 +54,9 @@ EcoFOCI_db = EcoFOCI_db_datastatus()
 (db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=config_file)
 
 table = 'cruises'
-Cruise_Meta_sum = EcoFOCI_db.read_cruise_summary(table=table, cruiseid=args['CruiseID'], verbose=True)
+Cruise_Meta_sum = EcoFOCI_db.read_cruise_summary(table=table, cruiseid=args.CruiseID, verbose=True)
 table = 'cruisecastlogs'
-Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args['CruiseID'])
+Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args.CruiseID)
 
 EcoFOCI_db.close()
 
@@ -66,7 +66,7 @@ if args.yaml_format:
     try:
         data_dic.update({"Cruise":Cruise_Meta_sum})
     except:
-        print("No known cruise {0}.  Check syntax and case (e.g. dy1908)".format(args['CruiseID']))
+        print("No known cruise {0}.  Check syntax and case (e.g. dy1908)".format(args.CruiseID))
         sys.exit()
     try:
         #build a dictionary of dictionaries for ctd casts
