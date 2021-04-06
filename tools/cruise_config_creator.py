@@ -60,14 +60,24 @@ Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args
 
 EcoFOCI_db.close()
 
-try:
-    Cruise_Meta_sum[args['CruiseID']]
-except:
-    print("No known cruise {0}.  Check syntax and case (e.g. dy1908)".format(args['CruiseID']))
-    sys.exit()
-    
 
 if args.yaml_format:
-    data_dic = {'CruiseID':None, 'Deployment':None, 'Recovery':None, 'Notes':None, 'Instrumentation':None}
-    data_dic['CruiseID'] = args['CruiseID']
+    data_dic = {}
+    try:
+        data_dic.update({"Cruise":Cruise_Meta_sum})
+    except:
+        print("No known cruise {0}.  Check syntax and case (e.g. dy1908)".format(args['CruiseID']))
+        sys.exit()
+    try:
+        #build a dictionary of dictionaries for ctd casts
+        CTDDic = {}
+        for profile in sorted(Cruise_Castlogs_sum.keys()):
+            CTDDic[Cruise_Castlogs_sum[profile]['ConsecutiveCastNumber']] = Cruise_Castlogs_sum[profile]
+            
+        data_dic.update({"CTDCasts":CTDDic})
+    except:
+        print("An issue exists in the CTDcasts records")
+        sys.exit()        
 
+    
+    load_config.write_config(args.CruiseID+'.yaml', data_dic)
