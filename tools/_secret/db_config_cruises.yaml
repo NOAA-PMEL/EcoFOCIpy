@@ -1,0 +1,15 @@
+systems:
+  akutan:
+    host: akutan.pmel.noaa.gov
+    port: 3306
+  localhost:
+    host: localhost
+    port: 8889
+
+login:
+  password: 'e43mqS4fusEaGJLE'
+  user: pythonuser  
+
+database: 
+  database: ecofoci_cruises
+
