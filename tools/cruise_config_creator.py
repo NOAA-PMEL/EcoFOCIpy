@@ -54,9 +54,9 @@ EcoFOCI_db = EcoFOCI_db_datastatus()
 (db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=config_file)
 
 table = 'cruises'
-Cruise_Meta_sum = EcoFOCI_db.read_mooring_summary(table=table, cruiseid=args['CruiseID'], verbose=True)
+Cruise_Meta_sum = EcoFOCI_db.read_cruise_summary(table=table, cruiseid=args['CruiseID'], verbose=True)
 table = 'cruisecastlogs'
-Cruise_Castlogs_sum = EcoFOCI_db.read_mooring_summary(table=table, cruiseid=args['CruiseID'])
+Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args['CruiseID'])
 
 EcoFOCI_db.close()
 
