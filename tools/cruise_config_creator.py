@@ -60,33 +60,30 @@ Cruise_Castlogs_sum = EcoFOCI_db.read_castlog_summary(table=table, cruiseid=args
 
 EcoFOCI_db.close()
 
-#replace datatime with strings
-for entries in sorted(Cruise_Meta_sum.keys()):
-    if isinstance(entries, datetime.timedelta):
-        Cruise_Meta_sum[entries] = str(entries.total_seconds())
 
+#replace timedelta with strings
 for entries in sorted(Cruise_Castlogs_sum.keys()):
-    if isinstance(entries, datetime.timedelta):
-        Cruise_Castlogs_sum[entries] = str(entries.total_seconds())
-
+    print(entries)
+    for subentries in (Cruise_Castlogs_sum[entries].keys()):
+        try:
+            print(Cruise_Castlogs_sum[entries][subentries])
+            if isinstance(Cruise_Castlogs_sum[entries][subentries], datetime.timedelta):
+                Cruise_Castlogs_sum[entries][subentries] = (Cruise_Castlogs_sum[entries][subentries]).seconds
+        except:
+            pass
 
 if args.yaml_format:
-    data_dic = {}
-    try:
-        data_dic.update({"Cruise":Cruise_Meta_sum})
-    except:
-        print("No known cruise {0}.  Check syntax and case (e.g. dy1908)".format(args.CruiseID))
-        sys.exit()
+
     try:
         #build a dictionary of dictionaries for ctd casts
         CTDDic = {}
         for profile in sorted(Cruise_Castlogs_sum.keys()):
             CTDDic[profile] = Cruise_Castlogs_sum[profile]
             
-        data_dic.update({"CTDCasts":CTDDic})
+        Cruise_Meta_sum.update({"CTDCasts":CTDDic})
     except:
         print("An issue exists in the CTDcasts records")
         sys.exit()        
 
-    
-    load_config.write_config(args.CruiseID+'.yaml', data_dic)
+    print(Cruise_Meta_sum)
+    load_config.write_config(args.CruiseID+'.yaml', Cruise_Meta_sum)
