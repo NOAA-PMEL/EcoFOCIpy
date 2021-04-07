@@ -1,0 +1,110 @@
+#Standard FOCI CTD has a primary/secondary T/S/DO, single chlor,par,turb + occasionally a transm/atten
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+#variables
+temperature_ch1:
+  epic_key: T_28
+  generic_name: temp channel 1
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+temperature_ch2:
+  epic_key: T2_35
+  generic_name: temp channel 2
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C  
+pressure: 
+  epic_key: P_1
+  generic_name: pres
+  units: decibar
+  long_name: "Sea water pressure, equals 0 at sea-level"
+  standard_name: sea_water_pressure_due_to_sea_water
+salinity_ch1: 
+  epic_key: S_41
+  generic_name: psal channel 1
+  units: PSU
+  long_name: "Practical salinity in-situ PSS-78 scale"
+  standard_name: sea_water_practical_salinity
+salinity_ch2: 
+  epic_key: S_42
+  generic_name: psal channel 2
+  units: PSU
+  long_name: "Practical salinity in-situ PSS-78 scale"
+  standard_name: sea_water_practical_salinity  
+chlor_fluorescence:
+  epic_key: F_903
+  generic_name: chlor_fluorescence
+  long_name: "Mass Concdentration of chlorophyll from chlorophyll fluorescence"
+  standard_name: mass_concentration_of_chlorophyll_in_sea_water
+  units: ugrams/l
+par: 
+  generic_name: par
+  epic_key: PAR_905
+  long_name: 'Photosynthetic Active Radiation'
+  standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
+  units: 'uEin cm-2 s-1'
+oxy_conc_ch1:
+  generic_name: oxy_conc channel 1
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
+oxy_conc_ch2:
+  generic_name: oxy_conc channel 2
+  epic_key: CTDOXY_4221
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
+oxy_concM_ch1:
+  generic_name: oxy_concM channel 1
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: ml/l
+oxy_concM_ch2:
+  generic_name: oxy_concM channel 2
+  epic_key: O_2060
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: ml/l
+oxy_percentsat_ch1: 
+  generic_name: oxy_psat channel 1
+  epic_key: OST_62
+  units: 'percent'
+  long_name: 'Percent Saturation of oxygen over air' 
+  standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+oxy_percentsat_ch2: 
+  generic_name: oxy_psat channel 2
+  epic_key: CTDOST_4220
+  units: 'percent'
+  long_name: 'Percent Saturation of oxygen over air' 
+  standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+
+
