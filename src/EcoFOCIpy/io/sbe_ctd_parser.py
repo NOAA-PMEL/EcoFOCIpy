@@ -39,6 +39,34 @@ def seabird_header(filename=None):
 
     return (header, headercount, var_names, start_time)
 
+class sbe_btl(object):
+    @staticmethod
+    def parse(file_list=[None]):
+        r"""
+        Basic Method to open and read sbe9_11 .cnv files
+
+        """
+        assert file_list[0].split('.')[-1] == 'btl' , 'Must provide a cnv file - use sbe software to convert'
+
+        df_dic = {}
+
+        for ctdfile in file_list:
+
+            with open(ctdfile) as fobj:
+                for k, line in enumerate(fobj.readlines()):
+                    if not "#" in line:
+                        headercount=k
+                        columns = line.strip.split()
+                        break
+                
+                ctd_df = pd.read_csv(ctdfile,skiprows=headercount+2,header=None,names=columns)
+
+            df_dic.update({ctdfile.split('/')[-1]:ctd_df})
+
+        return df_dic
+
+
+
 class sbe9_11p(object):
     r""" Seabird 9/11+
         
@@ -66,3 +94,4 @@ class sbe9_11p(object):
             df_dic.update({ctdfile.split('/')[-1]:ctd_df})
 
         return (df_dic, header_dic)
+
