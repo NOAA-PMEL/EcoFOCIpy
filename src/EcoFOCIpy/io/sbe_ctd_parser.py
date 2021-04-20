@@ -40,13 +40,21 @@ def seabird_header(filename=None):
     return (header, headercount, var_names, start_time)
 
 class sbe_btl(object):
+    """Process SBE BTL files
+
+    Args:
+        object ([type]): [description]
+
+    Returns:
+        [type]: [description]
+    """
     @staticmethod
-    def parse(file_list=[None]):
+    def manual_parse(file_list=[None]):
         r"""
         Basic Method to open and read sbe9_11 .cnv files
 
         """
-        assert file_list[0].split('.')[-1] == 'btl' , 'Must provide a cnv file - use sbe software to convert'
+        assert file_list[0].split('.')[-1] == 'btl' , 'Must provide a btl file - use sbe software to convert'
 
         df_dic = {}
 
@@ -54,17 +62,49 @@ class sbe_btl(object):
 
             with open(ctdfile) as fobj:
                 for k, line in enumerate(fobj.readlines()):
-                    if not "#" in line:
-                        headercount=k
-                        columns = line.strip.split()
-                        break
-                
-                ctd_df = pd.read_csv(ctdfile,skiprows=headercount+2,header=None,names=columns)
+                    if (not "*" in line) & (not "#" in line):
+                        if 'Bottle' in line:
+                            line = line.replace('TurbWETntu0',' TurbWETntu0') #<- this is a common runon header
+                            columns=line.lower().split() + ['time']
+                            ctd_df= pd.DataFrame(columns=columns)
+                        if 'avg' in line:
+                            data=line.split('(avg)')[0].strip().split('    ')
+                        if 'sdev' in line:
+                            row = pd.DataFrame(data=[data+[line.split()[0].strip()]],columns=columns)
+
+                            for c in row.columns:
+                                row[c] = row[c].astype(float,errors='ignore')
+
+                            ctd_df =ctd_df.append(row)
+            # index based on btl number and combine time/date
+            ctd_df.set_index('bottle',inplace=True)
+            ctd_df['datetime']=pd.to_datetime(ctd_df['date']+' '+ctd_df['time'])
+            ctd_df = ctd_df.drop(['date','time'],axis=1)
 
             df_dic.update({ctdfile.split('/')[-1]:ctd_df})
 
         return df_dic
 
+    @staticmethod
+    def parse(file_list=[None]):
+        """Use the CTD python package to read and process .btl files
+
+        Args:
+            file_list (list, optional): Full path to `.btl` files. Defaults to [None].
+
+        Returns:
+            [dictionary]: Dictionary of dataframes labeled by cruise cast number
+        """
+        assert file_list[0].split('.')[-1] == 'btl' , 'Must provide a btl file - use sbe software to convert'
+
+        df_dic = {}
+        for ctdfile in file_list:
+
+            ctd_df = ctd.from_btl(ctdfile)
+
+            df_dic.update({ctdfile.split('/')[-1]:ctd_df})
+
+        return df_dic
 
 
 class sbe9_11p(object):

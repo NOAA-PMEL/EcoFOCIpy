@@ -188,8 +188,6 @@ class EcoFOCI_CFnc_moored(object):
                 
         xdf.to_netcdf(filename,format=kwargs['format'])
 
-
-
 class EcoFOCI_CFnc_profile(object):
     """Designed for ctd profiles.
 
