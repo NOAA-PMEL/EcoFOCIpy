@@ -1,0 +1,39 @@
+
+REPORT FOR ASCII DATA CONVERSION
+--------------------------------
+
+1. ADCP INFORMATION:
+
+   Frequency 600 kHz
+   Beam angle 20 deg
+   4 beam system
+   Up-looking orientation
+   Convex beam pattern
+   Transducer head connected
+   CPU firmware 50.38
+
+2. ADCP SETUP:
+   Number of bins 18
+   Bin length 200 cm
+   Blank after transmit 88 cm
+   Distance to first bin 306 cm
+   Transmit length 212 cm
+   Pings per ensemble 60
+   Time per ping 60.00 s
+   Profiling mode 1
+
+3. ASCII FILE DATA FORMAT:
+
+   Line 1-18: Recording date string, Recording time string, Bin number, Intensity beam 1, 2, 3, 4
+
+4. PROCESSING PARAMETERS:
+
+   Velocity units: ADCP
+   Velocity reference: ADCP
+   Depth units: ADCP
+   Bins: From 128 to 1 skip 0 bin
+   Magnetic variation 0.00 deg
+   Do not mark data below bottom
+
+END OF REPORT
+-------------

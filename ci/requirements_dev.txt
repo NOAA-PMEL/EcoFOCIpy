@@ -9,3 +9,4 @@ erddapy==1.0.0
 mysql-connector-python==8.0.24
 ctd==1.1.1
 seawater==3.3.4
+#geomag cmweis github version... part of package
