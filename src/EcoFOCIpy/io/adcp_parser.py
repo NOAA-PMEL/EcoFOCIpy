@@ -80,9 +80,31 @@ class adcp(object):
 
         return self.scal_df
 
-    @staticmethod
-    def load_rpt_file(self, rptfile_path='', datetime_index=True):
-        pass
+    def load_rpt_file(self, rptfile_path=''):
+        """[summary]
+
+        Args:
+            rptfile_path (str, optional): [description]. Defaults to ''.
+            datetime_index (bool, optional): [description]. Defaults to True.
+
+        Returns:
+            [type]: [description]
+        """
+        if self.depdir:
+            rptfile_path = self.depdir + '.RPT'
+
+        adf = []
+        self.setup = {}
+        with open(rptfile_path) as fobj:
+            for k, line in enumerate(fobj.readlines()):
+                adf = adf + [line]
+                if "Bin length" in line:
+                    self.setup['bin_length'] = float(line.strip().split()[2])
+                if "Distance" in line:
+                    self.setup['distance'] = float(line.strip().split()[4])
+                if "Number of bins" in line:
+                    self.setup['numofbins'] = float(line.strip().split()[3])
+        return (adf, self.setup)
 
     def mag_dec_corr(self,lat,lonW,dep_date):
         """Calculate mag declinatin correction based on lat, lon (+ West) and date.
