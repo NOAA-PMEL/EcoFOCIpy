@@ -41,6 +41,15 @@ Instrumentation:
     PostDeploymentNotes: ''
     Deployed: y
     Recovered: y
+  ADCP 14068:
+    InstType: ADCP
+    SerialNo: '14068'
+    DesignedDepth: 40.0
+    ActualDepth: 0.0
+    PreDeploymentNotes: Not actually deployed - test instrument
+    PostDeploymentNotes: ''
+    Deployed: n
+    Recovered: n
   ECO-Fluorometer BBFL2W 1419:
     InstType: Eco-Fluorometer BBFL2W
     SerialNo: '1419'
