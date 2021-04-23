@@ -99,7 +99,8 @@ class EcoFOCI_CFnc(object):
         also rename the time dimension from `date_time` to `time`
         """
         self.xdf = self.xdf.expand_dims(dim_names)
-        self.xdf = self.xdf.rename({time_dim_name:'time'})
+        if self.operation_type == 'mooring':
+            self.xdf = self.xdf.rename({time_dim_name:'time'})
 
         #fill new dims
         for dn in dim_names:
@@ -128,12 +129,12 @@ class EcoFOCI_CFnc(object):
         for var in variable_keys:
             self.xdf[var].attrs = self.instrument_yaml[var]
 
-    def temporal_geospatioal_meta_data(self,positiveE=True,depth=['designed']):
+    def temporal_geospatioal_meta_data(self,positiveE=True,depth='designed'):
         """Only used for moored data
 
         Args:
             positiveE (bool, optional): [description]. Defaults to True.
-            depth (list, optional): [description]. Defaults to ['designed'].
+            depth (list, optional): [description]. Defaults to 'designed'.
         """
         attributes = {
             'Latitude-Deg_MM.dd_W':self.operation_yaml['Deployment']['DeploymentLatitude'],
@@ -142,7 +143,7 @@ class EcoFOCI_CFnc(object):
 
         dd,mm,hh = self.operation_yaml['Deployment']['DeploymentLongitude'].split()
         longitude = float(dd)+float(mm)/60
-        ddlon,mmlon,hhlon = self.operation_yaml['Deployment']['DeploymentLatitude'].split()
+        ddlon,mmlon = self.operation_yaml['Deployment']['DeploymentLatitude'].split()[:2]
         latitude = float(ddlon)+float(mmlon)/60
 
         if 'w' in hh.lower():
