@@ -37,7 +37,7 @@ class adcp(object):
             pgfile_path = self.depdir + '.PG'
 
         self.pg_df = pd.read_csv(pgfile_path,delimiter='\s+',header=None,names=['date','time','bin','pg3beam-good','pgtransf-good','pg1beam-bad','pg4beam-good'])
-        self.pg_df["date_time"] = pd.to_datetime(self.pg_df.date+' '+self.pg_df.time)
+        self.pg_df["date_time"] = pd.to_datetime(self.pg_df.date+' '+self.pg_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
             self.pg_df = self.pg_df.set_index(pd.DatetimeIndex(self.pg_df['date_time'])).drop(['date_time','date','time'],axis=1)        
@@ -48,8 +48,8 @@ class adcp(object):
         if self.depdir:
             einfile_path = self.depdir + '.EIN'
 
-        self.ein_df = pd.read_csv(einfile_path,delimiter='\s+',header=None,names=['date','time','bin','ch1','ch2','ch3','ch4'])
-        self.ein_df["date_time"] = pd.to_datetime(self.ein_df.date+' '+self.ein_df.time)
+        self.ein_df = pd.read_csv(einfile_path,delimiter='\s+',header=None,names=['date','time','bin','agc1','agc2','agc3','agc4'])
+        self.ein_df["date_time"] = pd.to_datetime(self.ein_df.date+' '+self.ein_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
             self.ein_df = self.ein_df.set_index(pd.DatetimeIndex(self.ein_df['date_time'])).drop(['date_time','date','time'],axis=1)        
@@ -60,8 +60,9 @@ class adcp(object):
         if self.depdir:
             velfile_path = self.depdir + '.VEL'
 
-        self.vel_df = pd.read_csv(velfile_path,delimiter='\s+',header=None,names=['date','time','bin','ucomp','vcomp','wcomp','w_err'])
-        self.vel_df["date_time"] = pd.to_datetime(self.vel_df.date+' '+self.vel_df.time)
+        self.vel_df = pd.read_csv(velfile_path,delimiter='\s+',header=None,
+                                    names=['date','time','bin','u_curr_comp','v_curr_comp','w_curr_comp','w_curr_comp_err'])
+        self.vel_df["date_time"] = pd.to_datetime(self.vel_df.date+' '+self.vel_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
             self.vel_df = self.vel_df.set_index(pd.DatetimeIndex(self.vel_df['date_time'])).drop(['date_time','date','time'],axis=1)        
@@ -72,8 +73,9 @@ class adcp(object):
         if self.depdir:
             scalfile_path = self.depdir + '.SCA'
 
-        self.scal_df = pd.read_csv(scalfile_path,delimiter='\s+',header=None,names=['date','time','unknown','temperature','heading','pitch','roll','HSD','PSD','RSD'])
-        self.scal_df["date_time"] = pd.to_datetime(self.scal_df.date+' '+self.scal_df.time)
+        self.scal_df = pd.read_csv(scalfile_path,delimiter='\s+',header=None,
+                                    names=['date','time','unknown','temperature','heading','pitch','roll','heading_stdev','pitch_stdev','roll_stdev'])
+        self.scal_df["date_time"] = pd.to_datetime(self.scal_df.date+' '+self.scal_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
             self.scal_df = self.scal_df.set_index(pd.DatetimeIndex(self.scal_df['date_time'])).drop(['date_time','date','time'],axis=1)        
@@ -106,7 +108,7 @@ class adcp(object):
                     self.setup['numofbins'] = float(line.strip().split()[3])
         return (adf, self.setup)
 
-    def mag_dec_corr(self,lat,lonW,dep_date):
+    def mag_dec_corr(self,lat,lonW,dep_date,apply_correction=True):
         """Calculate mag declinatin correction based on lat, lon (+ West) and date.
 
         Uses WMM_2020.COF - this model file updates every 5 years for current data.  Be sure to update this in future
@@ -115,15 +117,22 @@ class adcp(object):
             lat (float): [description]
             lonW (float): [description]
             dep_date (datetime): [description]
+            apply_correction (boolean): correct the u,v for mag dec.  False just reports back the correction angle.
 
         Returns:
             float: [description]
         """
 
         import EcoFOCIpy.math.geomag.geomag.geomag as geomag
+        import EcoFOCIpy.math.geotools as geotools
 
         t = geomag.GeoMag()
         dec = t.GeoMag(lat,-1 * lonW,time=dep_date).dec
+
+        (u,v) = geotools.rotate_coord(self.vel_df['u_curr_comp'],self.vel_df['v_curr_comp'],dec)
+
+        self.vel_df['u_curr_comp'] = u
+        self.vel_df['v_curr_comp'] = v
 
         return dec
 

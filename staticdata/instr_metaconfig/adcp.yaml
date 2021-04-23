@@ -1,0 +1,140 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v77
+# 
+# Historically - epic has distinguished between currents from RCM's and ADCPS
+# This may be seen in the EPIC Key - brought along but wont be reflected in the 
+# variable nomenclature/standard name
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+  time_origin: '1900-01-01 00:00:00'
+  units: 'days since 1900-01-01T00:00:00Z'
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+# ADCP Scalar parameters
+temperature:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+pressure: 
+  epic_key: P_1
+  generic_name: pres
+  units: decibar
+  long_name: "Sea water pressure equals 0 at sea-level"
+  standard_name: sea_water_pressure_due_to_sea_water
+heading:
+  epic_key: Hdg_1215
+  generic_name: Heading
+  units: degrees
+  standard_name: "INST Heading"
+pitch:
+  epic_key: Ptch_1216
+  long_name: Pitch
+  generic_name: pitch
+  units: degrees
+  standard_name: "INST Pitch"
+roll:
+  epic_key: Roll_1217
+  long_name: Roll
+  generic_name: roll
+  units: degrees
+  standard_name: "INST Roll"
+heading_stdev:
+  epic_key: HSD_1218
+  long_name: 'Heading Standard Deviation'
+  generic_name: heading
+  units: degrees
+  standard_name: instrument_heading_standard_deviation
+pitch_stdev:
+  epic_key: PSD_1219
+  long_name: 'Pitch Standard Deviation'
+  generic_name: pitch
+  units: degrees
+  standard_name: instrument_pitch_standard_deviation
+roll_stdev:
+  epic_key: RSD_1220
+  long_name: 'Roll Standard Deviation'
+  generic_name: roll
+  units: degrees
+  standard_name: instrument_roll_standard_deviation
+# ADCP Vel parameters
+u_curr_comp:
+  generic_name: u_curr_comp
+  epic_key: u_1205
+  units: 'cm s-1'
+  long_name: 'Zonal Current (Eastward) cm/s'
+  standard_name: eastward_sea_water_velocity
+v_curr_comp:
+  generic_name: v_curr_comp
+  epic_key: v_1206
+  units: 'cm s-1'
+  long_name: 'Meridional Current (Northward) cm/s'
+  standard_name: northward_sea_water_velocity
+w_curr_comp:
+  generic_name: w_curr_comp
+  epic_key: w_1204
+  units: 'cm s-1'
+  long_name: 'Vertical Current (Upward) cm/s'
+  standard_name: upward_sea_water_velocity
+w_curr_comp_err:
+  generic_name: w_curr_comp_err
+  epic_key: Werr_1201
+  units: 'cm s-1'
+  long_name: 'Vertical Current Error (Upward) cm/s'
+  standard_name: upward_sea_water_velocity_error
+# ADCP EIN parameters
+agc1:
+  standard_name: "adcp_beam_echo_intensity"
+  generic_name: agc1
+  epic_key: AGC1_1221
+  units: counts
+  longname: "Echo Intensity (AGC) Beam 1"
+agc2:
+  standard_name: "adcp_beam_echo_intensity"
+  generic_name: agc2
+  epic_key: AGC2_1222
+  units: counts
+  longname: "Echo Intensity (AGC) Beam 2"
+agc3:
+  standard_name: "adcp_beam_echo_intensity"
+  generic_name: agc3
+  epic_key: AGC3_1223
+  units: counts
+  longname: "Echo Intensity (AGC) Beam 3"
+agc4:
+  standard_name: "adcp_beam_echo_intensity"
+  generic_name: agc4
+  epic_key: AGC4_1224
+  units: counts
+  longname: "Echo Intensity (AGC) Beam 4"
