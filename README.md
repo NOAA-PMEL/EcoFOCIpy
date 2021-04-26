@@ -5,13 +5,22 @@ python tools for the EcoFOCI PMEL research Program
 
 This package is a collection of routines used by EcoFOCI to automatically produce various products for:
 
-* processing field data
-* synthesizing archive data
+* processing/archiving field data
+* synthesizing archive data especially data hosted by ERDDAP
 * generating common FOCI related products
 
 It is also a source for testing github integrations, github Actions, and other tools/examples that could be useful for the EcoFOCI repository (auto-linting, auto-config updates, etc)
 
 ## Extended Description
+
+### Analysis tools
+
+Tools developed within this package are heavily reliant on the following community packages:
+- xarray: for saving to netcdf and manipulating multidimensional datasets
+- pandas: for saving to csv and manipulating more "tabular" datasets
+- python-ctd (ctd): for reading in seabird cnv files and python-seawater for EOS/TEOS conversions
+- geomag: for calculating geomagnetic declination correctinos
+- other standar packages such as matplotlib, cftime, and inherent dependencies like netCDF4
 
 ### Visualization
 
@@ -19,15 +28,24 @@ It is also a source for testing github integrations, github Actions, and other t
 
 * akutan (internal)
 
+## Additional Notes/Guidance
 
-### Jupyter Notebooks
+### Jupyter Notebooks and code examples
 
-* examples of API and workflows
+Within the `notebooks` folder are examples of the API and workflows.  These examples involve:
 
+- converting raw data to netcdf data following FOCI's conventions
+  + apply time transformations
+  + apply calibration transformations
+  + apply field checks and remove non-deployed / deck data
+  + apply deployment corrections, e.g. depth/salinity corrections, magnetic declination corrections
+  + perform quick visual checks and sanity checks of data
+- examples of filtering data
+  + lanzcos 35hr filter is most common
 
-### Additional Notes/Guidance
+Within the `examples` folder are simple examples, often equivalent to the notebooks but with significantly less descripton.  These can be used as a basis for developing "scripts" to archive for historical record, regarding the treatment of each instrument as it is analyzed
 
-Examples of usage can be found in the examples folder
+### Configuration File Creation
 
 Configuration YAML files are necessary for any supplementary meta_information - these are in a seperate folder from the source files
 
