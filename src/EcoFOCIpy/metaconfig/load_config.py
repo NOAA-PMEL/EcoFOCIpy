@@ -1,6 +1,6 @@
-import yaml
-
 from collections import OrderedDict
+
+import yaml
 
 
 def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):

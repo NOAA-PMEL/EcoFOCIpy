@@ -13,6 +13,7 @@ import datetime
 
 import xarray as xr
 
+
 class EcoFOCI_CFnc(object):
     """
     Designed for:

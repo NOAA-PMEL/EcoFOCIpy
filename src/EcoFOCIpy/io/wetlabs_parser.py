@@ -11,8 +11,10 @@ Non-moored:
 * processing is likely the same if recording internally.
 
 """
-import pandas as pd
 import sys
+
+import pandas as pd
+
 
 class wetlabs(object):
     r""" Wetlabs Unified parser

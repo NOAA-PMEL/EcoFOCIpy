@@ -7,9 +7,11 @@ Moored SBE (cnv files):
 * 16,19,26,37,39,56
 
 """
-import pandas as pd
-import sys
 import datetime
+import sys
+
+import pandas as pd
+
 
 def sbetime_conversion(time_type='timeJ',data=None):
     """Seabird offers multiple time output options:
