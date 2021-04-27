@@ -15,8 +15,11 @@
 # -6.1335150785195536
 # >>>
 
-import math, os, unittest
+import math
+import os
+import unittest
 from datetime import date
+
 
 class GeoMag:
 
