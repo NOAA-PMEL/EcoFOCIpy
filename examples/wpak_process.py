@@ -59,9 +59,10 @@ with open(mooring_meta_file) as file:
 # Add meta data and prelim processing based on meta data
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
-wpak_nc = ncCFsave.EcoFOCI_CFnc_moored(df=wpak_grid_decimate, 
+wpak_nc = ncCFsave.EcoFOCI_CFnc(df=wpak_grid_decimate, 
                                 instrument_yaml=inst_config, 
-                                mooring_yaml=mooring_config, 
+                                operation_yaml=mooring_config,
+                                operation_type='mooring', 
                                 instrument_id=instrument, 
                                 inst_shortname=inst_shortname)
 
@@ -81,9 +82,12 @@ wpak_nc.qc_status(qc_status='unknown')
 # add variable attributes, if not listed here, it just doesn't get an attribute
 wpak_nc.variable_meta_data(variable_keys=['AT_21', 'BP_915', 'WD_410', 'Teq_1800', 'BAT_106', 'RH_910', 'Qs_133', 'WV_423', 'comp_1404', 'WS_401', 'WU_422'])
 
-# combine trim (not mandatory) and filename together (saves to test.nc without name)
-wpak_nc.xarray2netcdf_save(xdf = wpak_nc.autotrim_time(),
-                           filename=wpak_nc.filename_const())
+depth = str(int(mooring_config['Instrumentation'][instrument]['ActualDepth'])).zfill(4)
+# mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth'])).zfill(4) #<-- alternative
+filename = "".join(mooring_config['MooringID'].split('-')).lower()+'_'+inst_shortname+'_'+depth+'m.nc'
+
+wpak_nc.xarray2netcdf_save(xdf = wpak_nc.autotrim_time(), filename=filename,format="NETCDF3_CLASSIC")
+
 
 ### tests 
 
