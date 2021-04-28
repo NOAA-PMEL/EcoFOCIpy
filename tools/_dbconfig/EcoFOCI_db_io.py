@@ -16,10 +16,10 @@
 
 """
 
-import mysql.connector
 import datetime
-import numpy as np
 
+import mysql.connector
+import numpy as np
 from EcoFOCIpy.metaconfig import load_config
 
 __author__ = "Shaun Bell"

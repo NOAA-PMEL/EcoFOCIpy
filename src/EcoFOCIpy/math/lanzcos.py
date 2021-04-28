@@ -12,6 +12,7 @@ __all__ = ["low_pass_weights", "spectral_window",
 
 import numpy as np
 
+
 def low_pass_weights(window, cutoff):
     """Calculate weights for a low pass Lanczos filter.
 

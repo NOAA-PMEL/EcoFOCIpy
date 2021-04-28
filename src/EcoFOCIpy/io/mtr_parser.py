@@ -8,6 +8,7 @@ These include:
 """
 import pandas as pd
 
+
 class mtrduino(object):
     r""" MicroTemperature Recorders (MTR) - 5k / MTRduino generation
     Collection of static methods to define MTR processing and conversion

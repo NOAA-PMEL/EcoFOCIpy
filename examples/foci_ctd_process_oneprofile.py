@@ -9,12 +9,12 @@ Focus is on processing a single profile
 To plot processed data - see "{}.ipynb" or example
 """
 
-import yaml
 import glob
 
-import EcoFOCIpy.io.sbe_ctd_parser as sbe_ctd_parser #<- instrument specific
 import EcoFOCIpy.io.ncCFsave as ncCFsave
+import EcoFOCIpy.io.sbe_ctd_parser as sbe_ctd_parser  # <- instrument specific
 import EcoFOCIpy.metaconfig.load_config as load_config
+import yaml
 
 ###############################################################
 # edit to point to {cruise sepcific} raw datafiles 
