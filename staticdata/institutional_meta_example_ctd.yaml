@@ -1,0 +1,29 @@
+# Following mostly, the global attributes spelled out in the oceansites reference
+source_documents: http://www.oceansites.org/docs/oceansites_data_format_reference_manual.pdf
+institution: Pacific Marine Environmental Lab (PMEL)
+project: EcoFOCI
+project_url: https://www.ecofoci.noaa.gov
+principal_investigator: Phyllis Stabeno
+principal_investigator_email: phyllis.stabeno (at) noaa.gov
+creator_name: Shaun Bell
+creator_email: shaun.bell (at) noaa.gov
+creator_institution: PMEL
+keywords: 'CTD, Oceanographic, Cruise'
+comment: Provisional data
+#  alternative_content: Final data
+sea_area: Bering Sea (BS)
+#  alternative_content: (Chukchi, Gulf of Alaska, other)
+featureType: profile
+# additional options and examples
+# point - mooring location
+# timeSeries - moored instrument
+# trajectory - drifter
+# profile - single ctd if all depths have one time
+# timeSeriesProfile - prawler if each cast is one time
+# trajectoryProfile - gliders, profilers
+conventions: ”CF-1.6, ~OceanSITES-1.5, ACDD-1.2”
+# rarely, we may need to specify EPIC as our convention reference
+license: ''
+references: ''
+citation: ''
+acknowledgement: ''
