@@ -64,6 +64,12 @@ chlor_fluorescence:
   long_name: "Mass Concdentration of chlorophyll from chlorophyll fluorescence"
   standard_name: mass_concentration_of_chlorophyll_in_sea_water
   units: ugrams/l
+turbidity:
+  epic_key: Trb_980
+  generic_name: Turbidity
+  long_name: "Turbidity of ocean water in Nephlometric Turbidity Units"
+  standard_name: sea_water_turbidity
+  units: NTU
 par: 
   generic_name: par
   epic_key: PAR_905
@@ -106,5 +112,3 @@ oxy_percentsat_ch2:
   units: 'percent'
   long_name: 'Percent Saturation of oxygen over air' 
   standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
-
-
