@@ -130,13 +130,38 @@ class EcoFOCI_CFnc(object):
         for var in variable_keys:
             self.xdf[var].attrs = self.instrument_yaml[var]
 
+    def temporal_geospatioal_meta_data_ctd(self,positiveE=True,conscastno='CTD001'):
+        """Add cast lat, lon and time
+
+        Args:
+            positiveE (bool, optional): [description]. Defaults to True.
+            conscastno (str, optional): [description]. Defaults to 'CTD001'.
+        """
+        assert self.operation_type == 'ctd', 'Function only relevant for ctds'
+
+
+        longitude = float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LongitudeDeg']) + \
+            (float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LongitudeMin']))/60
+        latitude = float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LatitudeDeg']) + \
+            (float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LatitudeMin']))/60
+
+        if not positiveE:
+            self.xdf['longitude'] = [-1*longitude]
+        else:
+            self.xdf['longitude'] = [longitude]
+        self.xdf['latitude'] = [latitude]
+
+
     def temporal_geospatioal_meta_data(self,positiveE=True,depth='designed'):
-        """Only used for moored data
+        """
+        Moored Data only, CTD data has a similar function but castid must be passed
 
         Args:
             positiveE (bool, optional): [description]. Defaults to True.
             depth (list, optional): [description]. Defaults to 'designed'.
         """
+        assert self.operation_type == 'mooring', 'Function only relevant for moorings'
+
         attributes = {
             'Latitude-Deg_MM.dd_W':self.operation_yaml['Deployment']['DeploymentLatitude'],
             'Longitude-Deg_MM.dd_N':self.operation_yaml['Deployment']['DeploymentLongitude']}

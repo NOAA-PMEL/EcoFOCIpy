@@ -24,20 +24,24 @@ def seabird_header(filename=None):
     """
     assert filename.split('.')[-1] == 'cnv' , 'Must provide a tid file - use sbe software to convert'
 
-    header = []
+    header, headercount, utc_time, latitude, longitude = [], [], [], [], []
     var_names = {}
     with open(filename) as fobj:
         for k, line in enumerate(fobj.readlines()):
             header = header + [line]
             if "# name" in line:
                 var_names[int(line.split("=")[0].split()[-1])] = line.split("=")[1].split()[0].split(':')[0]
-            if "# start_time" in line:
-                start_time = line.split("[")[0].split("=")[-1].strip()
+            if "* NMEA UTC (Time)" in line:
+                utc_time = line.split("=")[-1].strip()
+            if '* NMEA Latitude' in line:
+                latitude = line.split("=")[-1].strip()
+            if '* NMEA Longitude' in line:
+                longitude = line.split("=")[-1].strip()                
             if "*END*" in line:
                 headercount=k+1
                 break
 
-    return (header, headercount, var_names, start_time)
+    return {'header':header, 'headercount':headercount, 'varnames':var_names, 'NMEAtime':utc_time, 'NMEALat':latitude, 'NMEALon':longitude}
 
 class sbe_btl(object):
     """Process SBE BTL files
@@ -118,7 +122,7 @@ class sbe9_11p(object):
 
 
     @staticmethod
-    def parse(file_list=[None], return_header=True, datetime_index=True):
+    def parse(file_list=[None], datetime_index=True):
         r"""
         Basic Method to open and read sbe9_11 .cnv files
 
@@ -132,6 +136,8 @@ class sbe9_11p(object):
             ctd_df = ctd.from_cnv(ctdfile)
 
             df_dic.update({ctdfile.split('/')[-1]:ctd_df})
+
+            header_dic.update({ctdfile.split('/')[-1]:seabird_header(ctdfile)})
 
         return (df_dic, header_dic)
 

@@ -47,9 +47,10 @@ with open(mooring_meta_file) as file:
 # Convert to xarray and add meta information - save as CF netcdf file
 # pass -> data, instmeta, depmeta
 ### 1
-sbe39_wop_nc = ncCFsave.EcoFOCI_CFnc_moored(df=sbe39_wop_data, 
+sbe39_wop_nc = ncCFsave.EcoFOCI_CFnc(df=sbe39_wop_data, 
                                 instrument_yaml=inst_config, 
-                                mooring_yaml=mooring_config, 
+                                operation_yaml=mooring_config, 
+                                operation_type='mooring',
                                 instrument_id=instrument, 
                                 inst_shortname=inst_shortname)
 
@@ -81,8 +82,9 @@ sbe39_wop_nc.provinance_meta_add()
 sbe39_wop_nc.qc_status(qc_status='unknown')
 #--------------------------------------------------------------------------------------#
 
-### 2
 # combine trim (not mandatory) and filename together (saves to test.nc without name)
+depth = str(int(mooring_config['Instrumentation'][instrument]['DesignedDepth'])).zfill(4)
+# mooring_yaml['Instrumentation'][self.instrument_id]['DesignedDepth'])).zfill(4) #<-- alternative 
+filename = "".join(mooring_config['MooringID'].split('-')).lower()+'_'+inst_shortname+'_'+depth+'m.nc'
 sbe39_wop_nc.xarray2netcdf_save(xdf = sbe39_wop_nc.autotrim_time(),
-                           filename=sbe39_wop_nc.filename_const(),format="NETCDF3_CLASSIC")
-
+                           filename=filename,format="NETCDF3_CLASSIC")

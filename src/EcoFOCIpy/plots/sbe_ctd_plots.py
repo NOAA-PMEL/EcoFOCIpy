@@ -292,6 +292,5 @@ def plot_salvtemp(cruise=None, cast=None, salt=None, temp=None, press=None, sran
     ax1.set_xlabel('Salinity (PSU)',fontsize=16)
     ax1.set_ylabel('Temperature (C)',fontsize=16)
 
-    
     fig.suptitle(ptitle, fontsize=18, fontweight='bold')
     return fig  
