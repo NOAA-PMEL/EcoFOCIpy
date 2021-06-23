@@ -45,14 +45,10 @@ parser.add_argument('-yaml', '--yaml_format',
                     help='format for yaml files')               
 
 args = parser.parse_args()
- 
-#its a view only user so hardcoding is ok... config file needs to be edited if
-#  machine changes
-config_file = '_secret/db_config_mooring.yaml'
 
 
 EcoFOCI_db = EcoFOCI_db_datastatus()
-(db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=config_file)
+(db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=args.db_ini)
 
 #get db meta information for mooring
 table = 'mooringdeployedinstruments'
