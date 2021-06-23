@@ -277,7 +277,9 @@ class sbe56(object):
 
         #time deffinition selector
         if 'timeJ' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJ']]
+            #value is julian day in timeJ... not days since start... and minus 1 for fact that jan 1 is doy=1
+            rawdata_df['date_time'] = [datetime.datetime(datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S").year,1,1) + 
+                                                                                    pd.Timedelta(days=x-1) for x in rawdata_df['timeJ']]
         elif 'timeJV2' in var_names.values():
             rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJV2']]
         elif 'timeS' in var_names.values():
@@ -288,5 +290,5 @@ class sbe56(object):
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)        
 
-        return (rawdata_df,header)
+        return (rawdata_df,header,start_time)
 
