@@ -93,7 +93,7 @@ class EcoFOCI_CFnc(object):
 
         self.xdf.attrs.update(attributes)
 
-    def expand_dimensions(self,dim_names=['latitude','longitude','depth'],time_dim_name='date_time',geophys_sort=True):
+    def expand_dimensions(self,dim_names=['latitude','longitude','depth','qc_flag'],time_dim_name='date_time',geophys_sort=True):
         """provide other dimensions in our usual x,y,z,t framework
         For moorings, this adds lat,lon,depth
 
@@ -105,7 +105,10 @@ class EcoFOCI_CFnc(object):
 
         #fill new dims
         for dn in dim_names:
-            self.xdf = self.xdf.assign_coords({dn: (dn, [1e35])})
+            if dn == 'qc_flag':
+                self.xdf = self.xdf.assign_coords({dn: (dn, [0])})
+            else:
+                self.xdf = self.xdf.assign_coords({dn: (dn, [1e35])})
 
         if geophys_sort:
             self.xdf = self.xdf.transpose('time','depth','latitude','longitude')
@@ -202,7 +205,7 @@ class EcoFOCI_CFnc(object):
         self.xdf.attrs.update({'history':history_text})
 
     def qc_status(self,qc_status='unknown'):
-        """QC_indicator: Unknown, Excellent, ProbablyGood, Mixed"""
+        """Filewide QC_indicator: Unknown, Excellent, ProbablyGood, Mixed"""
         attributes = {'QC_indicator':qc_status}
         self.xdf.attrs.update(attributes)
 
