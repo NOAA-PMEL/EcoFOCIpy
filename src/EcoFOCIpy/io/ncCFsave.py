@@ -12,6 +12,7 @@ These include:
 import datetime
 
 import xarray as xr
+import numpy as np
 
 
 class EcoFOCI_CFnc(object):
@@ -93,7 +94,7 @@ class EcoFOCI_CFnc(object):
 
         self.xdf.attrs.update(attributes)
 
-    def expand_dimensions(self,dim_names=['latitude','longitude','depth','qc_flag'],time_dim_name='date_time',geophys_sort=True):
+    def expand_dimensions(self,dim_names=['latitude','longitude','depth',],time_dim_name='date_time',geophys_sort=True):
         """provide other dimensions in our usual x,y,z,t framework
         For moorings, this adds lat,lon,depth
 
@@ -105,10 +106,7 @@ class EcoFOCI_CFnc(object):
 
         #fill new dims
         for dn in dim_names:
-            if dn == 'qc_flag':
-                self.xdf = self.xdf.assign_coords({dn: (dn, [0])})
-            else:
-                self.xdf = self.xdf.assign_coords({dn: (dn, [1e35])})
+            self.xdf = self.xdf.assign_coords({dn: (dn, [1e35])})
 
         if geophys_sort:
             self.xdf = self.xdf.transpose('time','depth','latitude','longitude')
@@ -198,6 +196,20 @@ class EcoFOCI_CFnc(object):
             'date_modified': ''}
         self.xdf.attrs.update(attributes)
 
+    def var_qcflag_init(self,dim_names=['depth','latitude','longitude','time']):
+        """Skipping over dimensions (assumed profile if no dim_names passed), create qc_flag variables with autofil of 0
+
+        Args:
+            dim_names (list, optional): [list of variables that do not get qc_flags]. Defaults to ['depth','latitude','longitude','time'].
+
+        """
+        for i in self.xdf.variables:
+            if i not in dim_names:
+                self.xdf[i+'_QC'] = self.xdf[i]*0
+                self.xdf[i+'_QC'].attrs = {'QCFlag_Value':'0,1,2,3,4,5,6,7,8,9','QCFlag_Meaning':"""No QC performed,Good Data,Probably Good Data,
+                 Bad Data that are Potentially Correctable, 
+                 Bad Data, Value Changed, ,Nominal Value, Interpolated Value, Missing Value"""}
+
     ### Break out following methods for modification to existing data
     def history(self, history_text=''):
         """TODO: prevent overwriting?"""
@@ -205,11 +217,27 @@ class EcoFOCI_CFnc(object):
         self.xdf.attrs.update({'history':history_text})
 
     def qc_status(self,qc_status='unknown'):
-        """Filewide QC_indicator: Unknown, Excellent, ProbablyGood, Mixed"""
+        """Filewide QC_indicator: Unknown, Excellent, ProbablyGood, Mixed, UnQCd"""
         attributes = {'QC_indicator':qc_status}
         self.xdf.attrs.update(attributes)
 
     ###
+    def interp2sfc(self,novars=['par']):
+        """Interpolate CTD files to suface, skip listed vars in novars, change QC_Flag to 8 or 9
+
+        Args:
+            novars (list, optional): [Variables to not fill with values]. Defaults to ['par'].
+        """
+        assert self.operation_type == 'ctd', 'Function only relevant for ctds'
+
+        tmpdata = self.xdf.isel({'depth': 0})
+        while tmpdata.depth >0:
+            tmpdata['depth'] = tmpdata.depth -1
+            for varname in novars:
+                tmpdata[varname] = np.nan
+                tmpdata[varname+'_QC'] = 9
+            self.xdf = xr.concat([tmpdata,self.xdf],'depth')
+    
     def autotrim_time(self):
         """Only used for moored data
 
