@@ -43,7 +43,7 @@ Within the `notebooks` folder are examples of the API and workflows.  These exam
 - examples of filtering data
   + lanzcos 35hr filter is most common
 
-Within the `examples` folder are simple examples, often equivalent to the notebooks but with significantly less descripton.  These can be used as a basis for developing "scripts" to archive for historical record, regarding the treatment of each instrument as it is analyzed
+Within the `examples` and `notebooks` folders are a collection of examples, they may be exceptionally verbose or _simple_.  The _simple_ examples can be used as a basis for developing "scripts" to archive for historical record, regarding the treatment of each instrument as it is analyzed.  Alternatively, one could save any notebook to the archive or export an html or pdf version for historic records.
 
 ### Configuration File Creation
 
