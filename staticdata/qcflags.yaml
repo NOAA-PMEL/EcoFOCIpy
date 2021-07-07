@@ -1,0 +1,43 @@
+QCFlagSource: 
+  Source: OceanSites
+  QCFlagReference: https://odv.awi.de/fileadmin/user_upload/odv/misc/ODV_QualityFlagSets.pdf
+  0:
+    value: 0
+    meaning: 'No QC performed'
+    comment: ''
+  1:
+    value: 1
+    meaning: 'Good Data'
+    comment: 'All QC Tests Passed'
+  2:
+    value: 2
+    meaning: 'Probably Good Data'
+    comment: ''
+  3:
+    value: 3
+    meaning: 'Bad Data that are Potentially Correctable'
+    comment: 'These data are not to be used without scientific correction or re-calibration. '
+  4:
+    value: 4
+    meaning: 'Bad Data'
+    comment: 'Data have failed one or more tests. '
+  5:
+    value: 5
+    meaning: 'Value Changed'
+    comment: 'Data may be recovered after transmission error. '
+  6:
+    value: 6
+    meaning: ''
+    comment: 'Not Used'
+  7:
+    value: 7
+    meaning: 'Nominal Vale'
+    comment: 'Data were not observed but reported.'
+  8:
+    value: 8
+    meaning: 'Interplated Value'
+    comment: 'Missing data may be interpolated from neighboring data in space or time. '
+  9:
+    value: 9
+    meaning: 'Missing value'
+    comment: ''

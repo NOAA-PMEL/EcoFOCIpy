@@ -1,0 +1,491 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"id": CTD001,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.04866666666666,56.87133333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD001","StationNameID": "M2C","GMTYear": "2018","GMTMonth": "Apr","GMTDay": "30","GMTTime": "69660"}
+}
+, {
+"type": "Feature",
+"id": CTD002,
+"geometry": {
+"type": "Point",
+"coordinates": [-163.82783333333333,56.9435]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD002","StationNameID": "M2E","GMTYear": "2018","GMTMonth": "May","GMTDay": "1","GMTTime": "14280"}
+}
+, {
+"type": "Feature",
+"id": CTD003,
+"geometry": {
+"type": "Point",
+"coordinates": [-163.86433333333332,56.669333333333334]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD003","StationNameID": "M2S","GMTYear": "2018","GMTMonth": "May","GMTDay": "1","GMTTime": "28920"}
+}
+, {
+"type": "Feature",
+"id": CTD004,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.21866666666668,57.016666666666666]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD004","StationNameID": "70M2N","GMTYear": "2018","GMTMonth": "May","GMTDay": "1","GMTTime": "42000"}
+}
+, {
+"type": "Feature",
+"id": CTD005,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.334,56.7695]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD005","StationNameID": "70M2W","GMTYear": "2018","GMTMonth": "May","GMTDay": "1","GMTTime": "50160"}
+}
+, {
+"type": "Feature",
+"id": CTD006,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.58,56.80683333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD006","StationNameID": "70M3","GMTYear": "2018","GMTMonth": "May","GMTDay": "1","GMTTime": "55980"}
+}
+, {
+"type": "Feature",
+"id": CTD007,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.07133333333334,56.86233333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD007","StationNameID": "M2C","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "10800"}
+}
+, {
+"type": "Feature",
+"id": CTD008,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.06783333333334,56.864333333333335]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD008","StationNameID": "M2C","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "16500"}
+}
+, {
+"type": "Feature",
+"id": CTD009,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.81983333333332,56.909166666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD009","StationNameID": "70M4","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "28560"}
+}
+, {
+"type": "Feature",
+"id": CTD010,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.12116666666665,56.858333333333334]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD010","StationNameID": "70M5","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "36240"}
+}
+, {
+"type": "Feature",
+"id": CTD011,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.38316666666665,56.994]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD011","StationNameID": "70M6","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "41940"}
+}
+, {
+"type": "Feature",
+"id": CTD012,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.61116666666666,57.10916666666667]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD012","StationNameID": "70M7","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "48000"}
+}
+, {
+"type": "Feature",
+"id": CTD013,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.75296666666668,57.263466666666666]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD013","StationNameID": "70M8","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "53040"}
+}
+, {
+"type": "Feature",
+"id": CTD014,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.0088,57.324416666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD014","StationNameID": "70M9","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "58860"}
+}
+, {
+"type": "Feature",
+"id": CTD015,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.32433333333333,57.32216666666667]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD015","StationNameID": "70M10","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "64260"}
+}
+, {
+"type": "Feature",
+"id": CTD016,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.51033333333334,57.436683333333335]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD016","StationNameID": "70M11","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "71340"}
+}
+, {
+"type": "Feature",
+"id": CTD017,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.81383333333332,57.42973333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD017","StationNameID": "70M12","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "77100"}
+}
+, {
+"type": "Feature",
+"id": CTD018,
+"geometry": {
+"type": "Point",
+"coordinates": [-167.0415,57.521166666666666]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD018","StationNameID": "70M13","GMTYear": "2018","GMTMonth": "May","GMTDay": "2","GMTTime": "83400"}
+}
+, {
+"type": "Feature",
+"id": CTD019,
+"geometry": {
+"type": "Point",
+"coordinates": [-167.35033333333334,57.497]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD019","StationNameID": "70M14","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "2100"}
+}
+, {
+"type": "Feature",
+"id": CTD020,
+"geometry": {
+"type": "Point",
+"coordinates": [-167.66466666666668,57.503166666666665]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD020","StationNameID": "70M15","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "8340"}
+}
+, {
+"type": "Feature",
+"id": CTD021,
+"geometry": {
+"type": "Point",
+"coordinates": [-167.99133333333333,57.503]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD021","StationNameID": "70M16","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "12660"}
+}
+, {
+"type": "Feature",
+"id": CTD022,
+"geometry": {
+"type": "Point",
+"coordinates": [-168.30133333333333,57.521]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD022","StationNameID": "70M17","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "18600"}
+}
+, {
+"type": "Feature",
+"id": CTD023,
+"geometry": {
+"type": "Point",
+"coordinates": [-168.61116666666666,57.526666666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD023","StationNameID": "70M18","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "23460"}
+}
+, {
+"type": "Feature",
+"id": CTD024,
+"geometry": {
+"type": "Point",
+"coordinates": [-168.46366666666665,57.7665]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD024","StationNameID": "70M4E","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "30720"}
+}
+, {
+"type": "Feature",
+"id": CTD025,
+"geometry": {
+"type": "Point",
+"coordinates": [-169.0175,57.653166666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD025","StationNameID": "70M4S","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "39840"}
+}
+, {
+"type": "Feature",
+"id": CTD026,
+"geometry": {
+"type": "Point",
+"coordinates": [-168.88933333333333,57.873666666666665]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD026","StationNameID": "70M4C","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "47100"}
+}
+, {
+"type": "Feature",
+"id": CTD027,
+"geometry": {
+"type": "Point",
+"coordinates": [-168.726,58.068783333333336]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD027","StationNameID": "70M4N","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "67980"}
+}
+, {
+"type": "Feature",
+"id": CTD028,
+"geometry": {
+"type": "Point",
+"coordinates": [-169.32866666666666,57.92523333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD028","StationNameID": "70M4W","GMTYear": "2018","GMTMonth": "May","GMTDay": "3","GMTTime": "79380"}
+}
+, {
+"type": "Feature",
+"id": CTD029,
+"geometry": {
+"type": "Point",
+"coordinates": [-82.33500000000001,-115.66499999999999]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD029","StationNameID": "MT3A","GMTYear": "2018","GMTMonth": "May","GMTDay": "4","GMTTime": "0"}
+}
+, {
+"type": "Feature",
+"id": CTD030,
+"geometry": {
+"type": "Point",
+"coordinates": [-174.61566666666667,61.9785]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD030","StationNameID": "M8S","GMTYear": "2018","GMTMonth": "May","GMTDay": "5","GMTTime": "73380"}
+}
+, {
+"type": "Feature",
+"id": CTD031,
+"geometry": {
+"type": "Point",
+"coordinates": [-174.298,62.2003]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD031","StationNameID": "M8E","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "1320"}
+}
+, {
+"type": "Feature",
+"id": CTD032,
+"geometry": {
+"type": "Point",
+"coordinates": [-174.7045,62.422666666666665]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD032","StationNameID": "70M8N","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "13260"}
+}
+, {
+"type": "Feature",
+"id": CTD033,
+"geometry": {
+"type": "Point",
+"coordinates": [-175.20083333333332,62.20133333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD033","StationNameID": "70M8W","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "22500"}
+}
+, {
+"type": "Feature",
+"id": CTD034,
+"geometry": {
+"type": "Point",
+"coordinates": [-174.67016666666666,62.20166666666667]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD034","StationNameID": "70M8C","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "33060"}
+}
+, {
+"type": "Feature",
+"id": CTD035,
+"geometry": {
+"type": "Point",
+"coordinates": [-174.09433333333334,61.86116666666667]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD035","StationNameID": "70M54","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "47880"}
+}
+, {
+"type": "Feature",
+"id": CTD036,
+"geometry": {
+"type": "Point",
+"coordinates": [-173.7035,61.55795]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD036","StationNameID": "70M52","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "57120"}
+}
+, {
+"type": "Feature",
+"id": CTD037,
+"geometry": {
+"type": "Point",
+"coordinates": [-173.74283333333332,61.2485]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD037","StationNameID": "70M50","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "66000"}
+}
+, {
+"type": "Feature",
+"id": CTD038,
+"geometry": {
+"type": "Point",
+"coordinates": [-173.82816666666668,60.905166666666666]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD038","StationNameID": "70M48","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "75720"}
+}
+, {
+"type": "Feature",
+"id": CTD039,
+"geometry": {
+"type": "Point",
+"coordinates": [-173.641,60.5709]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD039","StationNameID": "70M46","GMTYear": "2018","GMTMonth": "May","GMTDay": "6","GMTTime": "85800"}
+}
+, {
+"type": "Feature",
+"id": CTD040,
+"geometry": {
+"type": "Point",
+"coordinates": [-173.36666666666667,60.2485]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD040","StationNameID": "70M44","GMTYear": "2018","GMTMonth": "May","GMTDay": "7","GMTTime": "10500"}
+}
+, {
+"type": "Feature",
+"id": CTD041,
+"geometry": {
+"type": "Point",
+"coordinates": [-172.9035,60.0315]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD041","StationNameID": "70M42","GMTYear": "2018","GMTMonth": "May","GMTDay": "7","GMTTime": "20280"}
+}
+, {
+"type": "Feature",
+"id": CTD042,
+"geometry": {
+"type": "Point",
+"coordinates": [-172.30233333333334,59.907666666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD042","StationNameID": "70M40","GMTYear": "2018","GMTMonth": "May","GMTDay": "7","GMTTime": "31020"}
+}
+, {
+"type": "Feature",
+"id": CTD043,
+"geometry": {
+"type": "Point",
+"coordinates": [-171.72433333333333,59.915]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD043","StationNameID": "","GMTYear": "2018","GMTMonth": "May","GMTDay": "7","GMTTime": "48000"}
+}
+, {
+"type": "Feature",
+"id": CTD044,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.0965,55.054]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD044","StationNameID": "UBN6","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "34680"}
+}
+, {
+"type": "Feature",
+"id": CTD045,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.98983333333334,54.93683333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD045","StationNameID": "UBE1","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "40500"}
+}
+, {
+"type": "Feature",
+"id": CTD046,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.89083333333335,54.826166666666666]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD046","StationNameID": "UBE2","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "46260"}
+}
+, {
+"type": "Feature",
+"id": CTD047,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.78983333333332,54.716]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD047","StationNameID": "UBE3","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "49980"}
+}
+, {
+"type": "Feature",
+"id": CTD048,
+"geometry": {
+"type": "Point",
+"coordinates": [-164.98483333333334,54.44445]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD048","StationNameID": "UBS1","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "58980"}
+}
+, {
+"type": "Feature",
+"id": CTD049,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.14266666666666,54.42146666666667]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD049","StationNameID": "UBS2","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "64560"}
+}
+, {
+"type": "Feature",
+"id": CTD050,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.2785,54.37565]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD050","StationNameID": "UBS3","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "73200"}
+}
+, {
+"type": "Feature",
+"id": CTD051,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.4255,54.33968333333333]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD051","StationNameID": "UBS4","GMTYear": "2018","GMTMonth": "May","GMTDay": "9","GMTTime": "80400"}
+}
+, {
+"type": "Feature",
+"id": CTD052,
+"geometry": {
+"type": "Point",
+"coordinates": [-165.92916666666667,54.362833333333334]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD052","StationNameID": "UBW1","GMTYear": "2018","GMTMonth": "May","GMTDay": "10","GMTTime": "7140"}
+}
+, {
+"type": "Feature",
+"id": CTD053,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.0365,54.471]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD053","StationNameID": "","GMTYear": "2018","GMTMonth": "May","GMTDay": "10","GMTTime": "16920"}
+}
+, {
+"type": "Feature",
+"id": CTD054,
+"geometry": {
+"type": "Point",
+"coordinates": [-166.12333333333333,54.584666666666664]},
+"properties": {
+"Project": "FOCI Spring Mooring Survey","ConsecutiveCastNo": "CTD054","StationNameID": "","GMTYear": "2018","GMTMonth": "May","GMTDay": "10","GMTTime": "24780"}
+}
+]
+}
