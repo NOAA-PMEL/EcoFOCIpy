@@ -31,7 +31,7 @@ QCFlagSource:
     comment: 'Not Used'
   7:
     value: 7
-    meaning: 'Nominal Vale'
+    meaning: 'Nominal Value'
     comment: 'Data were not observed but reported.'
   8:
     value: 8

@@ -140,7 +140,12 @@ class EcoFOCI_CFnc(object):
         """
         assert self.operation_type == 'ctd', 'Function only relevant for ctds'
 
-
+        GMTYear = self.operation_yaml['CTDCasts'][conscastno.upper()]['GMTYear']
+        GMTMonth = self.operation_yaml['CTDCasts'][conscastno.upper()]['GMTMonth'] #as 3char name
+        GMTDay = self.operation_yaml['CTDCasts'][conscastno.upper()]['GMTDay']
+        GMTTime = self.operation_yaml['CTDCasts'][conscastno.upper()]['GMTTime'] #in seconds
+        
+        GMTDateTime = datetime.datetime.strptime(f'{GMTYear}-{GMTMonth}-{GMTDay}','%Y-%b-%d')+datetime.timedelta(seconds=GMTTime)
         longitude = float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LongitudeDeg']) + \
             (float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LongitudeMin']))/60
         latitude = float(self.operation_yaml['CTDCasts'][conscastno.upper()]['LatitudeDeg']) + \
@@ -151,6 +156,7 @@ class EcoFOCI_CFnc(object):
         else:
             self.xdf['longitude'] = [longitude]
         self.xdf['latitude'] = [latitude]
+        self.xdf['time'] = [GMTDateTime]
 
 
     def temporal_geospatioal_meta_data(self,positiveE=True,depth='designed'):
@@ -223,7 +229,7 @@ class EcoFOCI_CFnc(object):
 
     ###
     def interp2sfc(self,novars=['par']):
-        """Interpolate CTD files to suface, skip listed vars in novars, change QC_Flag to 8 or 9
+        """Interpolate CTD files to suface, skip listed vars in novars, change QC_Flag to 8 or 9 if skipped
 
         Args:
             novars (list, optional): [Variables to not fill with values]. Defaults to ['par'].
@@ -233,6 +239,9 @@ class EcoFOCI_CFnc(object):
         tmpdata = self.xdf.isel({'depth': 0})
         while tmpdata.depth >0:
             tmpdata['depth'] = tmpdata.depth -1
+            for varname in list(self.xdf.keys()):
+                if '_QC' in varname:
+                    tmpdata[varname+'_QC'] = 8
             for varname in novars:
                 tmpdata[varname] = np.nan
                 tmpdata[varname+'_QC'] = 9
@@ -269,4 +278,4 @@ class EcoFOCI_CFnc(object):
             filename (str, optional): Filename. Defaults to 'temp.nc'.
         """
                 
-        xdf.to_netcdf(filename,format=kwargs['format'])
+        xdf.to_netcdf(filename,format=kwargs['format'],encoding={'time':{'units':'days since 1900-01-01'}})
