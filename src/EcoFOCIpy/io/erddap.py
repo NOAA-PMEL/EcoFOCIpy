@@ -12,7 +12,7 @@ def test_erddap_connection(url=''):
     
 
 def erddapCTDretrieve(url='',cruiseid='',concastno='001',qclevel='final'):
-    """[summary]
+    """Retrieve a single cast from a FOCI cruise hosted via erddap
 
     Args:
         url (str, optional): url to foci hosted erddap. Defaults to ''.
@@ -28,8 +28,37 @@ def erddapCTDretrieve(url='',cruiseid='',concastno='001',qclevel='final'):
     
     e.dataset_id = f'CTD_{cruiseid}_{qclevel}'
     
-    df = e.to_pandas()
+    df = e.to_pandas(parse_dates=True)
     
-    df = df[df.profile_id.str.contains(concastno)]
+    try:
+        df = df[df.profile_id.str.contains(concastno)]
+    except:
+        df = df.dropna()[df.dropna().profile_id.str.contains(concastno)]
+
+    return df
+
+def erddapMooredInstretrieve(url='',mooringid='',qclevel='',instrid=''):
+    """Retrieve a single cast from a FOCI cruise hosted via erddap
+
+    Args:
+        url (str, optional): url to foci hosted erddap. Defaults to ''.
+        cruiseid (str, optional): standard foci mooring id without hyphens. eg 19bs2c Defaults to ''.
+        instrid (str, optional): full instrument reference - 19bs2c_s37_0064m - usually the archived filenmame.
+        qclevel (str, optional): preliminary or final. Defaults to 'final'.
+    """
+
+    e = ERDDAP(
+      server=url,
+      protocol="tabledap",
+    )
     
+    e.dataset_id = f'datasets_Mooring_{mooringid}_{qclevel}'
+    
+    df = e.to_pandas(parse_dates=True)
+    
+    try:
+        df = df[df['timeseries_id'] == instrid].dropna(how='all', axis=1)
+    except:
+        df = df
+
     return df
