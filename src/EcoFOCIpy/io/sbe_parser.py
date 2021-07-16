@@ -82,11 +82,12 @@ class sbe16(object):
                         names=var_names.values(), 
                         skiprows=headercount)
 
-        if 'timeJ' in var_names.values():
+        #TODO: force a time word when the user knows there are multiple columms via an argument
+        if 'timeJ' in var_names.values(): #time in elapsed days, needs start date
             rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJ']]
-        elif 'timeJV2' in var_names.values():
-            rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(days=x) for x in rawdata_df['timeJV2']]
-        elif 'timeS' in var_names.values():
+        elif 'timeJV2' in var_names.values(): #time in julian date, needs start year
+            rawdata_df['date_time'] = [datetime.datetime(datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S").year,1,1) + pd.Timedelta(days=x-1) for x in rawdata_df['timeJV2']]
+        elif 'timeS' in var_names.values(): #time in elapse seconds, needs start date
             rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['timeS']]
         else:
             print(f'no time index identified: {var_names.values()}')

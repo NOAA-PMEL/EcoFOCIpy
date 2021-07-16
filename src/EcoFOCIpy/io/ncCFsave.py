@@ -87,7 +87,9 @@ class EcoFOCI_CFnc(object):
 
         if self.operation_type == 'mooring':
             attributes = {
-                'InstrumentSerialNumber':self.operation_yaml['Instrumentation'][self.instrument_id]}
+                'InstrumentSerialNumber':self.operation_yaml['Instrumentation'][self.instrument_id]['SerialNo'],
+                'InstrumentType':self.operation_yaml['Instrumentation'][self.instrument_id]['InstType'],
+                }
         elif self.operation_type == 'ctd':
             attributes = {
                 'InstrumentSerialNumber':None}
@@ -170,8 +172,8 @@ class EcoFOCI_CFnc(object):
         assert self.operation_type == 'mooring', 'Function only relevant for moorings'
 
         attributes = {
-            'Latitude-Deg_MM.dd_W':self.operation_yaml['Deployment']['DeploymentLatitude'],
-            'Longitude-Deg_MM.dd_N':self.operation_yaml['Deployment']['DeploymentLongitude']}
+            'Latitude_DegMMddW':self.operation_yaml['Deployment']['DeploymentLatitude'],
+            'Longitude_DegMMddN':self.operation_yaml['Deployment']['DeploymentLongitude']}
         self.xdf.attrs.update(attributes)
 
         dd,mm,hh = self.operation_yaml['Deployment']['DeploymentLongitude'].split()
@@ -223,7 +225,7 @@ class EcoFOCI_CFnc(object):
         self.xdf.attrs.update({'history':history_text})
 
     def qc_status(self,qc_status='unknown'):
-        """Filewide QC_indicator: Unknown, Excellent, ProbablyGood, Mixed, UnQCd"""
+        """Filewide QC_indicator: Unknown, Excellent, ProbablyGood, Mixed, UnQCd, QCd"""
         attributes = {'QC_indicator':qc_status}
         self.xdf.attrs.update(attributes)
 
