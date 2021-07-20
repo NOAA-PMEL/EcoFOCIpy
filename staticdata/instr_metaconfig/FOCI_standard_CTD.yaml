@@ -5,14 +5,13 @@ time:
   generic_name: time
   standard_name: time
   long_name: date and time since reference time
-  time_origin: '1900-01-01 00:00:00'
-  units: 'days since 1900-01-01T00:00:00Z'
 depth: 
   epic_key: D_3
   generic_name: depth
   units: meter
   long_name: "depth below surface (meters)"
   standard_name: depth
+  positive: down
 latitude:
   epic_key: LON_501
   name: latitude
