@@ -11,8 +11,8 @@ These include:
 """
 import datetime
 
-import xarray as xr
 import numpy as np
+import xarray as xr
 
 
 class EcoFOCI_CFnc(object):
