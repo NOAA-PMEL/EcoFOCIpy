@@ -1,8 +1,9 @@
 """Contains a collection erddap access tools
 
 """
-from erddapy import ERDDAP
 import requests
+from erddapy import ERDDAP
+
 
 def test_erddap_connection(url=''):
     e = ERDDAP(server=url)
