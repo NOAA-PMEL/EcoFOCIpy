@@ -35,7 +35,7 @@ QCFlagSource:
     comment: 'Data were not observed but reported.'
   8:
     value: 8
-    meaning: 'Interplated Value'
+    meaning: 'Interpolated Value'
     comment: 'Missing data may be interpolated from neighboring data in space or time. '
   9:
     value: 9
