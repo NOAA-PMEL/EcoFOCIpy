@@ -83,7 +83,7 @@ def outlier_bounds_iqr(arr, multiplier=1.5):
 
     return arr
 
-def rolling_outlier_std(tdf, var_choice=None, timebase=1, stddev=1, interp_fill_timebase=1):
+def rolling_outlier_std(tdf, var_choice=None, timebase=1, stddev=1, interp_fill_timebase='1h'):
     """[summary]
 
     Args:
@@ -107,9 +107,9 @@ def rolling_outlier_std(tdf, var_choice=None, timebase=1, stddev=1, interp_fill_
     xdf[var_choice+'_QC'].values[xdf[var_choice+'_QC'].values !=4] = 0
 
     #mask values that are interpolated back in 
-    mask = xdf[var_choice].where(xdf[var_choice] == (xdf[var_choice].where(~isnan(rc))).interpolate_na(dim='time',max_gap=interp_fill_timebase),8)
-    mask.values[mask.values !=8] = 0
-    xdf[var_choice+'_QC'].values[mask.values ==8] = 8
+    mask = (tdf[var_choice].where(~isnan(rc)))
+    mask_QC = xdf[var_choice].where(((xdf[var_choice] == mask) | isnan(xdf[var_choice])),8)
+    xdf[var_choice+'_QC'].values[(mask_QC.values) == 8] = 8
 
     xdf[var_choice][:round(timebase/2)+1] = tdf[var_choice][:round(timebase/2)+1]
     xdf[var_choice+'_QC'][:round(timebase/2)+1] = tdf[var_choice][:round(timebase/2)+1]*0 +1
