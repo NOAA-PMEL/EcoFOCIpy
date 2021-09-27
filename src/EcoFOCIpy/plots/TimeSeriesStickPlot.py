@@ -10,9 +10,10 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
-from matplotlib.dates import (DateFormatter, DayLocator, HourLocator,
-                              MonthLocator, WeekdayLocator, YearLocator)
-
+from matplotlib.dates import (
+    DateFormatter,
+    MonthLocator,
+)
 __all__ = ["Timeseries1dStickPlot"]
 
 class Timeseries1dStickPlot(object):
