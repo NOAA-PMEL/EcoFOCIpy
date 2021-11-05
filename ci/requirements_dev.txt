@@ -6,7 +6,7 @@ xlrd>=1.0.0
 netcdf4==1.5.7
 cftime==1.5.1
 erddapy==1.2.0
-mysql-connector-python==8.0.26
+mysql-connector-python==8.0.27
 ctd==1.1.1 #python-ctd
 seawater==3.3.4
 #geomag cmweis github version... part of package
