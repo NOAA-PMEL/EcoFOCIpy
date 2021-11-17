@@ -72,14 +72,8 @@ class sbe_btl(object):
                             columns=line.lower().split() + ['time']
                             ctd_df= pd.DataFrame(columns=columns)
                         if 'avg' in line:
-                            data=line.split('(avg)')[0].strip().split('   ')
-                            try:
-                                while True:
-                                    data.remove('')
-                            except ValueError:
-                                pass
+                            data=line.split('(avg)')[0].strip().split('    ')
                         if 'sdev' in line:
-                
                             row = pd.DataFrame(data=[data+[line.split()[0].strip()]],columns=columns)
 
                             for c in row.columns:
