@@ -49,8 +49,9 @@ class EcoFOCI_CFnc(object):
         self.inst_shortname = inst_shortname
 
     def institution_meta_add(self, institution_yaml=''):
-        """Add EcoFOCI base metadata"""
-        attributes = {}
+        """Add EcoFOCI base metadata from ingested yaml file"""
+
+        attributes = institution_yaml
 
         self.xdf.attrs.update(attributes)
 
@@ -70,11 +71,22 @@ class EcoFOCI_CFnc(object):
                 'platform_recovery_cruise_name': self.operation_yaml['Recovery']['RecoveryCruise'],
                 'platform_deployment_recovery_comments': self.operation_yaml['Notes'],
                 'WaterDepth':self.operation_yaml['Deployment']['DeploymentDepth']}
+
         elif self.operation_type == 'ctd':
-            attributes = {
+
+            attributes = self.operation_yaml[list(self.operation_yaml.keys())[0]] #get first key which is always a cruise id
+            
+            #hacky way to clean up datetimes from yaml file that cause netcdf to balk
+            try:
+                attributes.pop('StartDate')
+                attributes.pop('EndDate')
+            except:
+                pass
+
+            attributes.update({
                 'CruiseID':self.operation_yaml['CTDCasts'][conscastno]['UniqueCruiseID'],
                 'VesselName':self.operation_yaml['CTDCasts'][conscastno]['Vessel'],
-                'WaterDepth':self.operation_yaml['CTDCasts'][conscastno]['BottomDepth']}
+                'WaterDepth':self.operation_yaml['CTDCasts'][conscastno]['BottomDepth']})
 
         self.xdf.attrs.update(attributes)
 
