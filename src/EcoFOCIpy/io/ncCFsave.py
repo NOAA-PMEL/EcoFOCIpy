@@ -224,7 +224,7 @@ class EcoFOCI_CFnc(object):
 
         """
         for i in self.xdf.variables:
-            if i not in dim_names:
+            if (i not in dim_names) and ('_QC' not in i):
                 self.xdf[i+'_QC'] = self.xdf[i]*0
                 self.xdf[i+'_QC'].attrs = {'QCFlag_Value':'0,1,2,3,4,5,6,7,8,9','QCFlag_Meaning':"""No QC performed,Good Data,Probably Good Data,
                  Bad Data that are Potentially Correctable, 
@@ -255,7 +255,7 @@ class EcoFOCI_CFnc(object):
             tmpdata['depth'] = tmpdata.depth -1
             for varname in list(self.xdf.keys()):
                 if '_QC' in varname:
-                    tmpdata[varname+'_QC'] = 8
+                    tmpdata[varname] = 8
             for varname in novars:
                 tmpdata[varname] = np.nan
                 tmpdata[varname+'_QC'] = 9
