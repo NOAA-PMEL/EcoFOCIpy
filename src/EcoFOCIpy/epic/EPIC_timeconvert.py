@@ -87,7 +87,7 @@ def EPIC2Datetime( timeword_1, timeword_2):
     ref_time_dt = datetime.datetime(1968, 5, 23)
     ref_time_epic = 2440000
 
-    delta_days = timeword_1 - x
+    delta_days = timeword_1 - ref_time_epic
     delta_seconds = timeword_2/1000
     
     epic_dt = [ref_time_dt + datetime.timedelta(int(a),int(c)) for a,c in zip(delta_days,delta_seconds)]
