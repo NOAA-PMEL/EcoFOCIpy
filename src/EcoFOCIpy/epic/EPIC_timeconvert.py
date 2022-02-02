@@ -87,10 +87,10 @@ def EPIC2Datetime( timeword_1, timeword_2):
     ref_time_dt = datetime.datetime(1968, 5, 23)
     ref_time_epic = 2440000
 
-    delta_days = [x - ref_time_epic for x in timeword_1]
-    delta_seconds = [x/1000 for x in timeword_2]
+    delta_days = timeword_1 - ref_time_epic
+    delta_seconds = timeword_2/1000
     
-    epic_dt = [ref_time_dt + datetime.timedelta(a,c) for a,c in zip(delta_days,delta_seconds)]
+    epic_dt = [ref_time_dt + datetime.timedelta(int(a),int(c)) for a,c in zip(delta_days,delta_seconds)]
 
     return(epic_dt)
 
@@ -162,32 +162,6 @@ def Datetime2EPIC(epic_dt):
 """------------------------------------------------------------------------------------------------"""
 def main():
     pass
-
-def test_1d():
-    testdate = EPIC2Datetime([2440000,],[43200000+3600*1000,])
-    print(f"\n{testdate}\n")
-    for time_format in ['days','hours','seconds']:
-        time_since_str = time_format + ' since 1900-1-1'
-        print(f"{testdate}:value \n{time_since_str}:units\n")
-
-def test_2d():
-    testdate = EPIC2Datetime([2440000,2450000],[43200000,0])
-    print(f"\n{testdate}\n")
-    for time_format in ['days','hours','seconds']:
-        time_since_str = time_format + ' since 1900-1-1'
-        print(f"{testdate}:value \n{time_since_str}:units\n")
-
-def test_1d_EPIC():
-    testdate = EPIC2Datetime([2440000,],[43200000+3600*1000,])
-    print(f'{testdate}')
-    testdate1 = Datetime2EPIC(testdate)
-    print(f'{testdate1}')
-
-def test_2d_EPIC():
-    testdate = EPIC2Datetime([2440000,2450000],[43200000,0])
-    print(f'{testdate}')
-    testdate1 = Datetime2EPIC(testdate)
-    print(f'{testdate1}')
 
 if __name__ == "__main__":
     main()
