@@ -3,6 +3,7 @@ import datetime
 import pytest
 from EcoFOCIpy.epic import EPIC_timeconvert as EPIC
 
+
 class TestClassEPICTime:
     def test_1d(self):
         testdate = EPIC.EPIC2Datetime([2440000,],[43200000+3600*1000,])
