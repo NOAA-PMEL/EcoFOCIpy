@@ -18,5 +18,3 @@ MANIFEST
 .eggs/
 tools/_secret/*.yaml
 notebooks/*.nc
-
-src/ecofocipy/*
