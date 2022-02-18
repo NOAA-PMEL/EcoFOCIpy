@@ -125,6 +125,23 @@ class EcoFOCI_CFnc(object):
         if geophys_sort:
             self.xdf = self.xdf.transpose('time','depth','latitude','longitude')
 
+    def add_variable(self,variable_names=None,dupvar=None):
+        """Add new empty variables"""
+        assert variable_names != None , 'Must provide a list of variable names'
+        assert dupvar != None , 'Must provide the name of a variable you want to use as a reference for the duplicate'
+
+        for var in variable_names:
+            try:
+                self.xdf[variable_names] = self.xdf[dupvar] * np.nan
+            except:
+                pass
+
+    def add_external_data(self,variable_names=None,data=None):
+        """Add new empty variables"""
+        assert variable_names != None , 'Must provide a list of variable names'
+
+        self.xdf[variable_names] = data
+
     def variable_meta_data(self,variable_keys=None,drop_missing=True):
         """Add CF meta_data to each known variable"""
         assert variable_keys != None , 'Must provide a list of variable names'

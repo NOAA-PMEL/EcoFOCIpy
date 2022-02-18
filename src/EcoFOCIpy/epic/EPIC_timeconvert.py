@@ -1,4 +1,3 @@
-# filename: EPIC2Datetime.py
 r'''Module to convert PMEL-EPIC timeword to a python datetime and back
 
     Modifications
@@ -9,16 +8,10 @@ r'''Module to convert PMEL-EPIC timeword to a python datetime and back
 '''
 import datetime
 
+import numpy as np
 from cftime import date2num
 
-__author__   = 'Shaun Bell'
-__email__    = 'shaun.bell@noaa.gov'
-__created__  = datetime.datetime(2016, 7, 21)
-__modified__ = datetime.datetime(2021, 3, 15)
-__version__  = "0.1.0"
-__status__   = "Development"
-
-def EPIC2Datetime( timeword_1, timeword_2):
+def EPIC2Datetime(timeword_1, timeword_2):
     r''' 
 
     PMEL-EPIC time stored in NetCDF files is defined as two timewords: time, time2.  
@@ -87,8 +80,8 @@ def EPIC2Datetime( timeword_1, timeword_2):
     ref_time_dt = datetime.datetime(1968, 5, 23)
     ref_time_epic = 2440000
 
-    delta_days = timeword_1 - ref_time_epic
-    delta_seconds = timeword_2/1000
+    delta_days = np.array(timeword_1) - ref_time_epic
+    delta_seconds = np.array(timeword_2)/1000
     
     epic_dt = [ref_time_dt + datetime.timedelta(int(a),int(c)) for a,c in zip(delta_days,delta_seconds)]
 
@@ -159,9 +152,4 @@ def Datetime2EPIC(epic_dt):
     
     return(time, time1 )
 
-"""------------------------------------------------------------------------------------------------"""
-def main():
-    pass
 
-if __name__ == "__main__":
-    main()
