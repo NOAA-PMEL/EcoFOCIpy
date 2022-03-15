@@ -66,4 +66,3 @@ salinity:
   units: PSU
   long_name: "Practical salinity in-situ PSS-78 scale"
   standard_name: sea_water_practical_salinity
-

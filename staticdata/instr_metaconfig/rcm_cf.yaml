@@ -99,4 +99,3 @@ current_direction:
   units: 'degrees'
   long_name: 'Direction of Current speed  - degrees from North'
   standard_name: sea_water_current_direction
-

@@ -44,6 +44,3 @@ temperature:
   long_name: "Sea temperature in-situ ITS-90 scale"
   standard_name: sea_water_temperature
   units: degree_C
-
-
-
