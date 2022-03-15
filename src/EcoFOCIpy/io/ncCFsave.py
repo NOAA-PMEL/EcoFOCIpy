@@ -86,7 +86,14 @@ class EcoFOCI_CFnc(object):
             attributes.update({
                 'CruiseID':self.operation_yaml['CTDCasts'][conscastno]['UniqueCruiseID'],
                 'VesselName':self.operation_yaml['CTDCasts'][conscastno]['Vessel'],
-                'WaterDepth':self.operation_yaml['CTDCasts'][conscastno]['BottomDepth']})
+                'WaterDepth':self.operation_yaml['CTDCasts'][conscastno]['BottomDepth'],
+                'StationNameID':self.operation_yaml['CTDCasts'][conscastno]['StationNameID'],
+                'Notes':self.operation_yaml['CTDCasts'][conscastno]['Notes'],
+                'InstrumentSerialNos':self.operation_yaml['CTDCasts'][conscastno]['InstrumentSerialNos'],
+                'WindSpd':self.operation_yaml['CTDCasts'][conscastno]['WindSpd'],
+                'WindDir':self.operation_yaml['CTDCasts'][conscastno]['WindDir'],
+                'Pressure':self.operation_yaml['CTDCasts'][conscastno]['Pressure'],
+                'DryBulb':self.operation_yaml['CTDCasts'][conscastno]['DryBulb']})
 
         self.xdf.attrs.update(attributes)
 
