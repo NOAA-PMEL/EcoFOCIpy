@@ -10,7 +10,6 @@ Profile SBE (cnv files):
 
 TODO: .btl, .ros
 """
-import datetime
 import sys
 
 import ctd
@@ -85,7 +84,7 @@ class sbe_btl(object):
                             for c in row.columns:
                                 row[c] = row[c].astype(float,errors='ignore')
 
-                            ctd_df =ctd_df.append(row)
+                            ctd_df = pd.concat([ctd_df,row])
             # index based on btl number and combine time/date
             ctd_df.set_index('bottle',inplace=True)
             ctd_df['datetime']=pd.to_datetime(ctd_df['date']+' '+ctd_df['time'])
