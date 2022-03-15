@@ -104,4 +104,11 @@ oxy_percentsat:
   units: 'percent'
   long_name: 'Percent Saturation of oxygen over air' 
   standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+oxy_temperature:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+  comment: 'temperature measurement used for calculating oxygen concentration/saturation'
 
