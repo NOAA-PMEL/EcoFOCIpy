@@ -1,0 +1,77 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v77
+#
+# Satlantic SUNA
+#
+# Individual spectra not saved, only nitrate derived parameters and 
+# a few select ancillary parameters
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: "depth below surface (meters)"
+  standard_name: depth
+  positive: down
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: 'latitude'
+  standard_name: 'latitude'
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: 'longitude'
+  standard_name: 'longitude'
+timeseries_id:
+  cf_role: 'timeseries_id'
+  long_name: "timeseries id"
+  standard_name: ''
+#variables
+temperature:
+  epic_key: T_20
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
+nitrate:
+  epic_key: ''
+  generic_name: no3
+  long_name: "microMolar concenttraion of nitrate in seawater"
+  standard_name: mole_concentration_of_nitrate_in_sea_water
+  units: uM
+bromide:
+  epic_key: ''
+  generic_name: bromide
+  long_name: "bromide trace in seawater"
+  standard_name: mass_concentration_of_bromide_in_sea_water
+  units: mg/L
+absorbance_254nm:
+  epic_key: ''
+  generic_name: abs_254
+  long_name: "absorbance at 254 nm"
+  standard_name: mole_concentration_of_nitrate_in_sea_water
+  units: uM
+absorbance_350nm:
+  epic_key: ''
+  generic_name: abs_350
+  long_name: "absorbance at 350 nm"
+  standard_name: mole_concentration_of_nitrate_in_sea_water
+  units: uM
