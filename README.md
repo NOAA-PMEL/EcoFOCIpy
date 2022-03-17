@@ -1,4 +1,4 @@
-# ecofocipy
+# EcoFOCIpy
 python tools for the EcoFOCI PMEL research Program
 
 ## Basic Description
@@ -64,7 +64,7 @@ Found in the ci/requirements.txt
 may be best to create a seperate environment and install packages via the requirements.txt first then install the software.
 
 (install as editable) - will also install all dependencies
-`pip install -e git+https://github.com/shaunwbell/ecofocipy.git#egg=ecofocipy`
+`pip install -e git+https://github.com/shaunwbell/EcoFOCIpy.git#egg=EcoFOCIpy`
 
 ## Legal Disclaimer
 
