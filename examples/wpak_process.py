@@ -6,9 +6,9 @@ Demonstrate how to use the routines to process downloaded wpak data.
 
 Not valid for argos data (NRT - only)
 """
-import EcoFOCIpy.io.ncCFsave as ncCFsave
-import EcoFOCIpy.io.wpak_parser as wpak_parser
-import EcoFOCIpy.metaconfig.load_config as load_config
+import ecofocipy.io.ncCFsave as ncCFsave
+import ecofocipy.io.wpak_parser as wpak_parser
+import ecofocipy.metaconfig.load_config as load_config
 import yaml
 
 ###############################################################
