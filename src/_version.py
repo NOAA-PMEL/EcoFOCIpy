@@ -3,7 +3,7 @@
 
 
 def get_version():
-    """Get EcoFOCIpy's version.
+    """Get ecofocipy's version.
 
     Either get it from package metadata, or get it using version control information if
     a development install.
