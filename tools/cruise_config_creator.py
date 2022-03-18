@@ -22,8 +22,8 @@ import sys
 
 import yaml
 from _dbconfig.EcoFOCI_db_io import EcoFOCI_db_datastatus
-from ecofocipy.math.geotools import latlon_convert
-from ecofocipy.metaconfig import load_config
+from EcoFOCIpy.math.geotools import latlon_convert
+from EcoFOCIpy.metaconfig import load_config
 
 __author__   = 'Shaun Bell'
 __email__    = 'shaun.bell@noaa.gov'
