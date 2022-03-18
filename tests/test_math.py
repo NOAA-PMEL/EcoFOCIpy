@@ -3,7 +3,7 @@ tests of the math functions
 """
 
 import pytest
-from ecofocipy.math import aandopt_oxy_corr as aand_oxy
+from EcoFOCIpy.math import aandopt_oxy_corr as aand_oxy
 
 
 class TestClassAandCorr:

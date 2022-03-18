@@ -1,7 +1,7 @@
 import datetime
 
 import pytest
-from ecofocipy.epic import EPIC_timeconvert as EPIC
+from EcoFOCIpy.epic import EPIC_timeconvert as EPIC
 
 
 class TestClassEPICTime:
