@@ -220,7 +220,7 @@ class EcoFOCI_db_datastatus(object):
 
     def read_castlog_summary(self, table=None, verbose=False, cruiseid=None):
         """specific to get cruise info"""
-        sql = ("SELECT * from `{0}` WHERE `CruiseID`='{1}'").format(table, cruiseid)
+        sql = ("SELECT * from `{0}` WHERE `UniqueCruiseID`='{1}'").format(table, cruiseid)
 
         if verbose:
             print(sql)
