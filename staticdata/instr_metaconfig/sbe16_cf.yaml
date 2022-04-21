@@ -82,10 +82,16 @@ fluor_volts:
   units: Volts
 par: 
   generic_name: par
-  epic_key: PAR_908
+  epic_key: PAR_905
   long_name: 'Photosynthetic Active Radiation'
   standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
-  units: 'uEin cm-2 s-1'
+  units: 'uEin m-2 s-1'
+# par: 
+#   generic_name: par
+#   epic_key: PAR_908
+#   long_name: 'Photosynthetic Active Radiation'
+#   standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
+#   units: 'umol cm-2 s-1'
 par_volts: 
   generic_name: par_volts
   epic_key: PAR_916
