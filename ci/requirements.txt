@@ -6,7 +6,7 @@ xlrd>=1.0.0
 netcdf4==1.5.8
 cftime==1.6.0
 erddapy==1.2.1
-ctd==1.1.1 #python-ctd
+ctd==1.4.1 #python-ctd
 seawater==3.3.4
 bottleneck==1.3.4
 #geomag cmweis github version... part of package
