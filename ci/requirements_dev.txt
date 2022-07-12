@@ -3,7 +3,7 @@ matplotlib==3.5.2
 numpy==1.23.1
 pandas==1.4.2
 xlrd>=1.0.0
-netcdf4==1.5.8
+netcdf4==1.6.0
 cftime==1.6.1
 erddapy==1.2.1
 mysql-connector-python==8.0.29
