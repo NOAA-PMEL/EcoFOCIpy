@@ -220,3 +220,19 @@ class mtr(object):
         df.rename(columns = {0:'temperature'}, inplace = True)
 
         return df
+
+    @staticmethod
+    def time_correction(rawdata_df,offset=None):
+        """ apply a linear time correction in seconds"""
+        samples = len(rawdata_df)
+        offsetpersample = round((offset / samples) * 1e9)
+        rawdata_df.index = rawdata_df.reset_index()['date_time'] + pd.timedelta_range(start=0,periods=len(rawdata_df),freq=f'{offsetpersample}ns').values
+
+        return (rawdata_df, offsetpersample)
+
+    @staticmethod
+    def time_offset_correction(rawdata_df,offset=None):
+        """ apply a time offset in seconds"""
+        rawdata_df.index = rawdata_df.index + pd.Timedelta(seconds=offset) 
+
+        return (rawdata_df)
