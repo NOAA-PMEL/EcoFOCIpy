@@ -64,21 +64,20 @@ class sbe_btl(object):
         for ctdfile in file_list:
 
             with open(ctdfile) as fobj:
+                print(f"Processing {ctdfile}")
                 for k, line in enumerate(fobj.readlines()):
                     if (not "*" in line) & (not "#" in line):
                         if 'Bottle' in line:
                             line = line.replace('TurbWETntu0',' TurbWETntu0') #<- this is a common runon header
+                            line = line.replace('Sal11Sbeox0Mm/Kg','Sal11 Sbeox0Mm/Kg') #<- this is a common runon header
                             columns=line.lower().split() + ['time']
                             ctd_df= pd.DataFrame(columns=columns)
                         if 'avg' in line:
-                            data=line.split('(avg)')[0].strip().split('   ')
-                            try:
-                                while True:
-                                    data.remove('')
-                            except ValueError:
-                                pass
-                        if 'sdev' in line:
-                
+                            data=line.split('(avg)')[0].strip().split() #but this splits day, month, year
+                            data = [data[0]]+[" ".join(data[1:4])]+data[4::]
+
+                        if 'sdev' in line: #needed for the time column only
+
                             row = pd.DataFrame(data=[data+[line.split()[0].strip()]],columns=columns)
 
                             for c in row.columns:
