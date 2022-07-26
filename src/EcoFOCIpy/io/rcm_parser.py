@@ -9,6 +9,7 @@ These include:
 import numpy as np
 import pandas as pd
 
+
 class rcm_excel(object):
     r""" Anderaa instruments (RCM 4, 7, 9, 11's
     EcoFOCI QC procedure developed by Dave P. and done within excel spreadsheet
