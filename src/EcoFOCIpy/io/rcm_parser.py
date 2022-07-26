@@ -6,8 +6,9 @@ These include:
 * Version 5 (MTRduino) [x]
 
 """
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 
 class rcm_excel(object):
     r""" Anderaa instruments (RCM 4, 7, 9, 11's
@@ -102,7 +103,7 @@ class rcm(object):
     def engr2sci_pres(self,coefA=0,coefB=0,coefC=0,equationType='low'):
 
         if equationType=='low':
-           self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['temp_engr']**2))/10-10
+           self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['press_engr']**2))/10-10
 
     def mag_dec_corr(self,lat,lonW,dep_date,apply_correction=True):
         """Calculate mag declinatin correction based on lat, lon (+ West) and date.

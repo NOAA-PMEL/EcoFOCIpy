@@ -65,6 +65,12 @@ salinity:
   standard_name: sea_water_practical_salinity
 oxy_conc:
   generic_name: oxy_conc
+  epic_key: ''
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/l
+oxy_conc_umkg:
+  generic_name: oxy_conc_umkg
   epic_key: O_65
   long_name: 'concentration of oxygen in seawater'
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
