@@ -1,5 +1,5 @@
 #python>=3.8
-matplotlib==3.5.2
+matplotlib==3.5.3
 numpy==1.23.1
 pandas==1.4.3
 xlrd>=1.0.0
