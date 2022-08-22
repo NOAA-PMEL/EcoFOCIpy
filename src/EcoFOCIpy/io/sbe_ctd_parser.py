@@ -70,6 +70,7 @@ class sbe_btl(object):
                         if 'Bottle' in line:
                             line = line.replace('TurbWETntu0',' TurbWETntu0') #<- this is a common runon header
                             line = line.replace('Sal11Sbeox0Mm/Kg','Sal11 Sbeox0Mm/Kg') #<- this is a common runon header
+                            line = line.replace('Sal00Sbeox0Mm/Kg','Sal00 Sbeox0Mm/Kg') #<- this is a common runon header
                             columns=line.lower().split() + ['time']
                             ctd_df= pd.DataFrame(columns=columns)
                         if 'avg' in line:
