@@ -1,6 +1,6 @@
 #python>=3.8
 matplotlib==3.5.3
-numpy==1.23.2
+numpy==1.23.3
 pandas==1.4.3
 xlrd>=1.0.0
 netcdf4==1.6.1
