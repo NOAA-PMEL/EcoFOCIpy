@@ -89,6 +89,9 @@ class sbe16(object):
             rawdata_df['date_time'] = [datetime.datetime(datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S").year,1,1) + pd.Timedelta(days=x-1) for x in rawdata_df['timeJV2']]
         elif 'timeS' in var_names.values(): #time in elapse seconds, needs start date
             rawdata_df['date_time'] = [datetime.datetime.strptime(start_time, "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['timeS']]
+        elif 'timeK' in var_names.values(): #time in elapse seconds, needs start date
+            rawdata_df['date_time'] = [datetime.datetime.strptime('jan 01 2000 00:00:00', "%b %d %Y %H:%M:%S") + pd.Timedelta(seconds=x) for x in rawdata_df['timeS']]
+
         else:
             print(f'no time index identified: {var_names.values()}')
 
