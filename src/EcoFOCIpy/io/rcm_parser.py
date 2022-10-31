@@ -44,14 +44,17 @@ class rcm(object):
     Pressure, Turb, Cond/Sal, Temp have a transfer equation and coefs that need to be applied and these are unique to each unit (oxy are cal'd on instrument ad output a scaled value that is rcm independent, U/V comps are cal'd to the board and also output a alue that is already scaled)
     """
 
-    def parse(self, filename=None, number_of_channels=8, datetime_index=True):
+    def parse(self, filename=None, number_of_channels=8, time_format=0, datetime_index=True):
         r"""
         Basic Method to open and read converted dsu files 
+
+        time_format: 0 - %m/%d/%Y %H:%M:%S
+        time_format: 1 - %d.%m.%Y %H:%M:%S
 
         returns pandas dataframe
         """
         assert filename != None , 'Must provide a datafile'
-
+        assert time_format <=1 , 'time_format must be 0,1'
         if number_of_channels == 8:
             headernames=['sample','date','time','ident','speed_engr','dir_engr','temp_engr','cond_engr','press_engr','chan7','chan8']
         elif number_of_channels == 7:
@@ -60,9 +63,16 @@ class rcm(object):
             headernames=['sample','date','time','ident','speed_engr','dir_engr','temp_engr','cond_engr','press_engr']
 
         rawdata_df = pd.read_csv(filename, names=headernames, delimiter="\s+",)
-        rawdata_df["date_time"] = pd.to_datetime(
-            rawdata_df['date'] + " " + rawdata_df['time'], format="%m/%d/%Y %H:%M:%S"
-        )
+        if time_format == 0:
+            rawdata_df["date_time"] = pd.to_datetime(
+                rawdata_df['date'] + " " + rawdata_df['time'], format="%m/%d/%Y %H:%M:%S"
+            )
+        elif time_format == 1:
+            rawdata_df["date_time"] = pd.to_datetime(
+                rawdata_df['date'] + " " + rawdata_df['time'], format="%d.%m.%Y %H:%M:%S"
+            )
+        else:
+            pass
         rawdata_df['temp_engr'] = pd.to_numeric(rawdata_df['temp_engr'],errors='coerce')
 
         if datetime_index:
