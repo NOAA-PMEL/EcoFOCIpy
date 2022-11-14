@@ -281,8 +281,9 @@ class EcoFOCI_CFnc(object):
                 if '_QC' in varname:
                     tmpdata[varname] = 8
             for varname in novars:
-                tmpdata[varname] = np.nan
-                tmpdata[varname+'_QC'] = 9
+                if varname in list(self.xdf.keys()):
+                    tmpdata[varname] = np.nan
+                    tmpdata[varname+'_QC'] = 9
             self.xdf = xr.concat([tmpdata,self.xdf],'depth')
     
     def autotrim_time(self):
