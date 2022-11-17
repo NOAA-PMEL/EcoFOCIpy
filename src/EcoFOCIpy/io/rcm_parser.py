@@ -169,3 +169,32 @@ class rcm_sg(object):
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','Time tag (Gmt)'],axis=1)        
 
         return rawdata_df
+
+    @staticmethod
+    def parse(filename=None, datetime_index=True):
+        r"""
+        Basic Method to open and read rcm text files
+        """
+
+        assert filename != None , 'Must provide a datafile'
+
+        header = []
+
+        with open(filename) as fobj:
+            for k, line in enumerate(fobj.readlines()):
+                header = header + [line]
+                if "Record" in line:
+                    headercount=k
+                    break
+
+
+        rawdata_df = pd.read_csv(filename, 
+                        delimiter="\t", 
+                        parse_dates=True, 
+                        skiprows=headercount)
+        rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Time tag (Gmt)"], format="%d.%m.%Y %H:%M:%S")
+
+        if datetime_index:
+            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time',"Time tag (Gmt)"],axis=1)        
+
+        return (rawdata_df,header)
