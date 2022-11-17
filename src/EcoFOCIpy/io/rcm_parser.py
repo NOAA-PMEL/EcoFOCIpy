@@ -193,8 +193,38 @@ class rcm_sg(object):
                         parse_dates=True, 
                         skiprows=headercount)
         rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Time tag (Gmt)"], format="%d.%m.%Y %H:%M:%S")
+        self.rawdata_df = rawdata_df
 
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time',"Time tag (Gmt)"],axis=1)        
-
+            self.rawdata_df = rawdata_df
+            
         return (rawdata_df,header)
+
+    def mag_dec_corr(self,lat,lonW,dep_date,apply_correction=True):
+        """Calculate mag declinatin correction based on lat, lon (+ West) and date.
+
+        Uses WMM_2020.COF - this model file updates every 5 years for current data.  Be sure to update this in future
+
+        Args:
+            lat (float): [description]
+            lonW (float): [description]
+            dep_date (datetime): [description]
+            apply_correction (boolean): correct the u,v for mag dec.  False just reports back the correction angle.
+
+        Returns:
+            float: [description]
+        """
+
+        import ecofocipy.math.geomag.geomag.geomag as geomag
+        import ecofocipy.math.geotools as geotools
+
+        t = geomag.GeoMag()
+        dec = t.GeoMag(lat,-1 * lonW,time=dep_date).dec
+
+        (u,v) = geotools.rotate_coord(self.rawdata_df['u_curr_comp'],self.rawdata_df['v_curr_comp'],dec)
+
+        self.rawdata_df['u_curr_comp'] = u
+        self.rawdata_df['v_curr_comp'] = v
+
+        return (self.rawdata_df,dec)
