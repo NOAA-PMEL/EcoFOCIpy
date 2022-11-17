@@ -155,9 +155,8 @@ class rcm_sg(object):
     Due to the Seaguard being a platform, multiple datafiles are possible, usually including oxygen but not always
 
     TODO: This should be a replacement of the original rcm mooring analyis software"""
-
-    @staticmethod
-    def parse_excel(filename=None, datetime_index=True):
+    
+    def parse_excel(self, filename=None, datetime_index=True):
         r"""
         Basic Method to open and read rcm excel files
         """
@@ -170,8 +169,7 @@ class rcm_sg(object):
 
         return rawdata_df
 
-    @staticmethod
-    def parse(filename=None, datetime_index=True):
+    def parse(self, filename=None, datetime_index=True):
         r"""
         Basic Method to open and read rcm text files
         """
@@ -198,8 +196,8 @@ class rcm_sg(object):
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time',"Time tag (Gmt)"],axis=1)        
             self.rawdata_df = rawdata_df
-            
-        return (rawdata_df,header)
+
+        return (self.rawdata_df,header)
 
     def mag_dec_corr(self,lat,lonW,dep_date,apply_correction=True):
         """Calculate mag declinatin correction based on lat, lon (+ West) and date.
