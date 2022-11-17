@@ -191,7 +191,6 @@ class rcm_sg(object):
                         parse_dates=True, 
                         skiprows=headercount)
         rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Time tag (Gmt)"], format="%d.%m.%Y %H:%M:%S")
-        self.rawdata_df = rawdata_df
 
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time',"Time tag (Gmt)"],axis=1)        
