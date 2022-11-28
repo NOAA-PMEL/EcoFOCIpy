@@ -69,12 +69,24 @@ oxy_conc:
   long_name: 'concentration of oxygen in seawater'
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: micromole/kg
+oxy_concM:
+  generic_name: oxy_concM
+  epic_key: ''
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: uM  
 oxy_percentsat: 
   generic_name: oxy_psat
   epic_key: OST_62
   units: 'percent'
   long_name: 'Percent Saturation of oxygen over air' 
   standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+oxy_temperature:
+  epic_key: ''
+  generic_name: temp
+  long_name: "Sea temperature in-situ ITS-90 scale"
+  standard_name: sea_water_temperature
+  units: degree_C
 u_curr_comp:
   generic_name: u_curr_comp
   epic_key: U_320
@@ -99,4 +111,3 @@ current_direction:
   units: 'degrees'
   long_name: 'Direction of Current speed  - degrees from North'
   standard_name: sea_water_current_direction
-
