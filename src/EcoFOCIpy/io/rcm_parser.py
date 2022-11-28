@@ -94,7 +94,7 @@ class rcm(object):
 
     def engr2sci_oxy(self,channel='chan8'):
         """
-        Convert speed/dir
+        Convert oxygen
 
         """
         if channel=='chan8':
@@ -104,14 +104,17 @@ class rcm(object):
 
     def engr2sci_temp(self,coefA=0,coefB=0,coefC=0,coefD=0):
         """
-        Convert speed/dir
+        Convert temperature
 
         """
         self.rawdata_df['temperature'] = coefA + coefB*self.rawdata_df['temp_engr'] + \
             + coefC*(self.rawdata_df['temp_engr']**2) + coefD*(self.rawdata_df['temp_engr']**3)
 
     def engr2sci_pres(self,coefA=0,coefB=0,coefC=0,equationType='low'):
+        """
+        Convert pressure
 
+        """
         if equationType=='low':
            self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['press_engr']**2))/10-10
 
