@@ -82,6 +82,12 @@ class rcm(object):
 
         return (self.rawdata_df)
 
+    def drop_headerrows(self, ident=None):
+        """
+        drop the row that sets up the time base
+        """
+        self.rawdata_df = self.rawdata_df[self.rawdata_df['ident'] == ident] #<-- there is a value that represents data and one that represents headers, drop all the headers
+
     def engr2sci_curr(self):
         """
         Convert speed/dir
