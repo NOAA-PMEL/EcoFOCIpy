@@ -10,9 +10,8 @@ Non-moored:
 * processing is likely the same if recording internally.
 
 """
-import sys
-
 import pandas as pd
+
 
 class tdgp(object):
     r""" TDGP (Total Dissolved Gas Pressure) Unified parser
@@ -60,7 +59,6 @@ class tdgp(object):
         if datetime_index:
             rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','Day','Month','Year','Hour','Minute','Second'],axis=1)        
 
-            
         self.rawdata_df = rawdata_df
 
         return (rawdata_df,header)

@@ -54,5 +54,3 @@ pressure:
   units: decibar
   long_name: "Sea water pressure, equals 0 at sea-level"
   standard_name: sea_water_pressure_due_to_sea_water
-
-
