@@ -3,9 +3,12 @@
 # Utility to read the following in takes order into account
 #  Dimensions should stay in same order with cf_role id being last
 # 
-# CF Standard Names v66
+# CF Standard Names v77
 #
-# SeaBird T(P) Temperature Recorder (sbe39)
+# ProOceanus TDGP
+#
+# Individual spectra not saved, only nitrate derived parameters and 
+# a few select ancillary parameters
 # ----
 #
 # dimensions
@@ -44,13 +47,19 @@ timeseries_id:
 #variables
 temperature:
   epic_key: T_20
-  generic_name: temp
-  long_name: "Sea temperature in-situ ITS-90 scale"
+  generic_name: sensor_temp
+  long_name: "Sea temperature in-situ ITS-90 scale at pressure sensor"
   standard_name: sea_water_temperature
   units: degree_C
-pressure: 
-  epic_key: P_1
-  generic_name: pres
-  units: decibar
-  long_name: "Sea water pressure, equals 0 at sea-level"
-  standard_name: sea_water_pressure_due_to_sea_water
+supply_voltage:
+  epic_key: ''
+  generic_name: supply_voltage
+  long_name: "Instrument Supply Voltage"
+  standard_name: ''
+  units: Volts
+gas_pressure:
+  epic_key: ''
+  generic_name: gas_pressure
+  long_name: "Total dissolved Gas Pressure"
+  standard_name: 'total_dissolved_gas_pressure_in_sea_water'
+  units: Volts
