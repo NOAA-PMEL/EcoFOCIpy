@@ -1,7 +1,7 @@
 #python>=3.8
 matplotlib==3.6.3
 numpy==1.24.1
-pandas==1.5.2
+pandas==1.5.3
 xlrd>=1.0.0
 netcdf4==1.6.2
 cftime==1.6.2
