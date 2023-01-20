@@ -62,4 +62,4 @@ gas_pressure:
   generic_name: gas_pressure
   long_name: "Total dissolved Gas Pressure"
   standard_name: 'total_dissolved_gas_pressure_in_sea_water'
-  units: Volts
+  units: mbar
