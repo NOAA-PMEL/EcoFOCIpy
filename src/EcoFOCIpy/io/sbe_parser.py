@@ -101,6 +101,18 @@ class sbe16(object):
 
         return (rawdata_df,header)
 
+    @staticmethod
+    def PAR_calc_from_volts(rawdata_pd_series,multiplier=1.0,M=1.0,B=0.0,calconst=10**10,offset=-1):
+        """
+            Pass the voltage channel in as a pandas series (so value,index) as well as the calculated SBE desired calibration factors
+            not the biospherical factors
+        """
+
+        SBEDefPAR = (multiplier * (10**9 * 10**(rawdata_pd_series.values/M)) / calconst)+offset
+        SBECorrPAR = multiplier * ((10**9 * 10**(rawdata_pd_series.values/M)) / calconst+offset)
+
+        return(SBEDefPAR, SBECorrPAR)
+
 class sbe26(object):
     r""" Seabird 26 Wave and Tide GuageTemperature (with optional pressure)
         
