@@ -1,6 +1,8 @@
 # EcoFOCIpy
 python tools for the EcoFOCI PMEL research Program
 
+Examples and Notebook Archives can be found within this package or also at [ecofoci_code_lab](https://noaa-pmel.github.io/ecofoci_code_lab/content/code_gallery/ecofocipy.html)
+
 ## Basic Description
 
 This package is a collection of routines used by EcoFOCI to automatically produce various products for:
