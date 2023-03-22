@@ -172,10 +172,16 @@ class rcm_sg(object):
         """
 
         rawdata_df = pd.read_csv(filename, header=1, delimiter="\t")
-        rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Time tag (Gmt)"], format="%d.%m.%y %H:%M:%S")
+        try:
+            rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Time tag (Gmt)"], format="%d.%m.%y %H:%M:%S")
+        except:
+            rawdata_df["date_time"] = pd.to_datetime(rawdata_df["Record Time"], format="%m/%d/%y %H:%M:%S")
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','Time tag (Gmt)'],axis=1)        
+            try:
+                rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','Time tag (Gmt)'],axis=1)        
+            except:
+                rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','Record Time'],axis=1)        
 
         return rawdata_df
 
