@@ -30,6 +30,8 @@ def seabird_header(filename=None):
             header = header + [line]
             if "# name" in line:
                 var_names[int(line.split("=")[0].split()[-1])] = line.split("=")[1].split()[0].split(':')[0]
+            if "* System UTC" in line:
+                sys_utc_time = line.split("=")[-1].strip()
             if "* NMEA UTC (Time)" in line:
                 utc_time = line.split("=")[-1].strip()
             if '* NMEA Latitude' in line:
@@ -40,7 +42,8 @@ def seabird_header(filename=None):
                 headercount=k+1
                 break
 
-    return {'header':header, 'headercount':headercount, 'varnames':var_names, 'NMEAtime':utc_time, 'NMEALat':latitude, 'NMEALon':longitude}
+    return {'header':header, 'headercount':headercount, 'varnames':var_names, 'SYSTEMtime':sys_utc_time, 
+            'NMEAtime':utc_time, 'NMEALat':latitude, 'NMEALon':longitude}
 
 class sbe_btl(object):
     """Process SBE BTL files
