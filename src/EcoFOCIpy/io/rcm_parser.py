@@ -139,8 +139,8 @@ class rcm(object):
             float: [description]
         """
 
-        import ecofocipy.math.geomag.geomag.geomag as geomag
-        import ecofocipy.math.geotools as geotools
+        import EcoFOCIpy.math.geomag.geomag.geomag as geomag
+        import EcoFOCIpy.math.geotools as geotools
 
         t = geomag.GeoMag()
         dec = t.GeoMag(lat,-1 * lonW,time=dep_date).dec
@@ -232,8 +232,8 @@ class rcm_sg(object):
             float: [description]
         """
 
-        import ecofocipy.math.geomag.geomag.geomag as geomag
-        import ecofocipy.math.geotools as geotools
+        import EcoFOCIpy.math.geomag.geomag.geomag as geomag
+        import EcoFOCIpy.math.geotools as geotools
 
         t = geomag.GeoMag()
         dec = t.GeoMag(lat,-1 * lonW,time=dep_date).dec
