@@ -120,6 +120,7 @@ class wetlabs(object):
             deltaT = datetime.timedelta(seconds=offset) / (self.rawdata_df.index[-1] - T0)
 
             self.rawdata_df.index = self.rawdata_df.reset_index().apply(lambda x: lineartimecorr(x.date_time,deltaT,T0), axis=1)
+            self.rawdata_df.index.name = 'date_time'
 
         return (self.rawdata_df)
     
