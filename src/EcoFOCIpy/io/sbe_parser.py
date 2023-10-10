@@ -185,6 +185,8 @@ class sbe37(object):
             rawdata_df.columns = ['temperature','conductivity','pressure','salinity','date','time']
         elif len(rawdata_df.columns) == 5: #T,C,S or maybe T,C,P
             rawdata_df.columns = ['temperature','conductivity','salinity','date','time']
+        elif len(rawdata_df.columns) == 4: #T,C 
+            rawdata_df.columns = ['temperature','conductivity','date','time']
         else:
             sys.exit(f'Unknown number of columns in raw data {len(rawdata_df.columns)}')
 
