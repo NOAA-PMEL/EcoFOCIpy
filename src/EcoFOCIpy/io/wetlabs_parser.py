@@ -107,7 +107,7 @@ class wetlabs(object):
     def time_correction(self,offset=None,method=None):
         """ apply a time offset in seconds
         
-        To apply a temporal correction including drift, use method = None
+        To apply a temporal correction including drift, use method = 'linear'
         This method assumes the clock has been syncronized upon deployment."""
         self.rawdata_df.index = self.rawdata_df.index + pd.Timedelta(seconds=offset) 
 
@@ -122,3 +122,6 @@ class wetlabs(object):
             self.rawdata_df.index = self.rawdata_df.reset_index().apply(lambda x: lineartimecorr(x.date_time,deltaT,T0), axis=1)
 
         return (self.rawdata_df)
+    
+    def NaT_removal(self):
+        self.rawdata_df = self.rawdata_df.dropna()
