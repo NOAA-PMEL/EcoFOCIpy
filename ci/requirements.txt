@@ -3,7 +3,7 @@ matplotlib==3.8.0
 numpy==1.26.0
 pandas==2.1.2
 xlrd>=1.0.0
-netcdf4==1.6.4
+netcdf4==1.6.5
 cftime==1.6.3
 erddapy==2.2.0
 ctd==1.4.3 #python-ctd
