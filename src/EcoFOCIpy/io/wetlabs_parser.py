@@ -11,9 +11,8 @@ Non-moored:
 * processing is likely the same if recording internally.
 
 """
-import sys
-
 import datetime
+
 import pandas as pd
 
 class wetlabs(object):
