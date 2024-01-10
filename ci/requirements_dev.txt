@@ -7,7 +7,7 @@ netcdf4==1.6.5
 cftime==1.6.3
 erddapy==2.2.0
 mysql-connector-python==8.2.0
-ctd==1.4.3 #python-ctd
+ctd==1.4.5 #python-ctd
 seawater==3.3.4
 #geomag cmweis github version... part of package
 pytest
