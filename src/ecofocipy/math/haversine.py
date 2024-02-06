@@ -3,7 +3,9 @@
 # Author: Wayne Dyck
 
 import math
+
 import numpy as np
+
 
 def distance(origin, destination):
     lat1, lon1 = origin

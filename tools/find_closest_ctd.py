@@ -20,17 +20,13 @@
 
  """
 
-# System Stack
-import datetime
 import argparse
+import datetime
 import sys
 
+import mysql.connector
 import numpy as np
 
-# Science Stack
-import mysql.connector
-
-# User defined
 from ecofocipy.math.haversine import sphered
 
 __author__ = "Shaun Bell"
