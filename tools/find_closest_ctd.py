@@ -25,6 +25,8 @@ import datetime
 import argparse
 import sys
 
+import numpy as np
+
 # Science Stack
 import mysql.connector
 
