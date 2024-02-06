@@ -29,7 +29,6 @@ import sys
 import mysql.connector
 
 # User defined
-import io_utils.ConfigParserLocal as ConfigParserLocal
 import calc.haversine as sphered
 
 __author__ = "Shaun Bell"
