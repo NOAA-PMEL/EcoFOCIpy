@@ -29,13 +29,13 @@ import sys
 import mysql.connector
 
 # User defined
-import calc.haversine as sphered
+from ecofocipy.math.haversine import sphered
 
 __author__ = "Shaun Bell"
 __email__ = "shaun.bell@noaa.gov"
 __created__ = datetime.datetime(2016, 9, 28)
-__modified__ = datetime.datetime(2016, 9, 28)
-__version__ = "0.1.0"
+__modified__ = datetime.datetime(2024, 2, 6)
+__version__ = "0.1.1"
 __status__ = "Development"
 
 
