@@ -26,7 +26,6 @@ import sys
 
 import mysql.connector
 import numpy as np
-
 from ecofocipy.math.haversine import sphered
 
 __author__ = "Shaun Bell"
