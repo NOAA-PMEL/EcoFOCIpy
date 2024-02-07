@@ -24,9 +24,9 @@ import argparse
 import datetime
 import sys
 
-from _dbconfig.EcoFOCI_db_io import EcoFOCI_db_datastatus
-import numpy as np
 import EcoFOCIpy.math.haversine as sphered
+import numpy as np
+from _dbconfig.EcoFOCI_db_io import EcoFOCI_db_datastatus
 
 __author__ = "Shaun Bell"
 __email__ = "shaun.bell@noaa.gov"
