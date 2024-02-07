@@ -24,7 +24,7 @@ import argparse
 import datetime
 import sys
 
-import mysql.connector
+from _dbconfig.EcoFOCI_db_io import EcoFOCI_db_datastatus
 import numpy as np
 import EcoFOCIpy.math.haversine as sphered
 
@@ -34,61 +34,6 @@ __created__ = datetime.datetime(2016, 9, 28)
 __modified__ = datetime.datetime(2024, 2, 6)
 __version__ = "0.1.1"
 __status__ = "Development"
-
-
-"""--------------------------------SQL Init----------------------------------------"""
-
-
-class NumpyMySQLConverter(mysql.connector.conversion.MySQLConverter):
-    """ A mysql.connector Converter that handles Numpy types """
-
-    def _float32_to_mysql(self, value):
-        if np.isnan(value):
-            return None
-        return float(value)
-
-    def _float64_to_mysql(self, value):
-        if np.isnan(value):
-            return None
-        return float(value)
-
-    def _int32_to_mysql(self, value):
-        if np.isnan(value):
-            return None
-        return int(value)
-
-    def _int64_to_mysql(self, value):
-        if np.isnan(value):
-            return None
-        return int(value)
-
-
-def connect_to_DB(**kwargs):
-    # Open database connection
-    try:
-        db = mysql.connector.connect(use_pure=True, **kwargs)
-    except mysql.connector.Error as err:
-        """
-      if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-      elif err.errno == errorcode.ER_BAD_DB_ERROR:
-        print("Database does not exist")
-      else:
-        print(err)
-      """
-        print("error - will robinson")
-
-    db.set_converter_class(NumpyMySQLConverter)
-
-    # prepare a cursor object using cursor() method
-    cursor = db.cursor(dictionary=True)
-    prepcursor = db.cursor(prepared=True)
-    return (db, cursor)
-
-
-def close_DB(db):
-    # disconnect from server
-    db.close()
 
 
 def read_data(db, cursor, table, yearrange):
@@ -195,8 +140,6 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-host = "akutan"
-
 if not args.latlon and not args.MooringID:
     print("Choose either a mooring location or a lat/lon pairing")
     sys.exit()
@@ -207,10 +150,12 @@ if args.latlon:  # manual input of lat/lon
 if args.MooringID:
     # get db meta information for mooring
     ### connect to DB
-    (db, cursor) = connect_to_DB(db_config_file=args.db_moorings)
+    EcoFOCI_db = EcoFOCI_db_datastatus()
+    (db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=args.db_moorings)
     table = "mooringdeploymentlogs"
     Mooring_Meta = read_mooring(db, cursor, table, args.MooringID)
-    close_DB(db)
+    EcoFOCI_db.close()
+
 
     # location = [71 + 13.413/60., 164 + 14.98/60.]
     location = [
@@ -225,10 +170,11 @@ threshold = args.DistanceThreshold  # km
 
 # get db meta information for mooring
 ### connect to DB
-(db, cursor) = connect_to_DB(db_config_file=args.db_ctd)
+EcoFOCI_db = EcoFOCI_db_datastatus()
+(db,cursor) = EcoFOCI_db.connect_to_DB(db_config_file=args.db_ctd)
 table = "cruisecastlogs"
 cruise_data = read_data(db, cursor, table, args.YearRange)
-db.close()
+EcoFOCI_db.close()
 
 for index in sorted(cruise_data.keys()):
 
