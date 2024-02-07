@@ -1,7 +1,7 @@
 # EcoFOCIpy
 python tools for the EcoFOCI PMEL research Program
 
-Examples and Notebook Archives can be found within this package or also at [ecofoci_code_lab](https://noaa-pmel.github.io/ecofoci_code_lab/content/code_gallery/ecofocipy.html)
+Examples and Notebook Archives can be found within this package or also at [ecofoci_code_lab](https://noaa-pmel.github.io/ecofoci_code_lab/content/code_gallery/EcoFOCIpy.html)
 
 ## Basic Description
 

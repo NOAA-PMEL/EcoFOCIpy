@@ -1,4 +1,4 @@
-# Copyright (c) 2021 ecofocipy
+# Copyright (c) 2021 EcoFOCIpy
 """Setup script for installing EcoFOCIpy."""
 
 import sys
@@ -7,7 +7,7 @@ from setuptools import setup
 
 if sys.version_info[0] < 3:
     error = """
-    ecofocipy requires the Python 3.8 or above, but will install on
+    EcoFOCIpy requires the Python 3.8 or above, but will install on
     all versions of python3.
 
     Python {py} detected.
