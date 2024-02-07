@@ -20,7 +20,7 @@ import datetime
 
 import mysql.connector
 import numpy as np
-from ecofocipy.metaconfig import load_config
+from EcoFOCIpy.metaconfig import load_config
 
 __author__ = "Shaun Bell"
 __email__ = "shaun.bell@noaa.gov"
