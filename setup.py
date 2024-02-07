@@ -1,5 +1,5 @@
 # Copyright (c) 2021 ecofocipy
-"""Setup script for installing ecofocipy."""
+"""Setup script for installing EcoFOCIpy."""
 
 import sys
 
