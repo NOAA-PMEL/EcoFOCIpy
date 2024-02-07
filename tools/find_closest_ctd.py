@@ -26,7 +26,7 @@ import sys
 
 import mysql.connector
 import numpy as np
-from ecofocipy.math.haversine as sphered
+import ecofocipy.math.haversine as sphered
 
 __author__ = "Shaun Bell"
 __email__ = "shaun.bell@noaa.gov"
