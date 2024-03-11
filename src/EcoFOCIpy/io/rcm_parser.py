@@ -105,8 +105,10 @@ class rcm(object):
         """
         if channel=='chan8':
             self.rawdata_df['oxy_conc'] = self.rawdata_df['chan8']*0.4883
+            self.rawdata_df['oxy_percentsat'] = self.rawdata_df['chan8']*0.1465
         elif channel=='chan7':
             self.rawdata_df['oxy_conc'] = self.rawdata_df['chan7']*0.4883
+            self.rawdata_df['oxy_percentsat'] = self.rawdata_df['chan7']*0.1465
 
     def engr2sci_temp(self,coefA=0,coefB=0,coefC=0,coefD=0):
         """
