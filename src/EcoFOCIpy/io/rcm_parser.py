@@ -122,7 +122,7 @@ class rcm(object):
 
         """
         if equationType=='low':
-           self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['press_engr']**2))/10-10
+           self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['press_engr']**2))
            if units=='MPa':
                self.rawdata_df['pressure'] =self.rawdata_df['pressure']*100-10
            elif units=='kPa':
