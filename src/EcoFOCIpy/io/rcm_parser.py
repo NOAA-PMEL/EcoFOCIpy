@@ -116,13 +116,19 @@ class rcm(object):
         self.rawdata_df['temperature'] = coefA + coefB*self.rawdata_df['temp_engr'] + \
             + coefC*(self.rawdata_df['temp_engr']**2) + coefD*(self.rawdata_df['temp_engr']**3)
 
-    def engr2sci_pres(self,coefA=0,coefB=0,coefC=0,equationType='low'):
+    def engr2sci_pres(self,coefA=0,coefB=0,coefC=0,equationType='low',units='kPa'):
         """
         Convert pressure
 
         """
         if equationType=='low':
            self.rawdata_df['pressure'] =(coefA+coefB*self.rawdata_df['press_engr']+coefC*(self.rawdata_df['press_engr']**2))/10-10
+           if units=='MPa':
+               self.rawdata_df['pressure'] =self.rawdata_df['pressure']*100-10
+           elif units=='kPa':
+               self.rawdata_df['pressure'] =self.rawdata_df['pressure']/10-10
+
+            
 
     def mag_dec_corr(self,lat,lonW,dep_date,apply_correction=True):
         """Calculate mag declinatin correction based on lat, lon (+ West) and date.
