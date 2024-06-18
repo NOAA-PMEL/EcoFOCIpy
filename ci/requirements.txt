@@ -4,7 +4,7 @@ numpy==2.0.0
 pandas==2.2.2
 xlrd>=1.0.0
 netcdf4==1.7.1
-cftime==1.6.3
+cftime==1.6.4
 erddapy==2.2.0
 ctd==1.4.6 #python-ctd
 seawater==3.3.5
