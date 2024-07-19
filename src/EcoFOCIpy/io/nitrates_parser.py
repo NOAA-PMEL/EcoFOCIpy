@@ -68,6 +68,6 @@ class Suna(object):
         assert 'Fit RMSE' in self.data_frame.columns , 'Must provide a Fit RMSE column in data'
 
         self.data_frame = self.data_frame[self.data_frame['Fit RMSE'] <= rmse_cutoff]
-        self.data_frame = self.data_frame.resample('1H').median(numeric_only=True)
+        self.data_frame = self.data_frame.resample('1h').median(numeric_only=True)
 
         return self.data_frame
