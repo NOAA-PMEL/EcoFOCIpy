@@ -10,3 +10,4 @@ ctd==1.4.6 #python-ctd
 seawater==3.3.5
 bottleneck==1.4.0
 #geomag cmweis github version... part of package
+pyyaml
