@@ -11,6 +11,7 @@ These include:
 """
 import pandas as pd
 import requests
+from datetime import datetime
 
 
 # Satlantic Suna CSV
@@ -73,39 +74,110 @@ class Suna(object):
 
         return self.data_frame
     
-
-
-    
-    
-# Instrument files mapping
+# Instrument files mapping with multiple calibration files
 instrument_files = {
-    'SUNA 1471': 'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1471/2020/SNA1471B.cal',
-    # Add more instruments and their paths here
+    'SUNA 1471': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1471/2020/SNA1471B.cal'
+    ],
+    'SUNA 2341': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA-2341/2024/SNA2341C.CAL'
+    ],
+    'SUNA 1467': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1467/SNA1467A.cal'
+    ],
+    'SUNA 1468': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1468/SNA1468C.cal'
+    ],
+    'SUNA 1813': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1813/2021/SNA1813B.cal'
+    ],
+    'SUNA 522': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_522/2014/Calibration%20files/SNA0522A.cal'
+    ],
+    'SUNA 598': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_598/2015/Calibration%20files/SNA0598A.cal', # 2015
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_598/2020/SNA0598F.cal' # 2020
+    ],
+    'SUNA 647': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_647/2015/calibration_files_647/SNA0647A.cal'
+    ],
+    'SUNA 648': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_648/2015/calibration_files_648/SNA0648B.cal', # 2015
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_648/2016/Calibration%20files/SNA0648C.cal' # 2016
+    ],
+    'SUNA 789': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_789/2016/SNA0789B.cal', # 2016
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_789/2021/SNA0789H.cal' # 2021
+    ],
+    'SUNA 796': [
+        'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_796/2016/SNA0796A.cal'
+    ],
+    # Add more instruments and their calibration file URLs here
 }
 
-def get_calibration_file(instrument):
+
+def get_calibration_file(instrument, data_year):
     """
-    Retrieve the calibration file for a specified instrument.
+    Retrieve the appropriate calibration file for a specified instrument and data year.
 
     Parameters:
     ----------
     instrument : str
         The name of the instrument (e.g., 'SUNA 1471').
+    data_year : int
+        The year the data was collected.
 
     Returns:
     -------
     str
         The content of the calibration file.
     """
-    url = instrument_files.get(instrument)
-    if url:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.text
-        else:
-            raise ValueError(f"Failed to retrieve file from {url}")
-    else:
+    urls = instrument_files.get(instrument)
+    if not urls:
         raise ValueError(f"Instrument '{instrument}' not found in the mapping.")
+    
+    # Extract the year from each URL and find the most appropriate calibration file
+    cal_years = []
+    default_url = None
+    for url in urls:
+        segments = url.split('/')
+        year = None
+        # Try to find a valid year in the last few segments
+        for segment in segments[-4:]:
+            try:
+                possible_year = int(segment)
+                if 1900 <= possible_year <= datetime.now().year:  # Assuming year is between 1900 and the current year
+                    year = possible_year
+                    break
+            except ValueError:
+                continue
+        if year:
+            cal_years.append((year, url))
+        else:
+            # If the year information is not present, consider it as a default file
+            default_url = url
+    
+    if not cal_years:
+        if default_url:
+            selected_url = default_url
+        else:
+            raise ValueError(f"No suitable calibration file found for the instrument '{instrument}' and data year '{data_year}'.")
+    else:
+        # Sort calibration files by year in descending order
+        cal_years.sort(reverse=True)
+        # Select the most recent calibration file that is less than or equal to the data year
+        selected_url = cal_years[0][1]  # Initialize with the most recent calibration file
+        for year, url in cal_years:
+            if data_year >= year:
+                selected_url = url
+                break
+
+
+    response = requests.get(selected_url)
+    if response.status_code == 200:
+        return response.text
+    else:
+        raise ValueError(f"Failed to retrieve file from {selected_url}")
 
 def parse_no3_cal(calibration_content):
     """
