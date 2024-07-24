@@ -190,7 +190,7 @@ def parse_no3_cal(calibration_content):
 
     Returns:
     -------
-    dict
+    ncal : dict
         A dictionary containing calibration constants and data.
 
     Notes:
@@ -201,14 +201,14 @@ def parse_no3_cal(calibration_content):
     """
     # Initialize the calibration data structure
     ncal = {
-        'WL': [],
-        'ENO3': [],
-        'ESW': [],
-        'Ref': [],
-        'CalTemp': None,
+        'WL': [],          # Wavelength array
+        'ENO3': [],        # Extinction coefficients for nitrate at WL's
+        'ESW': [],         # Extinction coefficients for seawater at WL's
+        'Ref': [],         # Reference intensity through pure water at WL's
+        'CalTemp': None,   # temperature the instrument was calibrated in the lab
         'WL_offset': 210,  # Adjustable Br wavelength offset (default = 210)
-        'pixel_base': 1,  # Default is 1 (1-256), 0 (0-255)
-        'DC_flag': 1,  # Default is 1 (can change later); 1 use DC in NO3 calc, 0 use SWDC in NO3 calc
+        'pixel_base': 1,   # Default is 1 (1-256), 0 (0-255)
+        'DC_flag': 1,      # Default is 1 (can change later); 1 use DC in NO3 calc, 0 use SWDC in NO3 calc
         'pres_coef': 0.02  # Bromide extinction coefficient
     }
 
