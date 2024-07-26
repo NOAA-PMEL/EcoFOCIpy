@@ -10,6 +10,7 @@ These include:
 
 """
 import pandas as pd
+import matplotlib.pyplot as plt
 import requests
 from datetime import datetime
 
@@ -31,9 +32,18 @@ class Suna(object):
         self.data_frame = []
 
     def parse(self,filename=None):
-        r"""
-        Basic Method to open and read suna csv files
+        """
+        Basic Method to open and read SUNA csv files.
 
+        Parameters:
+        ----------
+        filename : str
+            Path to the CSV file to be read.
+
+        Returns:
+        -------
+        DataFrame
+            The parsed data as a pandas DataFrame.
         """
         assert filename is not None , 'Must provide a datafile'
 
@@ -60,6 +70,51 @@ class Suna(object):
 
         return self.data_frame
 
+    def plot_data(self, title="SUNA Data"):
+        """
+        Plot both nitrate and spectral data from the SUNA instrument for an initial check.
+
+        Parameters:
+        ----------
+        title : str
+            Title of the plot.
+        """
+        if self.data_frame.empty:
+            raise ValueError("Data frame is empty. Please parse a file first.")
+
+        # Plot nitrate data
+        nitrate = self.data_frame['Nitrate concentration, μM']
+        nitrate = nitrate.resample('1h').mean()
+
+        # Plot spectral data
+        spectra = self.data_frame.iloc[:, 10:266]
+        wavelengths = [round(200 + 0.7843 * i, 2) for i in range(256)]
+        spectra.columns = wavelengths
+        spectra = spectra.resample('1h').mean()
+
+        # Create subplots
+        fig, axs = plt.subplots(2, 1, figsize=(11, 7.5), gridspec_kw={'height_ratios': [1, 1.5]})
+
+        # Nitrate subplot
+        ax1 = axs[0]
+        ax1.plot(nitrate.index, nitrate, color='C0')
+        ax1.set(title='Nitrate Concentration', ylabel='Nitrate concentration (μM)')
+        ax1.label_outer()  # Only show outer labels to avoid overlap
+
+        # Spectra subplot
+        ax2 = axs[1]
+        pcm = ax2.pcolormesh(spectra.index, spectra.columns, spectra.T, cmap=plt.cm.plasma)
+        ax2.set(title='Spectral Data', xlabel='Time', ylabel='Wavelength (nm)')
+
+        # Adjust layout manually to make room for the colorbar
+        fig.subplots_adjust(right=0.85)
+        cbar_ax = fig.add_axes([0.87, 0.15, 0.02, 0.35])
+        fig.colorbar(pcm, cax=cbar_ax, label='Intensity')
+
+        # Set the overall title and layout
+        plt.suptitle(title, y=0.98)
+        plt.show()
+        
     def FilterSuna(self,rmse_cutoff=0.00025):
         """
         This method first applies a rmse_cutoff value specified as a keyword argument 
@@ -114,7 +169,6 @@ instrument_files = {
     ],
     # Add more instruments and their calibration file URLs here
 }
-
 
 def get_calibration_file(instrument, data_year):
     """
@@ -171,7 +225,6 @@ def get_calibration_file(instrument, data_year):
             if data_year >= year:
                 selected_url = url
                 break
-
 
     response = requests.get(selected_url)
     if response.status_code == 200:
