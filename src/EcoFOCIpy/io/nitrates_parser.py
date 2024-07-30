@@ -72,8 +72,8 @@ class Suna(object):
 
     def plot_data(self, title="SUNA Data"):
         """
-        Plot both nitrate and spectral data from the SUNA instrument for an initial check.
-
+        Plot nitrate, spectral data, and Fit RMSE from the SUNA instrument for an initial check.
+        
         Parameters:
         ----------
         title : str
@@ -85,7 +85,10 @@ class Suna(object):
         # Plot nitrate data
         nitrate = self.data_frame['Nitrate concentration, μM']
         nitrate = nitrate.resample('1h').mean()
-
+        
+        # Plot Fit RMSE data
+        fit_rmse = self.data_frame['Fit RMSE']        
+        
         # Plot spectral data
         spectra = self.data_frame.iloc[:, 10:266]
         wavelengths = [round(200 + 0.7843 * i, 2) for i in range(256)]
@@ -93,7 +96,7 @@ class Suna(object):
         spectra = spectra.resample('1h').mean()
 
         # Create subplots
-        fig, axs = plt.subplots(2, 1, figsize=(11, 7.5), gridspec_kw={'height_ratios': [1, 1.5]})
+        fig, axs = plt.subplots(3, 1, figsize=(11, 10), gridspec_kw={'height_ratios': [1, 1, 1.5]})
 
         # Nitrate subplot
         ax1 = axs[0]
@@ -101,14 +104,20 @@ class Suna(object):
         ax1.set(title='Nitrate Concentration', ylabel='Nitrate concentration (μM)')
         ax1.label_outer()  # Only show outer labels to avoid overlap
 
-        # Spectra subplot
+        # Fit RMSE subplot
         ax2 = axs[1]
-        pcm = ax2.pcolormesh(spectra.index, spectra.columns, spectra.T, cmap=plt.cm.plasma)
-        ax2.set(title='Spectral Data', xlabel='Time', ylabel='Wavelength (nm)')
+        ax2.scatter(fit_rmse.index, fit_rmse, alpha=0.7)
+        ax2.set(title='Fit RMSE', xlabel='Time', ylabel='Fit RMSE')
+        ax2.label_outer()  # Only show outer labels to avoid overlap
+        
+        # Spectra subplot
+        ax3 = axs[2]
+        pcm = ax3.pcolormesh(spectra.index, spectra.columns, spectra.T, cmap=plt.cm.plasma)
+        ax3.set(title='Spectral Data', xlabel='Time', ylabel='Wavelength (nm)')
 
         # Adjust layout manually to make room for the colorbar
         fig.subplots_adjust(right=0.85)
-        cbar_ax = fig.add_axes([0.87, 0.15, 0.02, 0.35])
+        cbar_ax = fig.add_axes([0.87, 0.10, 0.02, 0.3])
         fig.colorbar(pcm, cax=cbar_ax, label='Intensity')
 
         # Set the overall title and layout
@@ -123,7 +132,7 @@ class Suna(object):
         """
 
         assert 'Fit RMSE' in self.data_frame.columns , 'Must provide a Fit RMSE column in data'
-
+        
         self.data_frame = self.data_frame[self.data_frame['Fit RMSE'] <= rmse_cutoff]
         self.data_frame = self.data_frame.resample('1h').median(numeric_only=True)
 
