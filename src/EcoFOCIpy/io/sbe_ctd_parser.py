@@ -25,7 +25,7 @@ def seabird_header(filename=None):
 
     header, headercount, utc_time, latitude, longitude = [], [], [], [], []
     var_names = {}
-    with open(filename) as fobj:
+    with open(filename, errors='ignore') as fobj:
         for k, line in enumerate(fobj.readlines()):
             header = header + [line]
             if "# name" in line:
@@ -66,7 +66,7 @@ class sbe_btl(object):
 
         for ctdfile in file_list:
 
-            with open(ctdfile) as fobj:
+            with open(ctdfile, errors='ignore') as fobj:
                 print(f"Processing {ctdfile}")
                 for k, line in enumerate(fobj.readlines()):
                     if (not "*" in line) & (not "#" in line):
