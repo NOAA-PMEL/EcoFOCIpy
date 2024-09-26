@@ -25,7 +25,7 @@ def seabird_header(filename=None):
 
     header, headercount, utc_time, latitude, longitude = [], [], [], [], []
     var_names = {}
-    with open(filename) as fobj:
+    with open(filename, errors='ignore') as fobj:
         for k, line in enumerate(fobj.readlines()):
             header = header + [line]
             if "# name" in line:
@@ -37,13 +37,14 @@ def seabird_header(filename=None):
             if '* NMEA Latitude' in line:
                 latitude = line.split("=")[-1].strip()
             if '* NMEA Longitude' in line:
-                longitude = line.split("=")[-1].strip()                
+                longitude = line.split("=")[-1].strip()
             if "*END*" in line:
-                headercount=k+1
+                headercount = k+1
                 break
 
     return {'header':header, 'headercount':headercount, 'varnames':var_names, 'SYSTEMtime':sys_utc_time, 
             'NMEAtime':utc_time, 'NMEALat':latitude, 'NMEALon':longitude}
+
 
 class sbe_btl(object):
     """Process SBE BTL files
@@ -55,7 +56,7 @@ class sbe_btl(object):
         [type]: [description]
     """
     @staticmethod
-    def manual_parse(file_list=[None]):
+    def manual_parse(file_list=None):
         r"""
         Basic Method to open and read sbe9_11 .cnv files
 
@@ -66,7 +67,7 @@ class sbe_btl(object):
 
         for ctdfile in file_list:
 
-            with open(ctdfile) as fobj:
+            with open(ctdfile, errors='ignore') as fobj:
                 print(f"Processing {ctdfile}")
                 for k, line in enumerate(fobj.readlines()):
                     if (not "*" in line) & (not "#" in line):

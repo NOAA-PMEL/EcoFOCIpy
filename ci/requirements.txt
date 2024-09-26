@@ -1,11 +1,11 @@
 #python>=3.8
-matplotlib==3.9.1
-numpy==2.0.1
-pandas==2.2.2
+matplotlib==3.9.2
+numpy==2.1.1
+pandas==2.2.3
 xlrd>=1.0.0
-netcdf4==1.7.1.post1
+netcdf4==1.7.1.post2
 cftime==1.6.4
-erddapy==2.2.0
+erddapy==2.2.3
 ctd==1.4.6 #python-ctd
 seawater==3.3.5
 bottleneck==1.4.0
