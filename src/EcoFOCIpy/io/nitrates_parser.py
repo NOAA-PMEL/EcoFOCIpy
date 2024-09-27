@@ -18,7 +18,7 @@ from datetime import datetime
 # Satlantic Suna CSV
 class Suna(object):
     r""" Satlantic SUNA
-        Basic Method to open files.  Specific actions can be passes as kwargs for instruments
+        Basic Method to open files.  Specific actions can be passed as kwargs for instruments
 
         Assumes SUNA csv output
 
@@ -64,6 +64,11 @@ class Suna(object):
                    275:'Fit aux 1', 276:'Fit aux 2', 277:'Fit base 1', 278:'Fit base 2',
                    279:'Fit RMSE'},inplace=True)
 
+        # Define wavelengths for columns 10 to 265, and rename these columns with the wavelength values
+        wavelengths = [round(190 + (370 - 190) / 255 * i, 2) for i in range(256)]
+        rawdata_df.columns.values[10:266] = wavelengths
+
+        # Set the index name
         rawdata_df.index.names = ['date_time']
 
         self.data_frame = rawdata_df
@@ -91,7 +96,7 @@ class Suna(object):
         
         # Plot spectral data
         spectra = self.data_frame.iloc[:, 10:266]
-        wavelengths = [round(200 + 0.7843 * i, 2) for i in range(256)]
+        wavelengths = [round(190 + (370-190)/255 * i, 2) for i in range(256)]
         spectra.columns = wavelengths
         spectra = spectra.resample('1h').mean()
 
@@ -127,13 +132,15 @@ class Suna(object):
     def FilterSuna(self,rmse_cutoff=0.00025):
         """
         This method first applies a rmse_cutoff value specified as a keyword argument 
-        (defaults to 0.00025).  It then resamples the data to hourly, and then takes the median 
-        of the hour
+        (defaults to 0.00025).  It then remove entries with RMSE = 0. 
+        In the end it resamples the data to hourly, and then takes the median 
+        of the hour.
         """
 
         assert 'Fit RMSE' in self.data_frame.columns , 'Must provide a Fit RMSE column in data'
         
-        self.data_frame = self.data_frame[self.data_frame['Fit RMSE'] <= rmse_cutoff]
+        self.data_frame = self.data_frame[(self.data_frame['Fit RMSE'] > 0) & (self.data_frame['Fit RMSE'] <= rmse_cutoff)]
+        
         self.data_frame = self.data_frame.resample('1h').median(numeric_only=True)
 
         return self.data_frame
