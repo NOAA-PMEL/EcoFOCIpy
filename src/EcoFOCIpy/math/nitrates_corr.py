@@ -38,6 +38,20 @@ def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pix
         Calculated nitrate concentration.
     """
 
+    # Methods follow Plant et al. (2023): Updated temperature correction for computing 
+    # seawater nitrate with in situ ultraviolet spectrophotometer and submersible 
+    # ultraviolet nitrate analyzer nitrate sensors. Limnology and Oceanography: Methods.
+
+    
+    # Choose fit window. The Argo default processing uses a default window of >=217 & <=240.
+    # But the Plant2023 paper indicates that cofficients of determination for the regressions 
+    # at each wavelength exhibit high correlations between 210 to 230 nm. 
+
+    # Here we choose to use 210 to 240 nm for data processing and this window can be adjusted
+    # later as needed. 
+
+    
+    
     # Extract variables from dataframes
     spec_SDN = suna_wop_filtered.index
     spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values

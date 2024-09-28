@@ -64,9 +64,12 @@ class Suna(object):
                    275:'Fit aux 1', 276:'Fit aux 2', 277:'Fit base 1', 278:'Fit base 2',
                    279:'Fit RMSE'},inplace=True)
 
-        # Define wavelengths for columns 10 to 265, and rename these columns with the wavelength values
+        # Define wavelengths for columns 10 to 265 (256 WL and therefore 255 increments), 
+        # and rename these columns with the wavelength values
+        # Note that the column numbers have been shifted to the left by 1 as the date_time has been used
+        # as an index 
         wavelengths = [round(190 + (370 - 190) / 255 * i, 2) for i in range(256)]
-        rawdata_df.columns.values[10:266] = wavelengths
+        rawdata_df.columns.values[9:265] = wavelengths
 
         # Set the index name
         rawdata_df.index.names = ['date_time']
