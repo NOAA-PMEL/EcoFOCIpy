@@ -77,7 +77,24 @@ class Suna(object):
         self.data_frame = rawdata_df
 
         return self.data_frame
+        
 
+    def remove_dark_current(self):
+        """
+        Subtracts the dark current (values in 'Dark value used for fit') from UV intensity data (columns 9:265).
+        After subtraction, any UV intensity value <= 0 is set to NaN.
+        """
+        assert 'Dark value used for fit' in self.data_frame.columns, 'Dark value column not found in data.'
+
+        # Subtract dark current and set values <= 0 to NaN
+        # `axis=0` argument aligns the subtraction along the rows
+        uv_intensity_cols = self.data_frame.columns[9:265]
+        self.data_frame[uv_intensity_cols] = self.data_frame[uv_intensity_cols].sub(
+            self.data_frame['Dark value used for fit'], axis=0).where(lambda x: x > 0)
+
+        return self.data_frame
+
+    
     def plot_data(self, title="SUNA Data"):
         """
         Plot nitrate, spectral data, and Fit RMSE from the SUNA instrument for an initial check.
@@ -147,6 +164,10 @@ class Suna(object):
         self.data_frame = self.data_frame.resample('1h').median(numeric_only=True)
 
         return self.data_frame
+
+
+
+
     
 # Instrument files mapping with multiple calibration files
 instrument_files = {

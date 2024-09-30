@@ -13,7 +13,10 @@ import pandas as pd
 
 def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pixel_base=1, DC_flag=1, pres_coef=0.02):
     """
-    Calculate nitrate concentration from SUNA data with necessary corrections.
+    Calculate nitrate concentration from SUNA data with necessary corrections. 
+    Methods follow Plant et al. (2023): Updated temperature correction for computing seawater nitrate 
+    with in situ ultraviolet spectrophotometer and submersible ultraviolet nitrate analyzer nitrate sensors. 
+    Limnology and Oceanography: Methods.
 
     Parameters:
     ----------
@@ -38,54 +41,63 @@ def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pix
         Calculated nitrate concentration.
     """
 
-    # Methods follow Plant et al. (2023): Updated temperature correction for computing 
-    # seawater nitrate with in situ ultraviolet spectrophotometer and submersible 
-    # ultraviolet nitrate analyzer nitrate sensors. Limnology and Oceanography: Methods.
-
-    
-    # Choose fit window. The Argo default processing uses a default window of >=217 & <=240.
-    # But the Plant2023 paper indicates that cofficients of determination for the regressions 
-    # at each wavelength exhibit high correlations between 210 to 230 nm. 
-
-    # Here we choose to use 210 to 240 nm for data processing and this window can be adjusted
-    # later as needed. 
-
-    
     
     # Extract variables from dataframes
     spec_SDN = suna_wop_filtered.index
-    spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values
-    spec_T = s16_interpolated['temperature (degree_C)'].values
+    spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values # This is the UV intensity data
+    WL_UV = suna_wop_filtered.columns[8:264].astype(float) # Extract the wavelengths from the column names 
+    spec_T = s16_interpolated['temperature (degree_C)'].values 
     spec_S = s16_interpolated['salinity (PSU)'].values
     spec_P = s16_interpolated['Water_Depth (dbar)'].values
-
+    
     # Calibration coefficients
     Tcal = ncal['CalTemp']
+    WLcal = np.array(ncal['WL'])
     E_N = np.array(ncal['ENO3'])
     E_S = np.array(ncal['ESW'])
-    E_ref = np.array(ncal['Ref'])
-    
-    # Create list with wavelengths
-    wavelengths = [round(190 + 0.7 * i, 2) for i in range(256)]
-    
-    # Adjust wavelengths
-    wavelengths = np.array(wavelengths) + WL_offset
+    # E_ref = np.array(ncal['Ref'])
 
-    # Temperature correction coefficients
+    # Interpolate ncal coefficients to match the UV intensity wavelengths (WL_UV)
+    E_N_interp = np.interp(WL_UV, WLcal, E_N)
+    E_S_interp = np.interp(WL_UV, WLcal, E_S)
+    # E_ref_interp = np.interp(WL_UV, WLcal, E_ref)
+
+    # Choose fit window. The Argo default processing uses a default window of >=217 & <=240.
+    # But the Plant2023 paper indicates that cofficients of determination for the regressions 
+    # at each wavelength exhibit high correlations between 210 to 230 nm. 
+    # Here we choose to use ** 210 to 240 nm ** for data processing and this window can be 
+    # adjusted later as needed. 
+    fit_window_UV   = (WL_UV >= 210) & (WL_UV <= 240)
+
+    # Apply the fit window mask to the interpolated ncal coefficients and UV data
+    WL_UV = WL_UV[fit_window_UV]
+    spec_UV_INTEN = spec_UV_INTEN[:, fit_window_UV]
+    E_N_interp = E_N_interp[fit_window_UV]
+    E_S_interp = E_S_interp[fit_window_UV]
+    # E_ref_interp = E_ref_interp[fit_window_UV]
+    
+    # Temperature correction coefficients (Eq. 6)
     Tcorr_coef  = [1.27353e-07, -7.56395e-06, 2.91898e-05, 1.67660e-03, 1.46380e-02]
-    Tcorr = np.polyval(Tcorr_coef, (wavelengths - WL_offset)) * (spec_T - Tcal)
+    f_lambda    = np.polyval(Tcorr_coef, (WL_UV - WL_offset))
+
+    # Calculate the temperature correction for each time step and wavelength
+    T_diff = (spec_T - Tcal)[:, np.newaxis]
+    Tcorr = f_lambda * T_diff
     
-    # Correct for temperature difference
-    E_N_corr = E_N * np.exp(Tcorr)
-    ESW_in_situ = E_S * np.exp(Tcorr)
+    # Correct for temperature difference (Eq. 8)
+    E_N_corr = E_N_interp * np.exp(Tcorr)
+    E_S_corr = E_S_interp * np.exp(Tcorr)
 
-    # Calculate absorbance
-    absorbance = -np.log10(spec_UV_INTEN / np.mean(spec_UV_INTEN, axis=0))
 
-    # Calculate nitrate concentration
-    NO3 = (absorbance @ E_N_corr) / (E_ref @ E_N_corr) - pres_coef * spec_S * spec_P / 1000
+    return WL_UV, E_N_interp, E_S_interp, E_N_corr, E_S_corr, spec_UV_INTEN
+    
+    # # Calculate absorbance
+    # absorbance = -np.log10(spec_UV_INTEN / np.mean(spec_UV_INTEN, axis=0))
 
-    # Create a DataFrame for nitrate concentration
-    no3_concentration = pd.DataFrame(data=NO3, index=spec_SDN, columns=['Nitrate concentration (μM)'])
+    # # Calculate nitrate concentration
+    # NO3 = (absorbance @ E_N_corr) / (E_ref @ E_N_corr) - pres_coef * spec_S * spec_P / 1000
 
-    return no3_concentration
+    # # Create a DataFrame for nitrate concentration
+    # no3_concentration = pd.DataFrame(data=NO3, index=spec_SDN, columns=['Nitrate concentration (μM)'])
+
+    # return no3_concentration
