@@ -11,7 +11,7 @@ These include:
 import numpy as np
 import pandas as pd
 
-def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pixel_base=1, DC_flag=1, pres_coef=0.02):
+def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pixel_base=1, DC_flag=1, pres_coef=0.026):
     """
     Calculate nitrate concentration from SUNA data with necessary corrections. 
     Methods follow Plant et al. (2023): Updated temperature correction for computing seawater nitrate 
@@ -85,14 +85,20 @@ def calc_float_no3(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pix
     Tcorr = f_lambda * T_diff
     
     # Correct for temperature difference (Eq. 8)
-    E_N_corr = E_N_interp * np.exp(Tcorr)
-    E_S_corr = E_S_interp * np.exp(Tcorr)
+    ESW_in_situ = E_S_interp * np.exp(Tcorr)
 
-
-    return WL_UV, E_N_interp, E_S_interp, E_N_corr, E_S_corr, spec_UV_INTEN
+    # Pressure correction term (Eq. 9)
+    pres_term = (1 - spec_P[:, np.newaxis] / 1000 * pres_coef)  # Shape: (spec_SDN, 1)
     
+    # Apply pressure correction to ESW_in_situ (element-wise multiplication)
+    ESW_in_situ_p = ESW_in_situ * pres_term  # Shape: (spec_SDN, wavelength)
+
     # # Calculate absorbance
     # absorbance = -np.log10(spec_UV_INTEN / np.mean(spec_UV_INTEN, axis=0))
+    
+    return WL_UV, E_N_interp, E_S_interp, ESW_in_situ, ESW_in_situ_p, spec_UV_INTEN
+    
+    
 
     # # Calculate nitrate concentration
     # NO3 = (absorbance @ E_N_corr) / (E_ref @ E_N_corr) - pres_coef * spec_S * spec_P / 1000
