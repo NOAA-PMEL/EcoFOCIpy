@@ -77,31 +77,6 @@ class Suna(object):
         self.data_frame = rawdata_df
 
         return self.data_frame
-        
-
-    def remove_dark_current(self, sat_value=64500):
-        """
-        Subtracts the dark current (values in 'Dark value used for fit') from UV intensity data (columns 9:265).
-        Before subtraction, handles saturation by setting saturated UV intensity values to NaN.
-        After subtraction, any UV intensity value <= 0 is also set to NaN.
-        """
-        assert 'Dark value used for fit' in self.data_frame.columns, 'Dark value column not found in data.'
-
-        # Identify UV intensity columns
-        uv_intensity_cols = self.data_frame.columns[9:265]
-    
-        # Step 1: Handle saturation (set saturated pixels to NaN)
-        tPIX_SAT = self.data_frame[uv_intensity_cols] > sat_value
-        if tPIX_SAT.sum().sum() > 0:
-            print('WARNING: Saturated sample pixel intensities detected in profile')
-            print('Saturated values will be excluded. Nitrate estimates may be compromised')
-            self.data_frame[uv_intensity_cols] = self.data_frame[uv_intensity_cols].where(~tPIX_SAT)
-    
-        # Step 2: Subtract dark current and set values <= 0 to NaN
-        self.data_frame[uv_intensity_cols] = self.data_frame[uv_intensity_cols].sub(
-            self.data_frame['Dark value used for fit'], axis=0).where(lambda x: x > 0)
-
-        return self.data_frame
 
     
     def plot_data(self, title="SUNA Data"):
@@ -147,7 +122,8 @@ class Suna(object):
         # Spectra subplot
         ax3 = axs[2]
         pcm = ax3.pcolormesh(spectra.index, spectra.columns, spectra.T, cmap=plt.cm.plasma)
-        ax3.set(title='Spectral Data', xlabel='Time', ylabel='Wavelength (nm)')
+        ax3.set(title='Spectral Data', xlabel='Time', ylabel='Wavelength (nm)',
+                ylim=[200, 250])
 
         # Adjust layout manually to make room for the colorbar
         fig.subplots_adjust(right=0.85)
