@@ -39,11 +39,11 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     -------
     no3_concentration : DataFrame
         Calculated nitrate concentration.
-    WL_UV : ndarray
+    WL : ndarray
         Wavelength array corresponding to UV intensity data.
-    E_N_interp : ndarray
+    E_N : ndarray
         Interpolated nitrate extinction coefficient.
-    E_S_interp : ndarray
+    E_S : ndarray
         Interpolated seawater extinction coefficient.
     ESW_in_situ : ndarray
         In situ seawater extinction coefficient after temperature correction.
@@ -61,23 +61,16 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     # Extract variables from dataframes
     spec_SDN = suna_wop_filtered.index
     spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values # This is the UV intensity data
-    WL_UV = suna_wop_filtered.columns[8:264].astype(float) # Extract the wavelengths from the column names 
     spec_T = s16_interpolated['temperature (degree_C)'].values 
     spec_S = s16_interpolated['salinity (PSU)'].values
     spec_P = s16_interpolated['Water_Depth (dbar)'].values
     
     # Calibration coefficients
     Tcal = ncal['CalTemp']
-    WLcal = np.array(ncal['WL'])
+    WL = np.array(ncal['WL'])
     E_N = np.array(ncal['ENO3'])
     E_S = np.array(ncal['ESW'])
     E_ref = np.array(ncal['Ref'])
-
-    # Interpolate ncal coefficients to match the UV intensity wavelengths (WL_UV)
-    E_N_interp = np.interp(WL_UV, WLcal, E_N)
-    E_S_interp = np.interp(WL_UV, WLcal, E_S)
-    E_ref_interp = np.interp(WL_UV, WLcal, E_ref)
-
 
     # ************************************************************************
     # Choose fit window. The Argo default processing uses a default window of >=217 & <=240.
@@ -87,15 +80,16 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     # adjusted later as needed. 
     # ************************************************************************
     
-    fit_window_UV   = (WL_UV >= 217) & (WL_UV <= 240)
+    fit_window  = (WL >= 217) & (WL <= 240)
 
-    # Apply the fit window mask to the interpolated ncal coefficients and UV data
-    WL_UV = WL_UV[fit_window_UV]
-    spec_UV_INTEN = spec_UV_INTEN[:, fit_window_UV]
-    E_N_interp = E_N_interp[fit_window_UV]
-    E_S_interp = E_S_interp[fit_window_UV]
-    E_ref_interp = E_ref_interp[fit_window_UV]
+    # Apply the fit window mask to the ncal coefficients and UV data
+    WL = WL[fit_window]
+    E_N = E_N[fit_window]
+    E_S = E_S[fit_window]
+    E_ref = E_ref[fit_window]
+    spec_UV_INTEN = spec_UV_INTEN[:, fit_window]
 
+    
     # ************************************************************************
     # Handle saturation and subtract dark current values
     # ************************************************************************    
@@ -108,25 +102,26 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
         spec_UV_INTEN = np.where(tPIX_SAT, np.nan, spec_UV_INTEN)
     
     # Subtract dark current and set values <= 0 to NaN
+    # Currently use spectral mean dark values. Consider using dark values for individual wavelengths in the future.
     dark_current = suna_wop_filtered['Dark value used for fit'].values[:, np.newaxis]  # reshape for broadcasting
     spec_UV_INTEN = spec_UV_INTEN - dark_current
     spec_UV_INTEN = np.where(spec_UV_INTEN > 0, spec_UV_INTEN, np.nan)
 
+    
     # ************************************************************************
-    # Temperature and pressure corrections
+    # Temperature and pressure corrections for E_S
     # ************************************************************************    
-
     
     # Temperature correction coefficients (Eq. 6)
     Tcorr_coef  = [1.27353e-07, -7.56395e-06, 2.91898e-05, 1.67660e-03, 1.46380e-02]
-    f_lambda    = np.polyval(Tcorr_coef, (WL_UV - WL_offset))
+    f_lambda    = np.polyval(Tcorr_coef, (WL - WL_offset))
 
     # Calculate the temperature correction for each time step and wavelength
     T_diff = (spec_T - Tcal)[:, np.newaxis]
     Tcorr = f_lambda * T_diff
     
     # Correct for temperature difference (Eq. 8)
-    ESW_in_situ = E_S_interp * np.exp(Tcorr)
+    ESW_in_situ = E_S * np.exp(Tcorr)
 
     # Pressure correction term (Eq. 9)
     pres_term = (1 - spec_P[:, np.newaxis] / 1000 * pres_coef)  # Shape: (spec_SDN, 1)
@@ -140,7 +135,7 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     
     # Compute the total absorbance (ABS_SW) from the UV intensity and dark-corrected reference spectrum
     # Correct E_ref by subtracting the dark values
-    E_ref_dark_corrected = E_ref_interp - dark_current
+    E_ref_dark_corrected = E_ref - dark_current
     ABS_SW = -np.log10(spec_UV_INTEN / E_ref_dark_corrected)  
 
     # Compute the in situ bromide absorbances based on salinity and ESW_in_situ
@@ -148,8 +143,6 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
         
     # Subtract bromide absorbance from the total absorbance to get nitrate + baseline absorbance
     ABS_cor = ABS_SW - ABS_Br_tcor 
-    
-    # return WL_UV, E_N_interp, E_S_interp, ESW_in_situ, ESW_in_situ_p, ABS_SW, ABS_Br_tcor, ABS_cor, spec_UV_INTEN, E_ref_dark_corrected
 
     # ************************************************************************
     # CALCULATE THE NITRATE CONCENTRATION, BASELINE SLOPE AND INTERCEPT OF THE
@@ -158,12 +151,12 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     # ************************************************************************
 
     # Prepare fit matrix (M) and pseudo-inverse (M_INV)
-    Ones = np.ones_like(E_N_interp)
-    M = np.column_stack([E_N_interp, Ones / 100, WL_UV / 1000])  # Wavelength x 3
+    Ones = np.ones_like(E_N)
+    M = np.column_stack([E_N, Ones / 100, WL / 1000])  # Wavelength x 3
     M_INV = np.linalg.pinv(M)
 
     # Perform the nitrate concentration calculation
-    NO3 = calculate_no3_concentration(ABS_cor, E_N_interp, WL_UV, M, M_INV)
+    NO3 = calculate_no3_concentration(ABS_cor, E_N, WL, M, M_INV)
 
     # Return the result as a DataFrame
     no3_concentration = pd.DataFrame(data=NO3, index=spec_SDN, 
@@ -171,12 +164,12 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
                                               'Baseline Slope', 'RMS Error', 'Wavelength @ 240nm', 
                                               'Absorbance @ 240nm'])
     
-    return no3_concentration, WL_UV, E_N_interp, E_S_interp, ESW_in_situ, ESW_in_situ_p, ABS_SW, ABS_Br_tcor, ABS_cor, spec_UV_INTEN, E_ref_dark_corrected
+    return no3_concentration, WL, E_N, E_S, ESW_in_situ, ESW_in_situ_p, ABS_SW, ABS_Br_tcor, ABS_cor, spec_UV_INTEN, E_ref_dark_corrected
 
 
 
 # Calculate nitrate concentration, baseline slope, and intercept
-def calculate_no3_concentration(ABS_cor, E_N_interp, WL_UV, M, M_INV):
+def calculate_no3_concentration(ABS_cor, E_N, WL, M, M_INV):
     """
     Performs the nitrate concentration, baseline intercept, and slope calculations for each sample.
     """
@@ -193,9 +186,9 @@ def calculate_no3_concentration(ABS_cor, E_N_interp, WL_UV, M, M_INV):
         NO3[i, 2] /= 1000  # Correct baseline slope
 
         # Calculate absorbance and residuals
-        ABS_BL = WL_UV * NO3[i, 2] + NO3[i, 1]
+        ABS_BL = WL * NO3[i, 2] + NO3[i, 1]
         ABS_NO3 = ABS_cor[i, :] - ABS_BL
-        ABS_NO3_EXP = E_N_interp * NO3[i, 0]
+        ABS_NO3_EXP = E_N * NO3[i, 0]
         FIT_DIF = ABS_cor[i, :] - ABS_BL - ABS_NO3_EXP
 
         # Calculate RMS error, but only if there are valid points
@@ -205,8 +198,8 @@ def calculate_no3_concentration(ABS_cor, E_N_interp, WL_UV, M, M_INV):
             RMS_ERROR = np.nan  # Assign NaN if no valid points
 
         # Store RMS error and absorbance near 240 nm
-        ind_240 = np.argmin(np.abs(WL_UV - 240))
-        ABS_240 = [WL_UV[ind_240], ABS_cor[i, ind_240]]
+        ind_240 = np.argmin(np.abs(WL - 240))
+        ABS_240 = [WL[ind_240], ABS_cor[i, ind_240]]
         NO3[i, 3:] = [RMS_ERROR, *ABS_240]
 
     return NO3
