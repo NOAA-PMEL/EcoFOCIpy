@@ -188,9 +188,10 @@ instrument_files = {
     # Add more instruments and their calibration file URLs here
 }
 
-def get_calibration_file(instrument, data_year):
+def get_calibration_file(instrument, data_year, user_provided_file=None):
     """
     Retrieve the appropriate calibration file for a specified instrument and data year.
+    If the user provides a file, it is used instead of retrieving one from the online mapping.
 
     Parameters:
     ----------
@@ -198,12 +199,20 @@ def get_calibration_file(instrument, data_year):
         The name of the instrument (e.g., 'SUNA 1471').
     data_year : int
         The year the data was collected.
+    user_provided_file : str, optional
+        Path to a user-provided calibration file.
 
     Returns:
     -------
     str
         The content of the calibration file.
     """
+    # If the user provided a file, use it
+    if user_provided_file:
+        with open(user_provided_file, 'r') as file:
+            return file.read()
+    
+    # Otherwise, retrieve the calibration file from the instrument mapping
     urls = instrument_files.get(instrument)
     if not urls:
         raise ValueError(f"Instrument '{instrument}' not found in the mapping.")
@@ -214,11 +223,10 @@ def get_calibration_file(instrument, data_year):
     for url in urls:
         segments = url.split('/')
         year = None
-        # Try to find a valid year in the last few segments
         for segment in segments[-4:]:
             try:
                 possible_year = int(segment)
-                if 1900 <= possible_year <= datetime.now().year:  # Assuming year is between 1900 and the current year
+                if 1900 <= possible_year <= datetime.now().year:
                     year = possible_year
                     break
             except ValueError:
@@ -226,7 +234,6 @@ def get_calibration_file(instrument, data_year):
         if year:
             cal_years.append((year, url))
         else:
-            # If the year information is not present, consider it as a default file
             default_url = url
     
     if not cal_years:
@@ -235,10 +242,8 @@ def get_calibration_file(instrument, data_year):
         else:
             raise ValueError(f"No suitable calibration file found for the instrument '{instrument}' and data year '{data_year}'.")
     else:
-        # Sort calibration files by year in descending order
         cal_years.sort(reverse=True)
-        # Select the most recent calibration file that is less than or equal to the data year
-        selected_url = cal_years[0][1]  # Initialize with the most recent calibration file
+        selected_url = cal_years[0][1]
         for year, url in cal_years:
             if data_year >= year:
                 selected_url = url
@@ -249,6 +254,7 @@ def get_calibration_file(instrument, data_year):
         return response.text
     else:
         raise ValueError(f"Failed to retrieve file from {selected_url}")
+
 
 def parse_no3_cal(calibration_content):
     """

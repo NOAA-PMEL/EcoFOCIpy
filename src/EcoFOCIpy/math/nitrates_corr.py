@@ -145,8 +145,8 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     ABS_cor = ABS_SW - ABS_Br_tcor 
 
     # ************************************************************************
-    # CALCULATE THE NITRATE CONCENTRATION, BASELINE SLOPE AND INTERCEPT OF THE
-    # BASELINE ABSORBANCE. Following the example here: 
+    # Calculate the nitrate concentration, baseline slope, and intercept of the baseline absorbance.
+    # baseline absorbance. Following the example here: 
     # https://github.com/SOCCOM-BGCArgo/ARGO_PROCESSING/blob/master/MFILES/FLOATS/calc_FLOAT_NO3.m
     # ************************************************************************
 
@@ -189,7 +189,7 @@ def calculate_no3_concentration(ABS_cor, E_N, WL, M, M_INV):
         ABS_BL = WL * NO3[i, 2] + NO3[i, 1]
         ABS_NO3 = ABS_cor[i, :] - ABS_BL
         ABS_NO3_EXP = E_N * NO3[i, 0]
-        FIT_DIF = ABS_cor[i, :] - ABS_BL - ABS_NO3_EXP
+        FIT_DIF = ABS_NO3 - ABS_NO3_EXP
 
         # Calculate RMS error, but only if there are valid points
         if np.sum(tg) > 0:
