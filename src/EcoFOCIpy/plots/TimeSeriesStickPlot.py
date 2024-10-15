@@ -35,7 +35,7 @@ class Timeseries1dStickPlot(object):
           The fontsize to use for labels
         stylesheet : str
           Choose a mpl stylesheet [u'seaborn-darkgrid', 
-          u'seaborn-notebook', u'classic', u'seaborn-ticks', 
+          u'seaborn-notebook', u'classic', u'seaborn-v0_8-ticks', 
           u'grayscale', u'bmh', u'seaborn-talk', u'dark_background', 
           u'ggplot', u'fivethirtyeight', u'seaborn-colorblind', 
           u'seaborn-deep', u'seaborn-whitegrid', u'seaborn-bright', 

@@ -7,7 +7,7 @@ fontsize = 10
 labelsize = 10
 #plotstyle = 'seaborn'
 max_xticks = 10
-plt.style.use('seaborn-ticks')
+plt.style.use('seaborn-v0_8-ticks')
 mpl.rcParams['svg.fonttype'] = 'none'
 mpl.rcParams['ps.fonttype'] = 42 #truetype/type2 fonts instead of type3
 mpl.rcParams['pdf.fonttype'] = 42 #truetype/type2 fonts instead of type3
