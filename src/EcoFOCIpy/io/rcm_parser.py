@@ -62,7 +62,7 @@ class rcm(object):
         else:
             headernames=['sample','date','time','ident','speed_engr','dir_engr','temp_engr','cond_engr','press_engr']
 
-        rawdata_df = pd.read_csv(filename, names=headernames, delimiter="\s+",)
+        rawdata_df = pd.read_csv(filename, names=headernames, delimiter=r'\s+',)
         if time_format == 0:
             rawdata_df["date_time"] = pd.to_datetime(
                 rawdata_df['date'] + " " + rawdata_df['time'], format="%m/%d/%Y %H:%M:%S"

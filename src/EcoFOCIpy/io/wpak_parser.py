@@ -33,7 +33,7 @@ class wpak(object):
         """
         assert filename != None , 'Must provide a datafile'
 
-        rawdata_df = pd.read_csv(filename, header=0, delimiter="\s+")
+        rawdata_df = pd.read_csv(filename, header=0, delimiter=r'\s+')
         rawdata_df["date_time"] = pd.to_datetime(
             rawdata_df["DATE"] + " " + rawdata_df["TIME"], format="%y/%m/%d %H:%M:%S"
         )

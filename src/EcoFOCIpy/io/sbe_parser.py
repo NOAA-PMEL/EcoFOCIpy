@@ -76,7 +76,7 @@ class sbe16(object):
 
 
         rawdata_df = pd.read_csv(filename, 
-                        delimiter="\s+", 
+                        delimiter=r'\s+', 
                         parse_dates=True, 
                         header=None,
                         names=var_names.values(), 
@@ -131,7 +131,7 @@ class sbe26(object):
         assert filename.split('.')[-1] == 'tid' , 'Must provide a tid file - use sbe software to convert'
 
         rawdata_df = pd.read_csv(filename, 
-                                 delimiter="\s+", 
+                                 delimiter=r'\s+', 
                                  skiprows=1, 
                                  names=["date", "time", "pressure", "temperature"])
         
@@ -289,7 +289,7 @@ class sbe56(object):
 
 
         rawdata_df = pd.read_csv(filename, 
-                        delimiter="\s+", 
+                        delimiter=r'\s+', 
                         parse_dates=True, 
                         header=None,
                         names=var_names.values(), 
