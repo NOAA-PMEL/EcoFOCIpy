@@ -10,6 +10,7 @@ These include:
 """
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pres_coef=0.026, sat_value=64500):
     """
@@ -55,6 +56,8 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
         Bromide-corrected absorbance.
     ABS_cor : ndarray
         Nitrate and baseline absorbance after bromide correction.
+    spec_UV_INTEN : ndarray
+        Saturation filted, dark-corrected spectrum
     """
 
     
@@ -134,9 +137,8 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     # ************************************************************************    
     
     # Compute the total absorbance (ABS_SW) from the UV intensity and dark-corrected reference spectrum
-    # Correct E_ref by subtracting the dark values
-    E_ref_dark_corrected = E_ref - dark_current
-    ABS_SW = -np.log10(spec_UV_INTEN / E_ref_dark_corrected)  
+    # Note that the reference spectrum is already dark corrected
+    ABS_SW = -np.log10(spec_UV_INTEN / E_ref)  
 
     # Compute the in situ bromide absorbances based on salinity and ESW_in_situ
     ABS_Br_tcor = ESW_in_situ * spec_S[:, np.newaxis] 
@@ -164,7 +166,7 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
                                               'Baseline Slope', 'RMS Error', 'Wavelength @ 240nm', 
                                               'Absorbance @ 240nm'])
     
-    return no3_concentration, WL, E_N, E_S, ESW_in_situ, ESW_in_situ_p, ABS_SW, ABS_Br_tcor, ABS_cor, spec_UV_INTEN, E_ref_dark_corrected
+    return no3_concentration, WL, E_N, E_S, ESW_in_situ, ESW_in_situ_p, ABS_SW, ABS_Br_tcor, ABS_cor, spec_UV_INTEN
 
 
 
@@ -203,3 +205,120 @@ def calculate_no3_concentration(ABS_cor, E_N, WL, M, M_INV):
         NO3[i, 3:] = [RMS_ERROR, *ABS_240]
 
     return NO3
+
+
+def plot_corrected_data(WL_UV, E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_p,
+                        ABS_SW, ABS_Br_tcor, ABS_cor, time, timestamps, mooring_config, instrument):
+    """
+    Plot mooring data with four subplots to show results after corrections:
+    A. Extinction coefficients
+    B. Total absorbancc
+    C. Bromide absorbance 
+    D. Nitrate and baseline absorbance
+
+    Parameters:
+    -----------
+    WL_UV : array-like
+        Wavelength UV data.
+    E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_p : array-like
+        Calibration data and correction factors.
+    ABS_SW, ABS_Br_tcor, ABS_cor : array-like
+        Absorbance data for different conditions.
+    time : pandas.Index or array-like
+        Timestamps for labeling.
+    timestamps : list of int
+        Indices for plotting in subplots B, C, and D.
+    mooring_config : dict
+        Mooring information
+    instrument : str
+        ID for mooring used in plot titles.
+    """
+    
+    fig, axes = plt.subplots(2, 2, figsize=(10, 7))
+    titles = ['Total absorbance', 'Bromide absorbance', 'Absorbance (Nitrate and baseline)']
+    data = [ABS_SW, ABS_Br_tcor, ABS_cor]
+    labels = ['A', 'B', 'C', 'D']
+    
+    # Subplot A
+    ax = axes[0, 0]
+    ax.plot(WL_UV, E_S_interp, label='$\epsilon$ for bromide (uncorrected)')
+    ax.plot(WL_UV, E_N_interp, label='$\epsilon$ for NO3')
+    ax.plot(WL_UV, ESW_in_situ[timestamps[0], :], 'C3', lw=3, label='$\epsilon$ for bromide (temp corrected)')
+    ax.plot(WL_UV, ESW_in_situ_p[timestamps[0], :], 'k--', lw=1, label='$\epsilon$ for bromide (temp + pressure corrected)')
+    ax.legend()
+    ax.set(ylabel='$\epsilon$', title=f'{mooring_config["MooringID"]}, {instrument}, {time[timestamps[0]]}')
+    ax.annotate(labels[0], xy=(-0.15, 1.05), xycoords='axes fraction', fontsize=14, fontweight='bold')
+
+    # Subplots B, C, and D
+    for i, ax in enumerate(axes.flat[1:], start=1):
+        for idx in timestamps:
+            ax.plot(WL_UV, data[i - 1][idx, :], label=f'{time[idx]}')
+        ax.legend()
+        ax.set(ylabel=titles[i - 1], title=f'{mooring_config["MooringID"]}, {instrument}')
+        ax.annotate(labels[i], xy=(-0.15, 1.05), xycoords='axes fraction', fontsize=14, fontweight='bold')
+    
+    fig.tight_layout()
+    plt.show()
+
+def plot_intensity(ncal, suna_wop_filtered, timestamps, mooring_config, instrument):
+    """
+    Plot dark-corrected intensity for selected timestamps with a DIW reference and highlight region.
+
+    Parameters:
+    -----------
+    ncal : dict
+        Dictionary containing 'WL' for wavelength data and 'Ref' for DIW reference values.
+    suna_wop_filtered : DataFrame
+        Filtered data containing intensity values and dark correction values.
+    timestamps : list of int
+        Indices to use for plotting selected timestamps.
+    mooring_id : str
+        Mooring ID for plot title.
+    instrument : str
+        Instrument ID for plot title.
+    """
+    fig, ax = plt.subplots(1, 1, figsize=(7, 4))
+
+    for idx in timestamps:
+        ax.plot(ncal['WL'], 
+                suna_wop_filtered.iloc[idx, 9:265] - suna_wop_filtered['Dark value used for fit'].iloc[idx], 
+                label=f'{suna_wop_filtered.index[idx]}')
+    
+    ax.plot(ncal['WL'], ncal['Ref'], 'k--', label='DIW Reference')
+    ax.axvspan(217, 240, color='gray', alpha=0.1)
+    ax.set(xlim=[210, 300], ylabel='Intensity (dark-corrected)', xlabel='Wavelength (nm)', ylim=[0, 67000],
+           title=f'{mooring_config["MooringID"]}, {instrument}')
+    ax.legend()
+    plt.show()
+
+def plot_nitrate_and_rmse(suna_wop_filtered, no3_concentration, ylim=(0, 30)):
+    """
+    Generate two subplots to compare original and corrected nitrate concentration and RMSE.
+
+    Parameters:
+    -----------
+    suna_wop_filtered : DataFrame
+        DataFrame containing original nitrate concentration and RMSE values.
+    no3_concentration : DataFrame
+        DataFrame containing corrected nitrate concentration and RMS error values.
+    ylim : tuple, optional
+        Limits for the y-axis in the nitrate concentration plot. Default is (0, 30).
+    """
+    fig, axes = plt.subplots(2, 1, figsize=(8, 7))
+
+    # Nitrate concentration plot
+    ax = axes[0]
+    suna_wop_filtered['Nitrate concentration, μM'].plot(ax=ax, label='original')
+    no3_concentration['Nitrate concentration (μM)'].plot(ax=ax, label='corrected', color='C1')
+    ax.legend()
+    ax.set(title='Nitrate concentration (μM)', ylim=ylim)
+
+    # RMSE plot
+    ax = axes[1]
+    suna_wop_filtered['Fit RMSE'].plot(ax=ax, label='original')
+    no3_concentration['RMS Error'].plot(ax=ax, label='corrected', color='C1')
+    ax.legend()
+    ax.set(title='RMSE')
+
+    fig.tight_layout()
+    plt.show()
