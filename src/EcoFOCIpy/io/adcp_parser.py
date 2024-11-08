@@ -37,7 +37,7 @@ class adcp(object):
         if self.depdir:
             pgfile_path = self.depdir + '.PG'
 
-        self.pg_df = pd.read_csv(pgfile_path,delimiter='\s+',header=None,names=['date','time','bin','pg3beam-good','pgtransf-good','pg1beam-bad','pg4beam-good'])
+        self.pg_df = pd.read_csv(pgfile_path,delimiter=r'\s+',header=None,names=['date','time','bin','pg3beam-good','pgtransf-good','pg1beam-bad','pg4beam-good'])
         self.pg_df["date_time"] = pd.to_datetime(self.pg_df.date+' '+self.pg_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
@@ -49,7 +49,7 @@ class adcp(object):
         if self.depdir:
             einfile_path = self.depdir + '.EIN'
 
-        self.ein_df = pd.read_csv(einfile_path,delimiter='\s+',header=None,names=['date','time','bin','agc1','agc2','agc3','agc4'])
+        self.ein_df = pd.read_csv(einfile_path,delimiter=r'\s+',header=None,names=['date','time','bin','agc1','agc2','agc3','agc4'])
         self.ein_df["date_time"] = pd.to_datetime(self.ein_df.date+' '+self.ein_df.time,format="%y/%m/%d %H:%M:%S")
             
         if datetime_index:
@@ -61,7 +61,7 @@ class adcp(object):
         if self.depdir:
             velfile_path = self.depdir + '.VEL'
 
-        self.vel_df = pd.read_csv(velfile_path,delimiter='\s+',header=None,
+        self.vel_df = pd.read_csv(velfile_path,delimiter=r'\s+',header=None,
                                     names=['date','time','bin','u_curr_comp','v_curr_comp','w_curr_comp','w_curr_comp_err'])
         self.vel_df["date_time"] = pd.to_datetime(self.vel_df.date+' '+self.vel_df.time,format="%y/%m/%d %H:%M:%S")
             
@@ -74,7 +74,7 @@ class adcp(object):
         if self.depdir:
             scalfile_path = self.depdir + '.SCA'
 
-        self.scal_df = pd.read_csv(scalfile_path,delimiter='\s+',header=None,
+        self.scal_df = pd.read_csv(scalfile_path,delimiter=r'\s+',header=None,
                                     names=['date','time','unknown','temperature','heading','pitch','roll','heading_stdev','pitch_stdev','roll_stdev'])
         self.scal_df["date_time"] = pd.to_datetime(self.scal_df.date+' '+self.scal_df.time,format="%y/%m/%d %H:%M:%S")
             

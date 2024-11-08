@@ -52,7 +52,7 @@ class wetlabs(object):
  
 
         rawdata_df = pd.read_csv(filename, 
-                        delimiter="\s+", 
+                        delimiter=r'\s+', 
                         parse_dates=True, 
                         header=None, 
                         skiprows=headercount)       
