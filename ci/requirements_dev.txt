@@ -11,3 +11,5 @@ ctd==1.4.6 #python-ctd
 seawater==3.3.5
 #geomag cmweis github version... part of package
 pytest
+pyyaml
+requests
