@@ -18,9 +18,7 @@ python >=3.6 - Tested
 
 import argparse
 import datetime
-import sys
 
-import mysql.connector
 import numpy as np
 from _dbconfig.EcoFOCI_db_io import EcoFOCI_db_datastatus
 
