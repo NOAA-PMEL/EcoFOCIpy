@@ -121,9 +121,9 @@ parser.add_argument(
     default='_secret/db_config_mooring.yaml'
 )
 parser.add_argument(
-    "-db_ctd", 
-    "--db_ctd", 
-    type=str, 
+    "-db_ctd",
+    "--db_ctd",
+    type=str,
     help="path to db .pyini file for ctd records",
     default='_secret/db_config_cruises.yaml'
 )

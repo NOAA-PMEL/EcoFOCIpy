@@ -4,12 +4,12 @@
  Background:
  --------
  EcoFOCI_db_io.py
- 
- 
+
+
  Purpose:
  --------
  Various Routines and Classes to interface with the mysql database that houses EcoFOCI meta data
- 
+
   History:
  --------
  2017-07-28 S.Bell - replace pymsyql with mysql.connector -> provides purepython connection and prepared statements
