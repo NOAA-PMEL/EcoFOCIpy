@@ -102,7 +102,7 @@ if args.geojson:
                 """{{"type": "Feature","geometry": {{"type": "Point","coordinates": [{1},{0}]}}, "properties": {{"MooringID":"<a href='http://ecofoci-field.pmel.noaa.gov/bell/eFOCI_Mooring_logs/mooring_record_view.php?mooringview_id={2}'>{2}</a>" }}}}"""
             ).format(mooring_lat[k], mooring_lon[k], list(mooringid)[k])
 
-            if k + 1 != len(mooring_lat):
+            if k != len(mooring_lat):
                 geojson_point_coords = geojson_point_coords + ", "
 
     geojson_tail = "]\n" "}\n"
