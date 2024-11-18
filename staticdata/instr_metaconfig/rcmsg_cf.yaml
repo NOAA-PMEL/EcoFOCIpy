@@ -63,18 +63,24 @@ salinity:
   units: PSU
   long_name: "Practical salinity in-situ PSS-78 scale"
   standard_name: sea_water_practical_salinity
-oxy_conc:
-  generic_name: oxy_conc
-  epic_key: O_65
-  long_name: 'concentration of oxygen in seawater'
-  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
-  units: micromole/kg
 oxy_concM:
   generic_name: oxy_concM
   epic_key: ''
   long_name: 'concentration of oxygen in seawater'
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: uM  
+oxy_conc_umkg:
+  generic_name: oxy_conc_umkg
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
+oxy_conc_umkg_ctdcor:
+  generic_name: oxy_conc_umkg_ctdcor
+  epic_key: O_65
+  long_name: 'concentration of oxygen in seawater - winkler/ctd corrected'
+  standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
+  units: micromole/kg
 oxy_percentsat: 
   generic_name: oxy_psat
   epic_key: OST_62
