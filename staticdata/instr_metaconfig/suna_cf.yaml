@@ -54,24 +54,24 @@ temperature:
 nitrate:
   epic_key: ''
   generic_name: no3
-  long_name: "microMolar concenttraion of nitrate in seawater"
+  long_name: "concentration of nitrate in seawater in micromoles"
   standard_name: mole_concentration_of_nitrate_in_sea_water
-  units: uM
+  units: micromole
 bromide:
   epic_key: ''
   generic_name: bromide
-  long_name: "bromide trace in seawater"
+  long_name: "bromide trace in seawater in micromoles"
   standard_name: mass_concentration_of_bromide_in_sea_water
   units: mg/L
 absorbance_254nm:
   epic_key: ''
   generic_name: abs_254
-  long_name: "absorbance at 254 nm"
+  long_name: "absorbance at 254 nm in micromoles"
   standard_name: mole_concentration_of_nitrate_in_sea_water
-  units: uM
+  units: micromole
 absorbance_350nm:
   epic_key: ''
   generic_name: abs_350
-  long_name: "absorbance at 350 nm"
+  long_name: "absorbance at 350 nm in micromoles"
   standard_name: mole_concentration_of_nitrate_in_sea_water
-  units: uM
+  units: micromole
