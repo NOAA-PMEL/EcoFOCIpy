@@ -10,7 +10,7 @@ depth:
   epic_key: D_3
   generic_name: depth
   units: meter
-  long_name: "depth below surface (meters)"
+  long_name: depth below surface (meters)
   standard_name: depth
   positive: down
 latitude:
@@ -18,26 +18,26 @@ latitude:
   name: latitude
   generic_name: latitude
   units: degrees_north
-  long_name: 'latitude'
-  standard_name: 'latitude'
+  long_name: latitude
+  standard_name: latitude
 longitude:
   epic_key: LAT_500
   name: longitude
   generic_name: longitude
   units: degrees_east
-  long_name: 'longitude'
-  standard_name: 'longitude'
+  long_name: longitude
+  standard_name: longitude
 #variables
 temperature_ch1:
   epic_key: T_28
   generic_name: temp channel 1
-  long_name: "Sea temperature in-situ ITS-90 scale"
+  long_name: Sea temperature in-situ ITS-90 scale
   standard_name: sea_water_temperature
   units: degree_C
 temperature_ch2:
   epic_key: T2_35
   generic_name: temp channel 2
-  long_name: "Sea temperature in-situ ITS-90 scale"
+  long_name: Sea temperature in-situ ITS-90 scale
   standard_name: sea_water_temperature
   units: degree_C  
 pressure: 
