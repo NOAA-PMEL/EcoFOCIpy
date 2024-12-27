@@ -7,7 +7,9 @@ netcdf4==1.7.2
 cftime==1.6.4.post1
 erddapy==2.2.3
 ctd==1.4.6 #python-ctd
-seawater==3.3.5
+seawater==3.3.5 #soon to be depricated for gsw
+gsw-xarray
+gsw
 bottleneck==1.4.2
 #geomag cmweis github version... part of package
 pyyaml
