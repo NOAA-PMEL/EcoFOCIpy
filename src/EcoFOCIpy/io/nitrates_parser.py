@@ -9,10 +9,11 @@ These include:
 
 
 """
+from datetime import datetime
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import requests
-from datetime import datetime
 
 
 # Satlantic Suna CSV
@@ -303,12 +304,18 @@ def parse_no3_cal(calibration_content):
         if line.startswith('E,'):
             columns = line.split(',')
             if len(columns) >= 6:
-                # Ignore the first column and parse the rest. 
-                # The ’TSWA’ column is Satlantic proprietary, which is not used.
-                ncal['WL'].append(float(columns[1]))
-                ncal['ENO3'].append(float(columns[2]))
-                ncal['ESW'].append(float(columns[3]))
-                ncal['Ref'].append(float(columns[5]))
+                # Replace '?' with NaN during parsing
+                wl = float(columns[1])
+                eno3 = float(columns[2]) if columns[2] != '?' else np.nan
+                esw = float(columns[3]) if columns[3] != '?' else np.nan
+                ref = float(columns[5]) if columns[5] != '?' else np.nan
+                
+                # Append values to the respective lists
+                ncal['WL'].append(wl)
+                ncal['ENO3'].append(eno3)
+                ncal['ESW'].append(esw)
+                ncal['Ref'].append(ref)
+
 
     return ncal
 
