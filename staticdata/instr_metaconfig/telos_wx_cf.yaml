@@ -1,0 +1,86 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v77
+#
+# TELOS WX
+#
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: depth below surface (meters)
+  standard_name: depth
+  positive: down
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: latitude
+  standard_name: latitude
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: longitude
+  standard_name: longitude
+timeseries_id:
+  cf_role: timeseries_id
+  long_name: timeseries id
+  standard_name: ''
+#variables
+temperature:
+  epic_key: AT_21
+  generic_name: temp
+  long_name: Air temperature
+  standard_name: air_temperature in degree C
+  units: degree_C
+pressure:
+  epic_key: 'BP_915'
+  generic_name: baro
+  long_name: barometric air pressure in hPa
+  standard_name: air_pressure
+  units: hPa
+eastward_wind:
+  epic_key: 'WU_422'
+  generic_name: uwind
+  long_name: 'Zonal Winds (Eastward) m/s'
+  standard_name: northward_wind
+  units: m/s
+northward_wind:
+  epic_key: 'WV_423'
+  generic_name: vwind
+  long_name: 'Meridional Winds (Northward) m/s'
+  standard_name: eastward_wind
+  units: m/s
+wind_speed:
+  epic_key: 'WS_401'
+  generic_name: speed
+  long_name: 'Wind Speed m/s'
+  standard_name: air_pressure
+  units: m/s  
+wind_direction:
+  epic_key: 'WD_410'
+  generic_name: direction
+  long_name: 'Wind From Direction (meteorolgical convention) - degrees from north'
+  standard_name: wind_from_direction
+  units: degree 
+relative_humidity:
+  epic_key: 'RH_910'
+  generic_name: rh
+  long_name: Relative Humidity
+  standard_name: relative_humidity
+  units: '%'
