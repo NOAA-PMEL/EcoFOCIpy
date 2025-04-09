@@ -38,8 +38,3 @@ updates:
     commit-message:
       prefix: "MNT: "
       include: "scope"
-
-    groups:
-       github-actions:
-         patterns:
-           - '*'
