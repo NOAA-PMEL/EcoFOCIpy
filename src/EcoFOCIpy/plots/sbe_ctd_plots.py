@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seawater as sw
+import gsw as gsw
 
 __all__ = ["CTDProfilePlot", "plot_salvtemp"]
 

@@ -200,6 +200,24 @@ class EcoFOCI_db_datastatus(object):
         except:
             print("Error: unable to fecth data")
 
+    def read_cruise(self, table=None, verbose=False):
+        """specific to get cruise info"""
+        sql = ("SELECT * from `{0}`").format(table)
+
+        if verbose:
+            print(sql)
+
+        result_dic = {}
+        try:
+            self.cursor.execute(sql)
+            for row in self.cursor:
+                result_dic[row["id"]] = {
+                    keys: row[keys] for val, keys in enumerate(row.keys())
+                }
+            return result_dic
+        except:
+            print("Error: unable to fecth data")
+
     def read_cruise_summary(self, table=None, verbose=False, cruiseid=None):
         """specific to get cruise info"""
         sql = ("SELECT * from `{0}` WHERE `CruiseID`='{1}'").format(table, cruiseid)
