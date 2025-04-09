@@ -56,8 +56,8 @@ data_cruise = EcoFOCI_db.read_cruise(
 
 cruises_lat = np.array(
     [
-        float(data_cruise[a_ind]["Latitude"].split()[0])
-        + float(data_cruise[a_ind]["Latitude"].split()[1]) / 60.0
+        float(data_cruise[a_ind]["LatitudeDeg"])
+        + float(data_cruise[a_ind]["LatitudeMin"]) / 60.0
         for a_ind in data_cruise.keys()
     ]
 )
@@ -65,8 +65,8 @@ cruises_lon = np.array(
     [
         -1.0
         * (
-            float(data_cruise[a_ind]["Longitude"].split()[0])
-            + float(data_cruise[a_ind]["Longitude"].split()[1]) / 60.0
+            float(data_cruise[a_ind]["LongitudeDeg"])
+            + float(data_cruise[a_ind]["LongitudeMin"]) / 60.0
         )
         for a_ind in data_cruise.keys()
     ]
