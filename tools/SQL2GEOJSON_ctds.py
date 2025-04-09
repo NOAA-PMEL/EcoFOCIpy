@@ -71,7 +71,7 @@ cruises_lon = np.array(
         for a_ind in data_cruise.keys()
     ]
 )
-mooringid = data_cruise.keys()
+mooringid = [ data_cruise[a_ind]['UniqueCruiseID'] for a_ind in data_cruise.keys()]
 
 if args.geojson:
     # "Generating .geojson"
@@ -81,7 +81,7 @@ if args.geojson:
     for k, _value in enumerate(cruises_lat):
         if (cruises_lat[k] != 0.0) and (cruises_lon[k] != 0.0):
             geojson_point_coords = geojson_point_coords + (
-                """{{"type": "Feature","geometry": {{"type": "Point","coordinates": [{1},{0}]}}, "properties": {{"MooringID":"<a href='http://ecofoci-field.pmel.noaa.gov/bell/eFOCI_Mooring_logs/mooring_record_view.php?mooringview_id={2}'>{2}</a>" }}}}"""
+                """{{"type": "Feature","geometry": {{"type": "Point","coordinates": [{1},{0}]}}, "properties": {{"CruiseID":"{2}" }}}}"""
             ).format(cruises_lat[k], cruises_lon[k], list(mooringid)[k])
 
             if k != len(cruises_lat):
