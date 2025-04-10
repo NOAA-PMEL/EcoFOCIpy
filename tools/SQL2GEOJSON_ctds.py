@@ -84,7 +84,7 @@ if args.geojson:
                 """{{"type": "Feature","geometry": {{"type": "Point","coordinates": [{1},{0}]}}, "properties": {{"CruiseID":"{2}" }}}}"""
             ).format(cruises_lat[k], cruises_lon[k], list(mooringid)[k])
 
-            if k != len(cruises_lat):
+            if k != len(cruises_lat) - 1:
                 geojson_point_coords = geojson_point_coords + ", "
 
     geojson_tail = "]\n" "}\n"
