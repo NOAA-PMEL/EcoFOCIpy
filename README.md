@@ -66,7 +66,7 @@ Found in the ci/requirements.txt
 may be best to create a seperate environment and install packages via the requirements.txt first then install the software.
 
 (install as editable) - will also install all dependencies
-`pip install -e git+https://github.com/shaunwbell/EcoFOCIpy.git#egg=EcoFOCIpy`
+`pip install -e git+https://github.com/NOAA-PMEL/EcoFOCIpy.git#egg=EcoFOCIpy`
 
 ## Legal Disclaimer
 
