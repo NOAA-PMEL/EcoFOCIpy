@@ -301,9 +301,14 @@ class rcm_sg(object):
             )
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(
-                pd.DatetimeIndex(rawdata_df["date_time"])
-            ).drop(["date_time", "Time tag (Gmt)"], axis=1)
+            try:
+                rawdata_df = rawdata_df.set_index(
+                    pd.DatetimeIndex(rawdata_df["date_time"])
+                ).drop(["date_time", "Time tag (Gmt)"], axis=1)
+            except KeyError:
+                rawdata_df = rawdata_df.set_index(
+                    pd.DatetimeIndex(rawdata_df["date_time"])
+                ).drop(["date_time", "Record Time"], axis=1)
 
         return (rawdata_df, header)
 
