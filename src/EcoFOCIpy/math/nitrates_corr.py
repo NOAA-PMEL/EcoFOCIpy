@@ -347,14 +347,23 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     
     # Filter data based on RMSE cutoff (QC1)
     no3_concentration_QC1 = no3_concentration[
-        (no3_concentration['RMS Error'] > 0) & 
-        (no3_concentration['RMS Error'] <= rmse_cutoff)
+        (
+            (no3_concentration['RMS Error'] > 0) & 
+            (no3_concentration['RMS Error'] <= rmse_cutoff)
+        ) | (no3_concentration['RMS Error'].isna())
     ]
+
     
-    # Calculate rolling mean and fill NaNs at edges
+    # Calculate rolling mean and fill NaNs at edges    
+    # - Step 1: Compute rolling mean without filling
     no3_smoothed = no3_concentration_QC1['RMS Error'].rolling(
         window=window_size, center=True
-    ).mean().bfill().ffill()
+    ).mean()
+    
+    # - Step 2: Fill edge NaNs only (start and end), not internal gaps
+    half_window = window_size // 2
+    no3_smoothed.iloc[:half_window] = no3_smoothed.iloc[half_window]
+    no3_smoothed.iloc[-half_window:] = no3_smoothed.iloc[-half_window - 1]
     
     # Define upper and lower bounds for the band
     upper_bound = no3_smoothed + error_bar
@@ -362,16 +371,11 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     
     # Filter values within the band range (QC2)
     no3_concentration_QC2 = no3_concentration_QC1[
-        (no3_concentration_QC1['RMS Error'] >= lower_bound) &
-        (no3_concentration_QC1['RMS Error'] <= upper_bound)
+        (
+            (no3_concentration_QC1['RMS Error'] >= lower_bound) &
+            (no3_concentration_QC1['RMS Error'] <= upper_bound)
+        ) | (no3_concentration_QC1['RMS Error'].isna())
     ]
-
-    # --- (begin) Disable QC3, and postpone this step to a later stage ---- 
-    # # Filter out negative nitrate concentration values (QC3)
-    # no3_concentration_QC3 = no3_concentration_QC2[
-    #     no3_concentration_QC2['Nitrate concentration (μM)'] >= 0
-    # ]
-    # --- (end) Disable QC3, and postpone this step to a later stage --- 
     
     # Plotting the results
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(13, 10), sharex=True)
@@ -392,9 +396,9 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     ax2.set_title('RMS Error Analysis (QC1 and QC2)')
 
     # Third subplot for Nitrate concentration
-    ax3.plot(suna_wop_filtered.index, suna_wop_filtered['Nitrate concentration, μM'], label='Original (after simple screening)')
-    ax3.plot(no3_concentration.index, no3_concentration['Nitrate concentration (μM)'], label='TS_corrected', color='C1', lw=2.0)
-    ax3.plot(no3_concentration_QC2.index, no3_concentration_QC2['Nitrate concentration (μM)'], label='TS_correct+QC1+QC2', color='C2', lw=1.0)
+    suna_wop_filtered['Nitrate concentration, μM'].plot(ax=ax3, label='Original (after simple screening)')
+    no3_concentration['Nitrate concentration (μM)'].plot(ax=ax3, label='TS_corrected', color='C1', lw=2.0)
+    no3_concentration_QC2['Nitrate concentration (μM)'].plot(ax=ax3, label='TS_correct+QC1+QC2', color='C2', lw=1.0)
     ax3.set_ylabel('Nitrate concentration (μM)')
     ax3.set_ylim(ylim)
     ax3.legend(loc='upper right')
