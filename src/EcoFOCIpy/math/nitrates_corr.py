@@ -410,3 +410,60 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     plt.show()
 
     return no3_concentration_QC2
+
+
+def calculate_mean_offset(curve_data, reference_points, max_timedelta=None):
+    """
+    Calculate the mean offset between a data curve and reference points.
+    For each reference point, the closest non-NaN value in the curve is used.
+
+    Parameters:
+    -----------
+    curve_data : pd.Series
+        Time series data representing the curve to adjust.
+    reference_points : list of tuples
+        List of (index, value) tuples where `index` is a datetime and `value` is the reference value.
+    max_timedelta : pd.Timedelta or None
+        Optional. If provided, only matches within this time window are considered.
+
+    Returns:
+    --------
+    float
+        The mean offset between the curve and the reference points.
+    """
+    offsets = []
+    curve_times = curve_data.index
+    valid_curve = curve_data.dropna()
+
+    for ref_index, ref_value in reference_points:
+        try:
+            # Make sure ref_index is datetime
+            ref_index = pd.to_datetime(ref_index)
+
+            # Compute time differences
+            time_deltas = np.abs(valid_curve.index - ref_index)
+
+            if max_timedelta is not None:
+                within_window = time_deltas <= max_timedelta
+                if not within_window.any():
+                    print(f"No non-NaN values within {max_timedelta} of {ref_index}")
+                    continue
+                closest_idx = np.argmin(time_deltas[within_window])
+                closest_time = valid_curve.index[within_window][closest_idx]
+            else:
+                closest_idx = np.argmin(time_deltas)
+                closest_time = valid_curve.index[closest_idx]
+
+            curve_value_at_closest = valid_curve.loc[closest_time]
+            offset = curve_value_at_closest - ref_value
+
+            offsets.append(offset)
+
+            print(f"Ref time: {ref_index} | Closest non-NaN: {closest_time} | "
+                  f"Curve value: {curve_value_at_closest:.3f} | Ref value: {ref_value} | Offset: {offset:.3f}")
+
+        except Exception as e:
+            print(f"Failed for {ref_index}: {e}")
+
+    mean_offset = np.mean(offsets) if offsets else np.nan
+    return mean_offset
