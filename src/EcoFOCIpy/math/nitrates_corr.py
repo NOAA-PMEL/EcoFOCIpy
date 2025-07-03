@@ -140,8 +140,8 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     # Note that the reference spectrum is already dark corrected
     ABS_SW = -np.log10(spec_UV_INTEN / E_ref)  
 
-    # Compute the in situ bromide absorbances based on salinity and ESW_in_situ
-    ABS_Br_tcor = ESW_in_situ * spec_S[:, np.newaxis] 
+    # Compute the in situ bromide absorbances based on salinity and ESW_in_situ_p
+    ABS_Br_tcor = ESW_in_situ_p * spec_S[:, np.newaxis] 
         
     # Subtract bromide absorbance from the total absorbance to get nitrate + baseline absorbance
     ABS_cor = ABS_SW - ABS_Br_tcor 
