@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+
 def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pres_coef=0.026, sat_value=64500):
     """
     Calculate nitrate concentration from SUNA data with necessary corrections. 
@@ -35,7 +36,7 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
         Bromide extinction coefficient (default = 0.026).
     sat_value : int
         Pixel intensity saturation limit count (default = 64500).
-        
+
     Returns:
     -------
     no3_concentration : DataFrame
@@ -60,14 +61,13 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
         Saturation filted, dark-corrected spectrum
     """
 
-    
     # Extract variables from dataframes
     spec_SDN = suna_wop_filtered.index
     spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values # This is the UV intensity data
     spec_T = s16_interpolated['temperature (degree_C)'].values 
     spec_S = s16_interpolated['salinity (PSU)'].values
     spec_P = s16_interpolated['Water_Depth (dbar)'].values
-    
+
     # Calibration coefficients
     Tcal = ncal['CalTemp']
     WL = np.array(ncal['WL'])
