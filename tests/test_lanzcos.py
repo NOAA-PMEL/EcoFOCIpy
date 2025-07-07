@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from lanzcos import lanzcos, low_pass_weights, spectral_filtering, spectral_window
+from EcoFOCIpy.math.lanzcos import lanzcos, low_pass_weights, spectral_filtering, spectral_window
 
 
 # Helper function to create simple sine waves for testing

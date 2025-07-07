@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from geotools import latlon_convert, rotate_coord
+from EcoFOCIpy.math.geotools import latlon_convert, rotate_coord
 
 
 # Test for latlon_convert
