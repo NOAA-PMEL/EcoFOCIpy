@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from haversine import distance, nearest_point
+from EcoFOCIpy.math.haversine import distance, nearest_point
 
 # Constants for testing
 EARTH_RADIUS_KM = 6371
