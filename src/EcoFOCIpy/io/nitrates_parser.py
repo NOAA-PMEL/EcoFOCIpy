@@ -149,6 +149,7 @@ class Suna(object):
 
     
 # Instrument files mapping with multiple calibration files
+# TODO: have this be a configuration file that can be modified without changing code base
 instrument_files = {
     'SUNA 1471': [
         'https://raw.githubusercontent.com/NOAA-PMEL/EcoFOCI_FieldOps_Documentation/master/CalibrationsByVendor/Satlantic/SUNA_1471/2020/SNA1471B.cal'
