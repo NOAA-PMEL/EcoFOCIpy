@@ -10,9 +10,10 @@ These include:
 
 """
 from datetime import datetime
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import requests
 
 
@@ -46,13 +47,13 @@ class Suna(object):
         DataFrame
             The parsed data as a pandas DataFrame.
         """
-        assert filename is not None , 'Must provide a datafile'
+        assert filename is not None, 'Must provide a datafile'
 
-        ### This is sloppy, assumes fixed format of columns
+        # This is sloppy, assumes fixed format of columns
         rawdata_df = pd.read_csv(filename,
-                        header=None,
-                        parse_dates=True,
-                        index_col=1)
+                                 header=None,
+                                 parse_dates=True,
+                                 index_col=1)
 
         rawdata_df.rename(columns={0:'Model/Serial',2:'Nitrate concentration, μM',
                    3:'Nitrogen in nitrate, mgN/L',
@@ -72,11 +73,10 @@ class Suna(object):
 
         return self.data_frame
 
-    
     def plot_data(self, title="SUNA Data"):
         """
         Plot nitrate, spectral data, and Fit RMSE from the SUNA instrument for an initial check.
-        
+
         Parameters:
         ----------
         title : str
@@ -88,10 +88,10 @@ class Suna(object):
         # Plot nitrate data
         nitrate = self.data_frame['Nitrate concentration, μM']
         nitrate = nitrate.resample('1h').mean()
-        
+
         # Plot Fit RMSE data
-        fit_rmse = self.data_frame['Fit RMSE']        
-        
+        fit_rmse = self.data_frame['Fit RMSE']
+
         # Plot spectral data
         spectra = self.data_frame.iloc[:, 10:266]
         wavelengths = [round(190 + (370-190)/255 * i, 2) for i in range(256)]
@@ -112,7 +112,7 @@ class Suna(object):
         ax2.scatter(fit_rmse.index, fit_rmse, alpha=0.7)
         ax2.set(title='Fit RMSE', xlabel='Time', ylabel='Fit RMSE')
         ax2.label_outer()  # Only show outer labels to avoid overlap
-        
+
         # Spectra subplot
         ax3 = axs[2]
         pcm = ax3.pcolormesh(spectra.index, spectra.columns, spectra.T, cmap=plt.cm.plasma)
@@ -299,7 +299,7 @@ def parse_no3_cal(calibration_content):
         if line.startswith('H,'):
             if 'T_CAL' in line:
                 ncal['CalTemp'] = extract_value_from_line(line)
-                
+
     # Parse data lines starting with "E,"
     for line in lines:
         if line.startswith('E,'):
@@ -310,13 +310,12 @@ def parse_no3_cal(calibration_content):
                 eno3 = float(columns[2]) if columns[2] != '?' else np.nan
                 esw = float(columns[3]) if columns[3] != '?' else np.nan
                 ref = float(columns[5]) if columns[5] != '?' else np.nan
-                
+
                 # Append values to the respective lists
                 ncal['WL'].append(wl)
                 ncal['ENO3'].append(eno3)
                 ncal['ESW'].append(esw)
                 ncal['Ref'].append(ref)
-
 
     return ncal
 

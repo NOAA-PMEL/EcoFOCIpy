@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from lanzcos import low_pass_weights, spectral_window, spectral_filtering, lanzcos
+from lanzcos import lanzcos, low_pass_weights, spectral_filtering, spectral_window
 
 # Helper function to create simple sine waves for testing
 def create_sine_wave(frequency, sampling_rate, duration):
@@ -159,6 +159,7 @@ def test_lanzcos_empty_data():
     with pytest.raises(ValueError, match="empty sequence"):
         lanzcos(data, dt, Cf)
 
+
 def test_lanzcos_single_point_data():
     data = np.array([10.0])
     dt = 1.0
@@ -169,13 +170,14 @@ def test_lanzcos_single_point_data():
     assert len(filtered_data) == len(data)
     assert np.isclose(filtered_data[0], data[0])
 
+
 def test_lanzcos_different_dt():
     # Test with dt that is not 1.0 (e.g., daily data, dt=24.0)
     time_points = 100
     t = np.arange(time_points)
-    data = np.sin(2 * np.pi * t / 5.0) + np.sin(2 * np.pi * t / 50.0) # 5 and 50 days period
+    data = np.sin(2 * np.pi * t / 5.0) + np.sin(2 * np.pi * t / 50.0)  # 5 and 50 days period
 
-    dt = 24.0 # daily data, so 1 time step is 24 hours
+    dt = 24.0  # daily data, so 1 time step is 24 hours
     # If Cf = 35, it's 35 hours. So for daily data, it's 35/24 days.
     # This means a period of 5 days (120 hours) should pass, 50 days should pass.
     # If we filter at 35 hours, frequencies faster than 1/35 cycles/hour should be removed.
@@ -184,7 +186,7 @@ def test_lanzcos_different_dt():
     # Both are much slower than 1/35 cycles/hour. So both should pass.
     # This test is more about ensuring the `dt` calculation in `lanzcos` is correct.
 
-    Cf = 35.0 # cutoff period in hours
+    Cf = 35.0  # cutoff period in hours
 
     filtered_data = lanzcos(data, dt, Cf)
 
