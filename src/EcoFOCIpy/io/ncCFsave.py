@@ -317,4 +317,6 @@ class EcoFOCI_CFnc(object):
             filename (str, optional): Filename. Defaults to 'temp.nc'.
         """
                 
-        xdf.to_netcdf(filename,format=kwargs['format'],encoding={'time':{'units':'days since 1900-01-01'}})
+        xdf.to_netcdf(filename,format=kwargs['format'],
+                      encoding={'time': {'units': 'days since 1900-01-01',
+                                         'dtype': 'float64'}})
