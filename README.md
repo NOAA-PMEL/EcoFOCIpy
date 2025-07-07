@@ -20,15 +20,15 @@ It is also a source for testing github integrations, github Actions, and other t
 Tools developed within this package are heavily reliant on the following community packages:
 - xarray: for saving to netcdf and manipulating multidimensional datasets
 - pandas: for saving to csv and manipulating more "tabular" datasets
-- python-ctd (ctd): for reading in seabird cnv files and python-seawater for EOS/TEOS conversions
+- python-ctd (ctd): for reading in seabird cnv files and python-seawater/gsw for EOS/TEOS conversions
 - geomag: for calculating geomagnetic declination correctinos
-- other standar packages such as matplotlib, cftime, and inherent dependencies like netCDF4
+- other standard packages such as matplotlib, cftime, and inherent dependencies like netCDF4
 
 ### Visualization
 
 ### ERDDAP
 
-* akutan (internal)
+* [akutan](http://ecofoci-field.pmel.noaa.gov:8080/erddap/index.html) ***internal***
 
 ## Additional Notes/Guidance
 
