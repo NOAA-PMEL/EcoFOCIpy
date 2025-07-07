@@ -179,7 +179,7 @@ def test_lanzcos_single_point_data():
     assert len(filtered_data) == len(data)
     assert np.isclose(filtered_data[0], data[0])
 
-
+    
 def test_lanzcos_different_dt():
     # Test with dt that is not 1.0 (e.g., daily data, dt=24.0)
     time_points = 100
@@ -197,6 +197,7 @@ def test_lanzcos_different_dt():
 
     Cf = 35.0  # cutoff period in hours
 
+
     filtered_data = lanzcos(data, dt, Cf)
 
     assert isinstance(filtered_data, np.ndarray)
@@ -206,3 +207,4 @@ def test_lanzcos_different_dt():
     # (5-day and 50-day period) are much longer than 35 hours.
     # Thus, the filtering should be minimal, and the output should be very close to the input.
     assert np.allclose(data, filtered_data, atol=1e-2)
+
