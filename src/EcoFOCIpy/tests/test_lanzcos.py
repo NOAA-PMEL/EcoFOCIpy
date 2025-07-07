@@ -1,11 +1,13 @@
 import numpy as np
 import pytest
-from lanzcos import low_pass_weights, spectral_window, spectral_filtering, lanzcos
+from lanzcos import lanzcos, low_pass_weights, spectral_filtering, spectral_window
+
 
 # Helper function to create simple sine waves for testing
 def create_sine_wave(frequency, sampling_rate, duration):
     t = np.arange(0, duration, 1/sampling_rate)
     return np.sin(2 * np.pi * frequency * t)
+
 
 # Test for low_pass_weights
 def test_low_pass_weights_basic():
@@ -19,6 +21,7 @@ def test_low_pass_weights_basic():
     # Check that the sum of weights is close to 2*cutoff, a property of Lanczos weights
     assert np.isclose(np.sum(weights), 2 * cutoff, atol=1e-5) # Sum of sinc function should be 1, but here it's 2*cutoff at origin, then sums of parts
 
+
 def test_low_pass_weights_small_window():
     window = 3
     cutoff = 0.2
@@ -28,6 +31,7 @@ def test_low_pass_weights_small_window():
     # For window = 3, only the center weight is returned after slicing
     assert len(weights) == 2 # 2*order+1 = 2*2+1 = 5. w[1:-1] means 3 weights
 
+
 def test_low_pass_weights_different_cutoff():
     window = 21
     cutoff_high = 0.4
@@ -35,6 +39,7 @@ def test_low_pass_weights_different_cutoff():
     weights_high = low_pass_weights(window, cutoff_high)
     weights_low = low_pass_weights(window, cutoff_low)
     assert np.sum(weights_high) > np.sum(weights_low) # Higher cutoff means larger sum of weights (more "pass-through")
+
 
 # Test for spectral_window
 def test_spectral_window_basic():
@@ -47,6 +52,7 @@ def test_spectral_window_basic():
     assert Ff[0] == 0.0
     assert Ff[-1] == 1.0 or np.isclose(Ff[-1], 1.0) # Due to the append logic for even n
 
+
 def test_spectral_window_n_even_odd():
     weights = low_pass_weights(21, 0.1)
     n_even = 100
@@ -56,6 +62,7 @@ def test_spectral_window_n_even_odd():
     n_odd = 101
     _, Ff_odd = spectral_window(weights, n_odd)
     assert not np.isclose(Ff_odd[-1], 1.0) # Should be 1.0 - 2/N for odd N unless n is small
+
 
 # Test for spectral_filtering
 def test_spectral_filtering_basic_low_pass():
@@ -79,22 +86,24 @@ def test_spectral_filtering_basic_low_pass():
 
     assert isinstance(filtered_data, np.ndarray)
     assert len(filtered_data) == len(data)
-    
+
     # Verify that high frequencies are attenuated in the output
     # This is a qualitative test; a quantitative test would involve checking FFT magnitudes
     # For now, we'll check if the amplitude of the filtered signal is closer to the low-frequency component
     amplitude_original = np.max(data) - np.min(data)
     amplitude_filtered = np.max(filtered_data) - np.min(filtered_data)
-    
+
     # The amplitude of the filtered signal should be significantly less than the original,
     # as the high frequency component has been removed.
     assert amplitude_filtered < amplitude_original * 0.8 # Heuristic check
+
 
 def test_spectral_filtering_empty_input():
     x = np.array([])
     window = np.array([])
     with pytest.raises(ValueError, match="empty sequence"):
         spectral_filtering(x, window)
+
 
 def test_spectral_filtering_single_point_input():
     x = np.array([1.0])
@@ -159,6 +168,7 @@ def test_lanzcos_empty_data():
     with pytest.raises(ValueError, match="empty sequence"):
         lanzcos(data, dt, Cf)
 
+
 def test_lanzcos_single_point_data():
     data = np.array([10.0])
     dt = 1.0
@@ -169,13 +179,14 @@ def test_lanzcos_single_point_data():
     assert len(filtered_data) == len(data)
     assert np.isclose(filtered_data[0], data[0])
 
+    
 def test_lanzcos_different_dt():
     # Test with dt that is not 1.0 (e.g., daily data, dt=24.0)
     time_points = 100
     t = np.arange(time_points)
-    data = np.sin(2 * np.pi * t / 5.0) + np.sin(2 * np.pi * t / 50.0) # 5 and 50 days period
+    data = np.sin(2 * np.pi * t / 5.0) + np.sin(2 * np.pi * t / 50.0)  # 5 and 50 days period
 
-    dt = 24.0 # daily data, so 1 time step is 24 hours
+    dt = 24.0  # daily data, so 1 time step is 24 hours
     # If Cf = 35, it's 35 hours. So for daily data, it's 35/24 days.
     # This means a period of 5 days (120 hours) should pass, 50 days should pass.
     # If we filter at 35 hours, frequencies faster than 1/35 cycles/hour should be removed.
@@ -184,7 +195,8 @@ def test_lanzcos_different_dt():
     # Both are much slower than 1/35 cycles/hour. So both should pass.
     # This test is more about ensuring the `dt` calculation in `lanzcos` is correct.
 
-    Cf = 35.0 # cutoff period in hours
+    Cf = 35.0  # cutoff period in hours
+
 
     filtered_data = lanzcos(data, dt, Cf)
 
@@ -195,3 +207,4 @@ def test_lanzcos_different_dt():
     # (5-day and 50-day period) are much longer than 35 hours.
     # Thus, the filtering should be minimal, and the output should be very close to the input.
     assert np.allclose(data, filtered_data, atol=1e-2)
+
