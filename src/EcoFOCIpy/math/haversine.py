@@ -43,3 +43,5 @@ def nearest_point(origin, latpoints, lonpoints, grid='1d'):
         lati, loni = np.where(dist == dist.min())
         
         return (dist.min(), latpoints[lati[0]][loni[0]], lonpoints[lati[0]][loni[0]], lati[0], loni[0] )
+    else:
+        raise Exception("not a valid grid")
