@@ -1,11 +1,16 @@
 import numpy as np
 import pytest
-from EcoFOCIpy.math.lanzcos import lanzcos, low_pass_weights, spectral_filtering, spectral_window
+from EcoFOCIpy.math.lanzcos import (
+    lanzcos,
+    low_pass_weights,
+    spectral_filtering,
+    spectral_window,
+)
 
 
 # Helper function to create simple sine waves for testing
 def create_sine_wave(frequency, sampling_rate, duration):
-    t = np.arange(0, duration, 1/sampling_rate)
+    t = np.arange(0, duration, 1 / sampling_rate)
     return np.sin(2 * np.pi * frequency * t)
 
 
@@ -24,7 +29,9 @@ def test_low_pass_weights_different_cutoff():
     cutoff_low = 0.05
     weights_high = low_pass_weights(window, cutoff_high)
     weights_low = low_pass_weights(window, cutoff_low)
-    assert np.sum(weights_high) > np.sum(weights_low) # Higher cutoff means larger sum of weights (more "pass-through")
+    assert np.sum(weights_high) > np.sum(
+        weights_low
+    )  # Higher cutoff means larger sum of weights (more "pass-through")
 
 
 # Test for spectral_window
@@ -36,7 +43,9 @@ def test_spectral_window_basic():
     assert isinstance(Ff, np.ndarray)
     assert len(window) == len(Ff)
     assert Ff[0] == 0.0
-    assert Ff[-1] == 1.0 or np.isclose(Ff[-1], 1.0) # Due to the append logic for even n
+    assert Ff[-1] == 1.0 or np.isclose(
+        Ff[-1], 1.0
+    )  # Due to the append logic for even n
 
 
 def test_spectral_window_n_even_odd():
@@ -47,25 +56,30 @@ def test_spectral_window_n_even_odd():
 
     n_odd = 101
     _, Ff_odd = spectral_window(weights, n_odd)
-    assert not np.isclose(Ff_odd[-1], 1.0) # Should be 1.0 - 2/N for odd N unless n is small
+    assert not np.isclose(
+        Ff_odd[-1], 1.0
+    )  # Should be 1.0 - 2/N for odd N unless n is small
 
 
 # Test for spectral_filtering
 def test_spectral_filtering_basic_low_pass():
     # Create a signal with low and high frequencies
-    sampling_rate = 100 # Hz
-    duration = 1 # seconds
-    low_freq = 5 # Hz
-    high_freq = 40 # Hz
-    data = create_sine_wave(low_freq, sampling_rate, duration) + \
-           create_sine_wave(high_freq, sampling_rate, duration)
+    sampling_rate = 100  # Hz
+    duration = 1  # seconds
+    low_freq = 5  # Hz
+    high_freq = 40  # Hz
+    data = create_sine_wave(low_freq, sampling_rate, duration) + create_sine_wave(
+        high_freq, sampling_rate, duration
+    )
 
     # Design a low-pass window that cuts off the high frequency
     window_length = len(data) // 2 + 1  # Matching the expected length for CxH
     # Simple rectangular window for testing purposes (conceptually)
     # In a real scenario, you'd use the output of spectral_window
     test_window = np.ones(window_length)
-    cutoff_index = int(window_length * (high_freq - 5) / (sampling_rate / 2))  # Adjust cutoff
+    cutoff_index = int(
+        window_length * (high_freq - 5) / (sampling_rate / 2)
+    )  # Adjust cutoff
     test_window[cutoff_index:] = 0  # Set high frequencies to zero
 
     filtered_data, Cx = spectral_filtering(data, test_window)
@@ -145,7 +159,9 @@ def test_lanzcos_basic_filtering_effect():
     # This is a bit harder without proper spectral analysis in the test.
     # One way is to compare peaks or overall shape.
     # For now, let's just assert that it's not zeroed out completely.
-    assert np.max(np.abs(filtered_data)) > 0.1 * np.max(np.abs(slow_oscillation)) # Should retain some amplitude
+    assert np.max(np.abs(filtered_data)) > 0.1 * np.max(
+        np.abs(slow_oscillation)
+    )  # Should retain some amplitude
 
 
 def test_lanzcos_single_point_data():
