@@ -31,7 +31,7 @@ def test_latlon_convert_south_west():
     lat_str = "10 10.00 S"
     lon_str = "060 20.00 W"
     expected_lat = -(10 + 10 / 60.0)  # South is negative
-    expected_lon = 60 + 20 / 60.0
+    expected_lon = -(60 + 20 / 60.0)
     lat, lon = latlon_convert(lat_str, lon_str)
     assert np.isclose(lat, expected_lat)
     assert np.isclose(lon, expected_lon)
@@ -64,7 +64,7 @@ def test_latlon_convert_with_spaces():
     lat_str = " 45   30.00   N "
     lon_str = " 120   15.00   W "
     expected_lat = 45 + 30 / 60.0
-    expected_lon = -1(120 + 15 / 60.0)
+    expected_lon = -(120 + 15 / 60.0)
     lat, lon = latlon_convert(lat_str, lon_str)
     assert np.isclose(lat, expected_lat)
     assert np.isclose(lon, expected_lon)
