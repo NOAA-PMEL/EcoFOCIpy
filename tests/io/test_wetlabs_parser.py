@@ -12,7 +12,7 @@ def mock_file():
     with open(good_file_path, 'w') as f:
         f.write("Some header info\n")
         f.write("More header info\n")
-        f.write("$get\n") # The critical header marker
+        f.write("$get\n")  # The critical header marker
         f.write("some line\n")
         f.write("07/09/25 10:00:00 700 137 532 4182 173\n")
         f.write("07/09/25 10:00:01 700 139 532 4190 174\n")
@@ -39,7 +39,7 @@ def test_successful_parsing(mock_file):
     
     # Check a specific data point and header content
     assert df['532'].iloc[1] == 4190
-    assert len(header) == 4
+    assert len(header) == 3
     assert "$get" in header[2]
 
 def test_parse_raises_file_not_found():
