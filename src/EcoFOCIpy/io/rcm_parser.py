@@ -316,7 +316,7 @@ class rcm_sg(object):
         self.rawdata_df = data
 
     def mag_dec_corr(self, lat, lonW, dep_date, apply_correction=True):
-        """Calculate mag declinatin correction based on lat, lon (+ West) and date.
+        """Calculate mag declination correction based on lat, lon (+ West) and date.
 
         Uses WMM_2020.COF - this model file updates every 5 years for current data.  Be sure to update this in future
 

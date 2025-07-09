@@ -6,7 +6,8 @@ import numpy as np
 
 
 def latlon_convert(Mooring_Lat, Mooring_Lon):
-    """[summary]
+    """ Convert Degree Decimal Minutes to decimal degrees and 
+    positive east convention.
 
     Args:
         Mooring_Lat (float): latitude as +DD MM.SS N
