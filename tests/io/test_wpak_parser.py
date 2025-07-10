@@ -1,6 +1,7 @@
-import pytest
-import pandas as pd
 import os
+
+import pandas as pd
+import pytest
 from EcoFOCIpy.io.wpak_parser import wpak  # Import the class from your script
 
 

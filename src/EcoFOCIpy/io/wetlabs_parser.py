@@ -13,15 +13,16 @@ Non-moored:
 Gemini refactor suggestions : 2025
 """
 import datetime
+from typing import Any, Dict, List, Optional, Tuple
+
 import pandas as pd
-from typing import Dict, Any, Tuple, List, Optional
 
 
 class wetlabs(object):
     r""" Wetlabs Unified parser
 
     EcoFLS(B) - single channel fluorometer (B-battery pack)
-    EcoFLNT(US) - dual channel fluorometer and Trub
+    EcoFLNT(US) - dual channel fluorometer and Turb
     Triplet - three channels
 
     Eco's have an array of channels to choose from... files are all the same,
