@@ -1,8 +1,10 @@
-import pytest
-import pandas as pd
-import numpy as np
 import os
+
+import numpy as np
+import pandas as pd
+import pytest
 from EcoFOCIpy.io.wetlabs_parser import wetlabs # Import your class
+
 
 # Define a fixture to create mock data files for tests
 @pytest.fixture
@@ -17,10 +19,10 @@ def mock_file():
         f.write("07/09/25 10:00:00 700 137 532 4182 173\n")
         f.write("07/09/25 10:00:01 700 139 532 4190 174\n")
         f.write("07/09/25 10:00:02 700 142 532 4195 175\n")
-        
+
     # 'yield' passes the file path to the test function
     yield good_file_path
-    
+
     # Cleanup: code after 'yield' runs after the test is complete
     os.remove(good_file_path)
 

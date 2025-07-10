@@ -11,9 +11,10 @@ Non-moored:
 
 code-refactor suggestsion from Gemini
 """
-import pandas as pd
 import io
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
+
+import pandas as pd
 
 
 class tdgp(object):
@@ -30,7 +31,6 @@ class tdgp(object):
     def __init__(self):
         """Initializes the tdgp parser."""
         self.rawdata_df: Optional[pd.DataFrame] = None
-
 
     def parse(self, filename: str, datetime_index: bool = True) -> Tuple[pd.DataFrame, List[str]]:
         r"""
