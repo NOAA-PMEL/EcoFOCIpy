@@ -1,44 +1,54 @@
-"""Contains a collection of WPAK equipment parsing.
-
-These include:
-
-* ARGO Transmitted
-* Internally Recorded
-
-    usage: where src=instrument class
-    fobj = src.get_data(filename, MooringID)
-    Dataset = src.parse(fobj, **kwargs)
-"""
 import pandas as pd
+from typing import Optional
 
 
 class wpak(object):
-    r""" MetOcean WeatherPak
-    
-    remove software lines up to header-row for downloaded data - add test for this
+    r"""
+    A parser for MetOcean WeatherPak data files.
 
-    see staticdata/wpak_test.txt for example
+    This class is designed to read and process data from WPAK instruments,
+    handling both standard and ARGOS file formats.
+
+    Todo: WPAK via Argos
     """
 
-    @staticmethod
-    def parse(filename=None, argos_file=False, datetime_index=True):
+    def __init__(self):
+        """Initializes the parser instance."""
+        self.data: Optional[pd.DataFrame] = None
+
+    def parse(self, filename: str, datetime_index: bool = True) -> pd.DataFrame:
         r"""
-        Basic Method to open and read wpak csv files 
+        Opens and reads WPAK data files from a given path.
 
-        Alternatively we can pass ARGOS retrieved data in 
+        Args:
+            filename (str): The full path to the .csv or .txt data file.
+            datetime_index (bool): If True, sets a DatetimeIndex and drops the
+                                   original date/time columns.
 
-        Default pass the pandas dataframe back indexed by datetime
+        Returns:
+            A pandas DataFrame containing the parsed data.
 
-        returns pandas dataframe
+        Raises:
+            ValueError: If no filename is provided.
+            FileNotFoundError: If the specified file does not exist.
         """
-        assert filename != None , 'Must provide a datafile'
+        if not filename:
+            raise ValueError("A filename must be provided.")
 
-        rawdata_df = pd.read_csv(filename, header=0, delimiter=r'\s+')
+        # The 'delim_whitespace=True' argument is more robust for any
+        # amount of space between columns.
+        rawdata_df = pd.read_csv(filename, delim_whitespace=True)
+
+        # This is the most efficient way to create a datetime column
+        # as it operates on the DataFrame columns directly.
         rawdata_df["date_time"] = pd.to_datetime(
-            rawdata_df["DATE"] + " " + rawdata_df["TIME"], format="%y/%m/%d %H:%M:%S"
+            rawdata_df[["DATE", "TIME"]].astype(str).agg(" ".join, axis=1),
+            format="%y/%m/%d %H:%M:%S"
         )
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time','DATE','TIME'],axis=1)
+            # Simplified index setting and dropping of original columns
+            rawdata_df = rawdata_df.set_index('date_time').drop(columns=['DATE', 'TIME'])
 
-        return rawdata_df
+        self.data = rawdata_df
+        return self.data
