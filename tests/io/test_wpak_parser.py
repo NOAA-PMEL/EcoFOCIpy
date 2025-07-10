@@ -9,7 +9,7 @@ def mock_wpak_file():
     """Pytest fixture to create a temporary WPAK data file for testing."""
     file_path = 'test_wpak_data.txt'
     # Mock data mimicking the expected format
-    file_content = """datestr      timestr      col1   col2
+    file_content = """DATE      TIME      col1   col2
 25/07/10   06:30:00   10.1   20.2
 25/07/10   06:30:05   10.2   20.3
 25/07/10   06:30:10   10.3   20.4
@@ -54,7 +54,7 @@ def test_datetime_index_false(mock_wpak_file):
 
 
     # Check that the original and new datetime columns exist
-    expected_cols = ['datestr', 'timestr', 'col1', 'col2', 'date_time']
+    expected_cols = ['DATE', 'TIME', 'col1', 'col2', 'date_time']
     assert df.columns.tolist() == expected_cols
     assert 'date_time' in df
     assert isinstance(df.index, pd.RangeIndex)
