@@ -21,7 +21,7 @@ class wetlabs(object):
     r""" Wetlabs Unified parser
 
     EcoFLS(B) - single channel fluorometer (B-battery pack)
-    EcoFLNT(US) - dual channel fluorometer and Trub
+    EcoFLNT(US) - dual channel fluorometer and Turb
     Triplet - three channels
 
     Eco's have an array of channels to choose from... files are all the same,
