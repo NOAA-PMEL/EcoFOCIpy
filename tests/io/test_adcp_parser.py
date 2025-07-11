@@ -9,7 +9,11 @@ import pytest
 from EcoFOCIpy.io.adcp_parser import adcp, ECOFOCIPY_AVAILABLE
 
 
+tmp_path = Path('.')
+
 # --- Fixtures for creating dummy data files ---
+
+
 @pytest.fixture
 def temp_adcp_data_dir(tmp_path):
     """
