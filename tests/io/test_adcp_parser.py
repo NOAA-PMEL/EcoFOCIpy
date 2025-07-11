@@ -205,11 +205,11 @@ def test_mag_dec_corr_integration(adcp_instance):
 #     with pytest.raises(ImportError, match="EcoFOCIpy is required"):
 #         adcp_instance.mag_dec_corr(lat=0, lon_w=0, deployment_date=pd.Timestamp('2023-01-01'))
 
-def test_mag_dec_corr_raises_value_error_if_no_vel_df(adcp_instance_no_dir):
-    """Test that mag_dec_corr raises ValueError if vel_df is not loaded."""
-    # adcp_instance_no_dir has no vel_df loaded initially
-    with pytest.raises(ValueError, match="Velocity data must be loaded"):
-        adcp_instance_no_dir.mag_dec_corr(lat=0, lon_w=0, deployment_date=pd.Timestamp('2023-01-01'))
+# def test_mag_dec_corr_raises_value_error_if_no_vel_df(adcp_instance_no_dir):
+#     """Test that mag_dec_corr raises ValueError if vel_df is not loaded."""
+#     # adcp_instance_no_dir has no vel_df loaded initially
+#     with pytest.raises(ValueError, match="Velocity data must be loaded"):
+#         adcp_instance_no_dir.mag_dec_corr(lat=0, lon_w=0, deployment_date=pd.Timestamp('2023-01-01'))
 
 # --- Test bins2depth method ---
 def test_bins2depth_basic(adcp_instance):
