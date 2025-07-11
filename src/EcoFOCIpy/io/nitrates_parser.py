@@ -284,7 +284,7 @@ class Isus(object):
         fig.subplots_adjust(right=0.85)
         cbar_ax = fig.add_axes([0.87, 0.2, 0.02, 0.25])
         fig.colorbar(im, cax=cbar_ax, label='Intensity')
-    
+
         plt.suptitle(title, y=0.98)
         plt.show()
 
