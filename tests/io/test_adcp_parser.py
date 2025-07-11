@@ -8,17 +8,14 @@ import pytest
 # Import the class and functions from your adcp_parser.py file
 from EcoFOCIpy.io.adcp_parser import adcp, ECOFOCIPY_AVAILABLE
 
-
-tmp_path = Path('.')
-
 # --- Fixtures for creating dummy data files ---
 
 
-@pytest.fixture
-def temp_adcp_data_dir(tmp_path):
+def temp_adcp_data_dir():
     """
     Creates a temporary directory with dummy ADCP data files for testing.
     """
+    tmp_path = Path('.')
     serial_no = "12345"
     (tmp_path / f"{serial_no}.VEL").write_text(
         "23/01/01 12:00:00 1 0.1 0.2 0.01 0.001\n"
@@ -49,14 +46,12 @@ def temp_adcp_data_dir(tmp_path):
 
 
 # --- Fixtures for ADCP class instances ---
-@pytest.fixture
 def adcp_instance(temp_adcp_data_dir):
     """Returns an initialized adcp object with a deployment directory."""
     temp_dir, serial_no = temp_adcp_data_dir
     return adcp(serial_no=serial_no, deployment_dir=temp_dir)
 
-@pytest.fixture
-def adcp_instance_no_dir():
+def adcp_instance_no_dir(serial_no):
     """Returns an initialized adcp object without a deployment directory."""
     return adcp(serial_no="99999")
 
