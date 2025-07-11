@@ -3,7 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import pytest
-from EcoFOCIpy.io.wetlabs_parser import wetlabs # Import your class
+from EcoFOCIpy.io.wetlabs_parser import wetlabs  # Import your class
 
 
 # Define a fixture to create mock data files for tests
