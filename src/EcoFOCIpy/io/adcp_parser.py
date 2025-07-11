@@ -9,7 +9,7 @@ It is designed to handle data from various ADCP models, including:
 """
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Any, Union
 
 import numpy as np
 import pandas as pd
@@ -180,7 +180,7 @@ class adcp(object):
             raise ValueError("Velocity data must be loaded before applying magnetic correction.")
 
         t = geomag.GeoMag()
-        declination = t.GeoMag(lat, -1 * lon_w, time=deployment_date).declination
+        declination = t.GeoMag(lat, lon_w, time=deployment_date).dec
 
         u_rotated, v_rotated = geotools.rotate_coord(
             self.vel_df['u_curr_comp'],
@@ -199,7 +199,7 @@ class adcp(object):
         Args:
             inst_depth (float, optional): Deployment Depth of Instrument.
         """
-        start = inst_depth - self.setup['distance']
-        stop = start - self.setup['numofbins']*self.setup['bin_length']
+        start = inst_depth - self.setup['distance_to_first_bin']
+        stop = start - self.setup['num_of_bins']*self.setup['bin_length']
 
         return np.arange(start, stop, -1*self.setup['bin_length'])
