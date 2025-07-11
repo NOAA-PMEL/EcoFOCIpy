@@ -1,8 +1,9 @@
-import pytest
+from datetime import datetime, timedelta
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
-from pathlib import Path
-from datetime import datetime, timedelta
+import pytest
 
 # Import the class and functions from your adcp_parser.py file
 from EcoFOCIpy.io.adcp_parser import adcp, ECOFOCIPY_AVAILABLE

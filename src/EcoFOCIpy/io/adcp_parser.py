@@ -9,7 +9,7 @@ It is designed to handle data from various ADCP models, including:
 """
 
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Any, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 import pandas as pd
@@ -17,6 +17,7 @@ import pandas as pd
 try:
     import EcoFOCIpy.math.geomag.geomag.geomag as geomag
     import EcoFOCIpy.math.geotools as geotools
+
     ECOFOCIPY_AVAILABLE = True
 except ImportError:
     ECOFOCIPY_AVAILABLE = False
@@ -30,7 +31,9 @@ class adcp(object):
     apply magnetic declination corrections, and calculate depth information for bins.
     """
 
-    def __init__(self, serial_no: str, deployment_dir: Optional[Union[str, Path]] = None):
+    def __init__(
+        self, serial_no: str, deployment_dir: Optional[Union[str, Path]] = None
+    ):
         """
         Initializes the ADCP parser.
 
@@ -48,14 +51,18 @@ class adcp(object):
         self.ein_df: Optional[pd.DataFrame] = None
         self.scal_df: Optional[pd.DataFrame] = None
 
-    def _get_filepath(self, extension: str, file_path: Optional[Union[str, Path]]) -> Path:
+    def _get_filepath(
+        self, extension: str, file_path: Optional[Union[str, Path]]
+    ) -> Path:
         """Constructs the full file path or validates an existing one."""
         if file_path:
             p = Path(file_path)
         elif self.deployment_dir:
             p = self.deployment_dir / f"{self.serial_no}{extension}"
         else:
-            raise ValueError("Must provide either a deployment directory or a direct file path.")
+            raise ValueError(
+                "Must provide either a deployment directory or a direct file path."
+            )
 
         if not p.exists():
             raise FileNotFoundError(f"The specified ADCP file does not exist: {p}")
@@ -88,20 +95,34 @@ class adcp(object):
             header=None,
             names=column_names,
         )
-        df["date_time"] = pd.to_datetime(df["date"] + " " + df["time"], format="%y/%m/%d %H:%M:%S")
+        df["date_time"] = pd.to_datetime(
+            df["date"] + " " + df["time"], format="%y/%m/%d %H:%M:%S"
+        )
 
         if datetime_index:
             df = df.set_index("date_time").drop(columns=["date", "time"])
 
         return df
 
-    def load_vel_file(self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True) -> pd.DataFrame:
+    def load_vel_file(
+        self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True
+    ) -> pd.DataFrame:
         """Loads a .VEL (velocity) file."""
-        cols = ["date", "time", "bin", "u_curr_comp", "v_curr_comp", "w_curr_comp", "w_curr_comp_err"]
+        cols = [
+            "date",
+            "time",
+            "bin",
+            "u_curr_comp",
+            "v_curr_comp",
+            "w_curr_comp",
+            "w_curr_comp_err",
+        ]
         self.vel_df = self._load_data_file(".VEL", cols, file_path, datetime_index)
         return self.vel_df
 
-    def load_pg_file(self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True) -> pd.DataFrame:
+    def load_pg_file(
+        self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True
+    ) -> pd.DataFrame:
         """
         Loads a .PG (Percent Good) file.
 
@@ -111,23 +132,48 @@ class adcp(object):
         3) Percentage of measurements where more than one beam was bad.
         4) Percentage of measurements with four-beam solutions (useful for QC).
         """
-        cols = ["date", "time", "bin", "pg3beam-good", "pgtransf-good", "pg1beam-bad", "pg4beam-good"]
+        cols = [
+            "date",
+            "time",
+            "bin",
+            "pg3beam-good",
+            "pgtransf-good",
+            "pg1beam-bad",
+            "pg4beam-good",
+        ]
         self.pg_df = self._load_data_file(".PG", cols, file_path, datetime_index)
         return self.pg_df
 
-    def load_ein_file(self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True) -> pd.DataFrame:
+    def load_ein_file(
+        self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True
+    ) -> pd.DataFrame:
         """Loads an .EIN (Echo Intensity) file."""
         cols = ["date", "time", "bin", "agc1", "agc2", "agc3", "agc4"]
         self.ein_df = self._load_data_file(".EIN", cols, file_path, datetime_index)
         return self.ein_df
 
-    def load_scal_file(self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True) -> pd.DataFrame:
+    def load_scal_file(
+        self, file_path: Optional[Union[str, Path]] = None, datetime_index: bool = True
+    ) -> pd.DataFrame:
         """Loads a .SCA (Scalar) file."""
-        cols = ["date", "time", "unknown", "temperature", "heading", "pitch", "roll", "heading_stdev", "pitch_stdev", "roll_stdev"]
+        cols = [
+            "date",
+            "time",
+            "unknown",
+            "temperature",
+            "heading",
+            "pitch",
+            "roll",
+            "heading_stdev",
+            "pitch_stdev",
+            "roll_stdev",
+        ]
         self.scal_df = self._load_data_file(".SCA", cols, file_path, datetime_index)
         return self.scal_df
 
-    def load_rpt_file(self, file_path: Optional[Union[str, Path]] = None) -> Tuple[List[str], Dict[str, float]]:
+    def load_rpt_file(
+        self, file_path: Optional[Union[str, Path]] = None
+    ) -> Tuple[List[str], Dict[str, float]]:
         """
         Loads a .RPT (Report) file to extract instrument setup parameters.
 
@@ -138,7 +184,7 @@ class adcp(object):
             Tuple[List[str], Dict[str, float]]: A tuple containing the raw lines of the
                 report file and a dictionary of extracted setup parameters.
         """
-        full_path = self._get_filepath('.RPT', file_path)
+        full_path = self._get_filepath(".RPT", file_path)
 
         lines = full_path.read_text().splitlines()
 
@@ -147,15 +193,17 @@ class adcp(object):
             if not parts:
                 continue
             if "Bin length" in line:
-                self.setup['bin_length'] = float(parts[2])
+                self.setup["bin_length"] = float(parts[2])
             elif "Distance" in line:
-                self.setup['distance_to_first_bin'] = float(parts[4])
+                self.setup["distance_to_first_bin"] = float(parts[4])
             elif "Number of bins" in line:
-                self.setup['num_of_bins'] = int(parts[3])
+                self.setup["num_of_bins"] = int(parts[3])
 
         return lines, self.setup
 
-    def mag_dec_corr(self, lat: float, lon_w: float, deployment_date: pd.Timestamp) -> float:
+    def mag_dec_corr(
+        self, lat: float, lon_w: float, deployment_date: pd.Timestamp
+    ) -> float:
         """
         Calculates and applies magnetic declination correction to velocity data.
 
@@ -175,20 +223,23 @@ class adcp(object):
             ValueError: If the velocity data (`vel_df`) has not been loaded.
         """
         if not ECOFOCIPY_AVAILABLE:
-            raise ImportError("EcoFOCIpy is required for magnetic declination correction but is not installed.")
+            raise ImportError(
+                "EcoFOCIpy is required for magnetic declination correction but is not installed."
+            )
         if self.vel_df is None:
-            raise ValueError("Velocity data must be loaded before applying magnetic correction.")
+            raise ValueError(
+                "Velocity data must be loaded before applying magnetic correction."
+            )
 
         t = geomag.GeoMag()
         declination = t.GeoMag(lat, lon_w, time=deployment_date).dec
 
         u_rotated, v_rotated = geotools.rotate_coord(
-            self.vel_df['u_curr_comp'],
-            self.vel_df['v_curr_comp'],
-            declination)
+            self.vel_df["u_curr_comp"], self.vel_df["v_curr_comp"], declination
+        )
 
-        self.vel_df['u_curr_comp'] = u_rotated
-        self.vel_df['v_curr_comp'] = v_rotated
+        self.vel_df["u_curr_comp"] = u_rotated
+        self.vel_df["v_curr_comp"] = v_rotated
 
         return declination
 
@@ -199,7 +250,7 @@ class adcp(object):
         Args:
             inst_depth (float, optional): Deployment Depth of Instrument.
         """
-        start = inst_depth - self.setup['distance_to_first_bin']
-        stop = start - self.setup['num_of_bins']*self.setup['bin_length']
+        start = inst_depth - self.setup["distance_to_first_bin"]
+        stop = start - self.setup["num_of_bins"] * self.setup["bin_length"]
 
-        return np.arange(start, stop, -1*self.setup['bin_length'])
+        return np.arange(start, stop, -1 * self.setup["bin_length"])
