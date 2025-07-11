@@ -6,7 +6,7 @@ import pandas as pd
 import pytest
 
 # Import the class and functions from your adcp_parser.py file
-from EcoFOCIpy.io.adcp_parser import adcp, ECOFOCIPY_AVAILABLE
+from EcoFOCIpy.io.adcp_parser import ECOFOCIPY_AVAILABLE, adcp
 
 # --- Fixtures for creating dummy data files ---
 
@@ -51,9 +51,9 @@ def adcp_instance(temp_adcp_data_dir):
     temp_dir, serial_no = temp_adcp_data_dir
     return adcp(serial_no=serial_no, deployment_dir=temp_dir)
 
-def adcp_instance_no_dir(serial_no):
+def adcp_instance_no_dir(serial_no="99999"):
     """Returns an initialized adcp object without a deployment directory."""
-    return adcp(serial_no="99999")
+    return adcp(serial_no)
 
 
 # --- Test `_get_filepath` method ---
@@ -211,7 +211,7 @@ def test_mag_dec_corr_integration(adcp_instance):
 #         adcp_instance_no_dir.mag_dec_corr(lat=0, lon_w=0, deployment_date=pd.Timestamp('2023-01-01'))
 
 # --- Test bins2depth method ---
-def test_bins2depth_basic(adcp_instance):
+def test_bins2depth_basic(adcp_instance(temp_adcp_data_dir())):
     # Ensure setup is loaded first
     adcp_instance.load_rpt_file()
     
@@ -227,7 +227,7 @@ def test_bins2depth_basic(adcp_instance):
     np.testing.assert_allclose(depths, expected_depths, rtol=1e-5)
     assert len(depths) == 10
 
-def test_bins2depth_no_inst_depth_uses_default(adcp_instance):
+def test_bins2depth_no_inst_depth_uses_default(adcp_instance(temp_adcp_data_dir())):
     """Test that bins2depth handles None for inst_depth if not provided (though default is None)"""
     # The current `bins2depth` does not have a default for inst_depth
     # It will use `None` if not passed, which will likely cause an error in arithmetic.
