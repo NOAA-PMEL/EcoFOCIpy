@@ -5,7 +5,7 @@ Apply corrections to the nitrate data.
 These include:
 
 * SUNA
-* ISUS (not developed yet)
+* ISUS
 
 """
 import matplotlib.pyplot as plt
@@ -13,9 +13,9 @@ import numpy as np
 import pandas as pd
 
 
-def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_offset=210, pres_coef=0.026, sat_value=64500):
+def calc_nitrate_concentration(nitrate_data_filtered, s16_interpolated, ncal, inst_shortname='suna', WL_offset=210, pres_coef=0.026, sat_value=64500):
     """
-    Calculate nitrate concentration from SUNA data with necessary corrections. 
+    Calculate nitrate concentration from SUNA/ISUS data with necessary corrections. 
     This includes temperature correction, pressure correction, and dark current handling.
     Methods follow Plant et al. (2023): Updated temperature correction for computing seawater nitrate 
     with in situ ultraviolet spectrophotometer and submersible ultraviolet nitrate analyzer nitrate sensors. 
@@ -23,13 +23,17 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
 
     Parameters:
     ----------
-    suna_wop_filtered : DataFrame
+    nitrate_data_filtered : DataFrame
         Filtered SUNA data.
     s16_interpolated : DataFrame
         Interpolated SBE-16 data at the same location.
     ncal : dict
         Calibration data including wavelength, nitrate extinction, seawater extinction, 
         and reference spectrum.
+    inst_shortname : str, optional
+        Short name for the instrument type ('suna' or 'isus').
+        Determines which dark value column and UV spectral range to use.
+        Defaults to 'suna'.        
     WL_offset : float
         Adjustable Br wavelength offset (default = 210).
     pres_coef : float
@@ -62,8 +66,7 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     """
 
     # Extract variables from dataframes
-    spec_SDN = suna_wop_filtered.index
-    spec_UV_INTEN = suna_wop_filtered.iloc[:, 8:264].values # This is the UV intensity data
+    spec_SDN = nitrate_data_filtered.index
     spec_T = s16_interpolated['temperature (degree_C)'].values 
     spec_S = s16_interpolated['salinity (PSU)'].values
     spec_P = s16_interpolated['Water_Depth (dbar)'].values
@@ -74,6 +77,18 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     E_N = np.array(ncal['ENO3'])
     E_S = np.array(ncal['ESW'])
     E_ref = np.array(ncal['Ref'])
+
+    # === Instrument-specific parameters ===
+    if inst_shortname.lower() == 'suna':
+        dark_col = 'Dark value used for fit'
+        spec_UV_INTEN = nitrate_data_filtered.iloc[:, 8:264].values
+    
+    elif inst_shortname.lower() == 'isus':
+        dark_col = 'Sea-Water Dark Calculation'
+        spec_UV_INTEN = nitrate_data_filtered.iloc[:, 17:273].values
+    
+    else:
+        raise ValueError("inst_shortname must be 'suna' or 'isus'.")    
 
     # ************************************************************************
     # Choose fit window. The Argo default processing uses a default window of >=217 & <=240.
@@ -106,7 +121,7 @@ def calc_nitrate_concentration(suna_wop_filtered, s16_interpolated, ncal, WL_off
     
     # Subtract dark current and set values <= 0 to NaN
     # Currently use spectral mean dark values. Consider using dark values for individual wavelengths in the future.
-    dark_current = suna_wop_filtered['Dark value used for fit'].values[:, np.newaxis]  # reshape for broadcasting
+    dark_current = nitrate_data_filtered[dark_col].values[:, np.newaxis]  # reshape for broadcasting
     spec_UV_INTEN = spec_UV_INTEN - dark_current
     spec_UV_INTEN = np.where(spec_UV_INTEN > 0, spec_UV_INTEN, np.nan)
 
@@ -260,7 +275,8 @@ def plot_corrected_data(WL_UV, E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_
     fig.tight_layout()
     plt.show()
 
-def plot_intensity(ncal, suna_wop_filtered, timestamps, mooring_config, instrument):
+
+def plot_intensity(ncal, nitrate_data_filtered, timestamps, mooring_config, instrument, inst_shortname='suna'):
     """
     Plot dark-corrected intensity for selected timestamps with a DIW reference and highlight region.
 
@@ -268,7 +284,7 @@ def plot_intensity(ncal, suna_wop_filtered, timestamps, mooring_config, instrume
     -----------
     ncal : dict
         Dictionary containing 'WL' for wavelength data and 'Ref' for DIW reference values.
-    suna_wop_filtered : DataFrame
+    nitrate_data_filtered : DataFrame
         Filtered data containing intensity values and dark correction values.
     timestamps : list of int
         Indices to use for plotting selected timestamps.
@@ -276,46 +292,79 @@ def plot_intensity(ncal, suna_wop_filtered, timestamps, mooring_config, instrume
         Mooring ID for plot title.
     instrument : str
         Instrument ID for plot title.
+    inst_shortname : str, optional
+        Short name for the instrument type ('suna' or 'isus').
+        Determines which dark value column and UV spectral range to use.
+        Defaults to 'suna'.        
     """
-    fig, ax = plt.subplots(1, 1, figsize=(7, 4))
-
-    for idx in timestamps:
-        ax.plot(ncal['WL'], 
-                suna_wop_filtered.iloc[idx, 9:265] - suna_wop_filtered['Dark value used for fit'].iloc[idx], 
-                label=f'{suna_wop_filtered.index[idx]}')
     
+    # === Instrument-specific dark value and slice ===
+    if inst_shortname.lower() == 'suna':
+        dark_col = 'Dark value used for fit'
+        uv_slice = slice(9, 265)   # adjust if needed for your SUNA file
+    elif inst_shortname.lower() == 'isus':
+        dark_col = 'Sea-Water Dark Calculation'
+        uv_slice = slice(17, 273)  # adjust if needed for your ISUS file
+    else:
+        raise ValueError("inst_shortname must be 'suna' or 'isus'.")
+
+    fig, ax = plt.subplots(1, 1, figsize=(7, 4))
+    
+    for idx in timestamps:
+        intensity = nitrate_data_filtered.iloc[idx, uv_slice] - nitrate_data_filtered[dark_col].iloc[idx]
+        ax.plot(ncal['WL'], intensity, label=f'{nitrate_data_filtered.index[idx]}')
+
     ax.plot(ncal['WL'], ncal['Ref'], 'k--', label='DIW Reference')
     ax.axvspan(217, 240, color='gray', alpha=0.1)
-    ax.set(xlim=[210, 300], ylabel='Intensity (dark-corrected)', xlabel='Wavelength (nm)', ylim=[0, 67000],
-           title=f'{mooring_config["MooringID"]}, {instrument}')
+    ax.set(
+        xlim=[210, 300],
+        ylim=[0, 67000],
+        ylabel='Intensity (dark-corrected)',
+        xlabel='Wavelength (nm)',
+        title=f'{mooring_config["MooringID"]}, {instrument}'
+    )
     ax.legend()
     plt.show()
 
-def plot_nitrate_and_rmse(suna_wop_filtered, no3_concentration, ylim=(0, 30)):
+
+def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30), inst_shortname='suna'):
     """
-    Generate two subplots to compare original and TS-corrected nitrate concentration and RMSE.
+    Generate two subplots comparing original and TS-corrected nitrate concentration and RMSE.
 
     Parameters:
     -----------
-    suna_wop_filtered : DataFrame
+    nitrate_data_filtered : DataFrame
         DataFrame containing original nitrate concentration and RMSE values.
     no3_concentration : DataFrame
         DataFrame containing corrected nitrate concentration and RMS error values.
     ylim : tuple, optional
         Limits for the y-axis in the nitrate concentration plot. Default is (0, 30).
+    inst_shortname : str, optional
+        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.
     """
+    
+    # === Dynamic column names ===
+    if inst_shortname.lower() == 'suna':
+        nitrate_col = 'Nitrate concentration, μM'
+        rmse_col = 'Fit RMSE'
+    elif inst_shortname.lower() == 'isus':
+        nitrate_col = 'NO3_conc'
+        rmse_col = 'RMS Error'
+    else:
+        raise ValueError("inst_shortname must be 'suna' or 'isus'.")
+
     fig, axes = plt.subplots(2, 1, figsize=(8, 7))
 
     # Nitrate concentration plot
     ax = axes[0]
-    suna_wop_filtered['Nitrate concentration, μM'].plot(ax=ax, label='Original (after simple screening)')
-    no3_concentration['Nitrate concentration (μM)'].plot(ax=ax, label='TS_corrected', color='C1')
+    nitrate_data_filtered[nitrate_col].plot(ax=ax, label='Original (after simple screening)')
+    no3_concentration['Nitrate concentration (μM)'].plot(ax=ax, label='TS-corrected', color='C1')
     ax.legend()
     ax.set(title='Nitrate concentration (μM)', ylim=ylim)
 
     # RMSE plot
     ax = axes[1]
-    suna_wop_filtered['Fit RMSE'].plot(ax=ax, label='Original (after simple screening)')
+    nitrate_data_filtered[rmse_col].plot(ax=ax, label='Original (after simple screening)')
     no3_concentration['RMS Error'].plot(ax=ax, label='TS-corrected', color='C1')
     ax.legend()
     ax.set(title='RMSE')
@@ -323,8 +372,9 @@ def plot_nitrate_and_rmse(suna_wop_filtered, no3_concentration, ylim=(0, 30)):
     fig.tight_layout()
     plt.show()
 
-def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035, 
-               window_size=50, error_bar=0.0002, ylim=(0, 29)):
+
+def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035, 
+               window_size=50, error_bar=0.0002, ylim=(0, 29), inst_shortname='suna'):
     """
     Filter and analyze nitrate concentration data based on user-defined RMSE cutoff, 
     smoothing parameters, and error band, then plot the results in three subplots.
@@ -333,7 +383,7 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     -----------
     no3_concentration : DataFrame
         DataFrame containing nitrate concentration and RMSE values.
-    suna_wop_filtered : DataFrame
+    nitrate_data_filtered : DataFrame
         DataFrame containing the original nitrate concentration data.
     rmse_cutoff : float, optional
         Maximum allowed RMSE value for filtering (default is 0.0035).
@@ -343,7 +393,17 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
         Error tolerance around the smoothed curve for further filtering (default is 0.0002).
     ylim : tuple, optional
         Y-axis limits for the nitrate concentration plot (default is (5, 29)).
+    inst_shortname : str, optional
+        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.    
     """
+
+    # === Dynamic column names ===
+    if inst_shortname.lower() == 'suna':
+        nitrate_col = 'Nitrate concentration, μM'
+    elif inst_shortname.lower() == 'isus':
+        nitrate_col = 'NO3_conc'
+    else:
+        raise ValueError("inst_shortname must be 'suna' or 'isus'.")
     
     # Filter data based on RMSE cutoff (QC1)
     no3_concentration_QC1 = no3_concentration[
@@ -396,7 +456,7 @@ def qc_nitrate(no3_concentration, suna_wop_filtered, rmse_cutoff=0.0035,
     ax2.set_title('RMS Error Analysis (QC1 and QC2)')
 
     # Third subplot for Nitrate concentration
-    suna_wop_filtered['Nitrate concentration, μM'].plot(ax=ax3, label='Original (after simple screening)')
+    nitrate_data_filtered[nitrate_col].plot(ax=ax3, label='Original (after simple screening)')
     no3_concentration['Nitrate concentration (μM)'].plot(ax=ax3, label='TS_corrected', color='C1', lw=2.0)
     no3_concentration_QC2['Nitrate concentration (μM)'].plot(ax=ax3, label='TS_correct+QC1+QC2', color='C2', lw=1.0)
     ax3.set_ylabel('Nitrate concentration (μM)')

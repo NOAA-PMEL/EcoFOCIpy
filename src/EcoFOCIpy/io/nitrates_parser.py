@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import requests
+import re
 
 
 # Satlantic Suna CSV
@@ -207,90 +208,83 @@ class Isus(object):
 
     def plot_data(self, title="ISUS Data"):
         """
-        Make quick plots:
-          - NO3 concentration
+        Quick plots for ISUS:
+          - Nitrate concentration
           - RMS Error
           - Spectral data
-
-        Assumes columns:
-          - 'NO3_conc'
-          - 'RMS Error'
-          - Bandwidths: Cols 19-276
         """
+        import matplotlib.pyplot as plt
+    
         if self.data_frame.empty:
             raise ValueError("Data frame is empty. Please parse a file first.")
-
-        df = self.data_frame
-        
-        # Smart dark fiber drop: only drop if more than 1 row in an hour
-        df_no_dark = df.groupby(pd.Grouper(freq='h')).apply(lambda g: g.iloc[1:] if len(g) > 1 else g)
-        df_no_dark.index = df_no_dark.index.droplevel(0)
     
-        # NO3 concentration
+        df = self.data_frame
+    
+        # 1. Smart drop of dark fiber
+        df_no_dark = (
+            df.groupby(pd.Grouper(freq='h'))
+              .apply(lambda g: g.iloc[1:] if len(g) > 1 else g)
+              .droplevel(0)
+        )
+    
+        if df_no_dark.empty:
+            print("[INFO] All data removed after dropping dark fiber readings.")
+            return
+    
+        # 2. Basic data
         nitrate = df_no_dark['NO3_conc'].resample('1h').mean()
-
-        # RMS Error
         fit_rmse = df_no_dark['RMS Error']
-
-        # Spectra: dynamically adjust spectral slice based on whether S/N is present
-        if 'S/N' in df_no_dark.columns:
-            spectra = df_no_dark.iloc[:, 18:274]
-        else:
-            spectra = df_no_dark.iloc[:, 17:273]
-        
+    
+        # 3. Spectra: auto slice by presence of 'S/N'
+        spectra_slice = (18, 274) if 'S/N' in df_no_dark.columns else (17, 273)
+        spectra = df_no_dark.iloc[:, slice(*spectra_slice)]
+    
         if spectra.empty:
             print("[INFO] No spectral data available after dropping darks.")
             return
-        wavelengths = spectra.columns
+    
         spectra = spectra.resample('1h').mean()
-
-        fig, axs = plt.subplots(3, 1, figsize=(11, 10), gridspec_kw={'height_ratios': [1, 1, 1.5]})
-
-        # NO3 plot
-        ax1 = axs[0]
-        ax1.plot(nitrate.index, nitrate, color='C0')
-        ax1.set(title='Nitrate Concentration', ylabel='Nitrate concentration (μM)')
-        ax1.label_outer()
-
-        # RMS Error plot
-        ax2 = axs[1]
-        ax2.scatter(fit_rmse.index, fit_rmse, alpha=0.7)
-        ax2.set(title='RMS Error', xlabel='Time', ylabel='RMS Error')
-        ax2.label_outer()
-
-        # Spectral data plot with imshow
-        ax3 = axs[2]
-
-        # Spectra is time x wavelength (rows = time, cols = wavelengths)
-        spectra_data = spectra.to_numpy()
-        extent = [
-            spectra.index[0].to_pydatetime(),  # left
-            spectra.index[-1].to_pydatetime(), # right
-            float(spectra.columns[0]),         # bottom wavelength
-            float(spectra.columns[-1])         # top wavelength
-        ]
-        
-        im = ax3.imshow(
-            spectra_data.T, 
-            aspect='auto',
-            origin='lower',
-            cmap=plt.cm.plasma,
-            extent=extent
+        if spectra.empty:
+            print("[INFO] No spectral data available after resampling.")
+            return
+    
+        # 4. Plot setup
+        fig, axs = plt.subplots(
+            3, 1, figsize=(11, 10),
+            gridspec_kw={'height_ratios': [1, 1, 1.5]}
         )
-        
+    
+        # 5. Nitrate plot
+        axs[0].plot(nitrate.index, nitrate, color='C0')
+        axs[0].set(title='Nitrate Concentration', ylabel='Nitrate (μM)')
+        axs[0].label_outer()
+    
+        # 6. RMS Error plot
+        axs[1].scatter(fit_rmse.index, fit_rmse, alpha=0.7)
+        axs[1].set(title='RMS Error', xlabel='Time', ylabel='RMS Error')
+        axs[1].label_outer()
+    
+        # 7. Spectral plot
+        ax3 = axs[2]
+        extent = [
+            spectra.index[0].to_pydatetime(),
+            spectra.index[-1].to_pydatetime(),
+            float(spectra.columns[0]),
+            float(spectra.columns[-1])
+        ]
+        im = ax3.imshow(spectra.to_numpy().T, 
+                        aspect='auto', origin='lower', cmap=plt.cm.plasma, extent=extent)
         ax3.set(title='Spectral Data',
                 xlabel='Time',
                 ylabel='Wavelength (nm)',
-                ylim=[200, 250])  # adjust wavelength range
-        
-        # Rotate X-axis labels if crowded
+                ylim=[200, 250])
         fig.autofmt_xdate()
-        
-        # Add colorbar
+    
+        # 8. Colorbar
         fig.subplots_adjust(right=0.85)
         cbar_ax = fig.add_axes([0.87, 0.2, 0.02, 0.25])
         fig.colorbar(im, cax=cbar_ax, label='Intensity')
-
+    
         plt.suptitle(title, y=0.98)
         plt.show()
 
@@ -506,4 +500,77 @@ def extract_value_from_line(line):
     """
     # Split the line by space and extract the last element, then convert to float
     return float(line.split()[-1])
-                
+
+
+import numpy as np
+
+def parse_isus_cal(calibration_content):
+    """
+    Parse the calibration content for ISUS sensors.
+
+    Parameters:
+    ----------
+    calibration_content : str
+        The content of the calibration file.
+
+    Returns:
+    -------
+    ncal : dict
+        A dictionary containing calibration constants and data.
+    """
+    # Initialize structure
+    ncal = {
+        'WL': [],          # Wavelength array
+        'ENO3': [],        # Extinction coefficients for nitrate
+        'ESW': [],         # Extinction coefficients for seawater
+        'Ref': [],         # Reference intensity
+        'CalTemp': None,   # Temperature the instrument was calibrated in the lab
+        'WL_offset': 210,  # Adjustable Br wavelength offset (default = 210)
+        'pixel_base': 1,   # Default is 1 (1-256), 0 (0-255)
+        'DC_flag': 1,      # Default is 1 (can change later); 1 use DC in NO3 calc, 0 use SWDC in NO3 calc
+        'pres_coef': 0.02  # Bromide extinction coefficient
+    }
+    
+    lines = calibration_content.split('\n')
+
+    for line in lines:
+        if line.startswith('H,'):
+            # Extract known header constants
+            if 'T_CAL_SWA' in line:
+                ncal['CalTemp'] = extract_isus_value_from_line(line)
+            
+        elif line.startswith('E,'):
+            columns = line.split(',')
+            if len(columns) >= 6:
+                wl = float(columns[1])
+                eno3 = try_parse_float(columns[2])
+                esw = try_parse_float(columns[3])
+                ref = try_parse_float(columns[5])
+
+                ncal['WL'].append(wl)
+                ncal['ENO3'].append(eno3)
+                ncal['ESW'].append(esw)
+                ncal['Ref'].append(ref)
+
+    return ncal
+
+def extract_isus_value_from_line(line):
+    """
+    Extract the first numeric float from an ISUS header line,
+    even if it's attached to text.
+    Example: 'H,T_CAL_SWA 20,,,'  ->  20.0
+    """
+    matches = re.findall(r"[-+]?\d*\.\d+|\d+", line)
+    if matches:
+        return float(matches[0])
+    else:
+        return None
+
+def try_parse_float(value):
+    """
+    Handle '?' or missing values in the E lines.
+    """
+    try:
+        return float(value)
+    except ValueError:
+        return np.nan
