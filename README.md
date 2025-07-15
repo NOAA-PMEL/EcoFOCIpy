@@ -1,4 +1,9 @@
 # EcoFOCIpy
+
+[![Build Status](https://github.com/NOAA-PMEL/EcoFOCIpy/actions/workflows/ci.yml/badge.svg)](https://github.com/NOAA-PMEL/EcoFOCIpy/actions)
+[![PyPI version](https://badge.fury.io/py/EcoFOCIpy.svg)](https://badge.fury.io/py/EcoFOCIpy)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 python tools for the EcoFOCI PMEL research Program
 
 Examples and Notebook Archives can be found within this package or also at [ecofoci_code_lab](https://noaa-pmel.github.io/ecofoci_code_lab/content/code_gallery/EcoFOCIpy.html)
