@@ -642,7 +642,7 @@ def parse_isus_cal(calibration_content):
     for line in lines:
         if line.startswith('H,'):
             # Extract known header constants
-            if 'T_CAL_SWA' in line:
+            if 'T_CAL' in line:
                 ncal['CalTemp'] = extract_isus_value_from_line(line)
             
         elif line.startswith('E,'):
