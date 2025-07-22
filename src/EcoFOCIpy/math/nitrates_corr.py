@@ -414,16 +414,10 @@ def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035,
     ]
 
     
-    # Calculate rolling mean and fill NaNs at edges    
-    # - Step 1: Compute rolling mean without filling
+    # Calculate rolling mean, using an adaptive window near the edge
     no3_smoothed = no3_concentration_QC1['RMS Error'].rolling(
-        window=window_size, center=True
+        window=window_size, center=True, min_periods=1
     ).mean()
-    
-    # - Step 2: Fill edge NaNs only (start and end), not internal gaps
-    half_window = window_size // 2
-    no3_smoothed.iloc[:half_window] = no3_smoothed.iloc[half_window]
-    no3_smoothed.iloc[-half_window:] = no3_smoothed.iloc[-half_window - 1]
     
     # Define upper and lower bounds for the band
     upper_bound = no3_smoothed + error_bar
