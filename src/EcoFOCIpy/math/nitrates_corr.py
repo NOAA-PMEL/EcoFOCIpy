@@ -374,8 +374,7 @@ def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30)
 
 
 def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035, 
-               window_size=50, error_bar=0.0002, ylim=(0, 29), inst_shortname='suna',
-               smoothing_mode='adaptive'):
+               window_size=50, error_bar=0.0002, ylim=(0, 29), inst_shortname='suna'):
     """
     Filter and analyze nitrate concentration data based on user-defined RMSE cutoff, 
     smoothing parameters, and error band, then plot the results in three subplots.
@@ -395,11 +394,7 @@ def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035,
     ylim : tuple, optional
         Y-axis limits for the nitrate concentration plot (default is (5, 29)).
     inst_shortname : str, optional
-        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.    
-    smoothing_mode : str, optional
-        Smoothing strategy for rolling mean. 
-        'adaptive' uses min_periods=1 to reduce edge effects (default). 
-        'fixed' uses full window and fills edge NaNs manually.        
+        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.           
     """
 
     # === Dynamic column names ===
