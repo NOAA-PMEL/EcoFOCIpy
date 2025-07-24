@@ -10,7 +10,7 @@ These include:
 
 """
 from datetime import datetime
-
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -146,6 +146,111 @@ class Suna(object):
         return self.data_frame
 
 
+# ------------------------------------------------------------------------
+# ISUS Raw Data Conversion Utilities
+# ------------------------------------------------------------------------
+
+# --- ISUS file conversion constants ---
+
+FIRST_20_COLS = [
+    'S/N', 'YYYYDDD', 'HH.HHHHH', 'NO3_conc', 'aux1', 'aux2', 'aux3', 'RMS Error',
+    'ISUS Housing Temp', 'Spectrometer Temp', 'UV Lamp Temp', 'Lamp Time',
+    'Humidity', 'Volt_12', 'Volt_5', 'Volt_Main',
+    'Average Reference Channel', 'Reference Channel Variance',
+    'Sea-Water Dark Calculation', 'Average Of All Spectrometer Channels'
+]
+
+LAST_COL = ['Check Sum']
+
+# --- ISUS conversion functions ---
+
+def get_bandwidth_names(file_path):
+    """Extract the 256 bandwidth names from the header line (line 12)."""
+    with open(file_path, 'r') as f:
+        lines = f.readlines()
+    header_line = lines[11].strip()
+    header_items = header_line.split(',')
+    return header_items[2:]  # Skip Instrument name + 'L'
+
+def process_isus_file(file_path, output_dir):
+    """Process a single .DAT file and save as .csv"""
+    middle_cols = get_bandwidth_names(file_path)
+    if len(middle_cols) != 256:
+        print(f"[WARNING] Expected 256 bandwidth names, got {len(middle_cols)} in {file_path}")
+
+    full_columns = FIRST_20_COLS + middle_cols + LAST_COL
+    assert len(full_columns) == 277, f"Column count mismatch: {len(full_columns)} != 277"
+
+    df = pd.read_csv(
+        file_path,
+        skiprows=12,
+        sep=',',
+        names=full_columns,
+        engine='python'
+    )
+
+    base_name = os.path.basename(file_path)
+    new_name = os.path.splitext(base_name)[0] + '.csv'
+    output_path = os.path.join(output_dir, new_name)
+    df.to_csv(output_path, index=False)
+
+    print(f"[INFO] Processed {file_path} --> {output_path} | Rows: {df.shape[0]}")
+    return output_path
+
+def batch_process_isus_files(input_dir, output_dir):
+    """Process all .DAT files in a folder"""
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    dat_files = [f for f in os.listdir(input_dir) if f.endswith('.DAT')]
+    print(f"[INFO] Found {len(dat_files)} .DAT files in {input_dir}")
+
+    output_csvs = []
+    for dat_file in dat_files:
+        full_path = os.path.join(input_dir, dat_file)
+        csv_path = process_isus_file(full_path, output_dir)
+        output_csvs.append(csv_path)
+
+    print(f"[INFO] All files processed. Output saved in {output_dir}")
+    return output_csvs
+
+def merge_csvs(csv_files, merged_csv_path):
+    """
+    Merge multiple CSVs into a single CSV, sorted by proper date_time,
+    but keep the original YYYYDDD and HH.HHHHH columns.
+
+    Parameters:
+    -----------
+    csv_files : list of str
+        Paths to individual CSV files.
+    merged_csv_path : str
+        Path to save the merged, sorted CSV.
+    """
+    df_list = []
+    for csv_file in csv_files:
+        df = pd.read_csv(csv_file)
+        df_list.append(df)
+
+    merged_df = pd.concat(df_list, ignore_index=True)
+
+    # Build proper datetime index from YYYYDDD + HH.HHHHH
+    base_dates = pd.to_datetime(merged_df['YYYYDDD'].astype(str), format='%Y%j')
+    time_offset = pd.to_timedelta(merged_df['HH.HHHHH'], unit='h')
+    merged_df['date_time'] = base_dates + time_offset
+
+    # Sort by the constructed datetime
+    merged_df = merged_df.sort_values('date_time').reset_index(drop=True)
+
+    # Drop the helper column, keep original raw columns
+    merged_df.drop(columns=['date_time'], inplace=True)
+
+    # Save final merged file
+    merged_df.to_csv(merged_csv_path, index=False)
+    print(f"[INFO] Merged {len(csv_files)} CSVs --> {merged_csv_path} (sorted by date_time)")
+
+    return merged_csv_path
+
+
 # Satlantic ISUS CSV
 class Isus(object):
     """
@@ -168,40 +273,33 @@ class Isus(object):
 
     def parse(self, filename=None):
         """
-        Parse ISUS merged CSV file and build proper datetime index
-        from YYYYDDD and HH.HHHHH. Drops the original columns after indexing.
-
+        Parse merged ISUS CSV file and build datetime index.
+    
         Parameters:
         ----------
         filename : str
             Path to the CSV file.
-
+    
         Returns:
         -------
         DataFrame
         """
         assert filename is not None, "Must provide a data file"
-
-        # Read raw file
+    
+        # Read merged CSV
         rawdata_df = pd.read_csv(filename)
-
-        # Confirm required columns exist
-        assert 'YYYYDDD' in rawdata_df.columns, "'YYYYDDD' column not found"
-        assert 'HH.HHHHH' in rawdata_df.columns, "'HH.HHHHH' column not found"
-
-        # Build datetime index
+    
+        # Build datetime index from YYYYDDD + HH.HHHHH
         yyyyddd = rawdata_df['YYYYDDD'].astype(str)
         fractional_hours = rawdata_df['HH.HHHHH'].astype(float)
-
+        
         base_dates = pd.to_datetime(yyyyddd, format='%Y%j')
         datetimes = base_dates + pd.to_timedelta(fractional_hours, unit='h')
-
+        
         rawdata_df.index = datetimes
         rawdata_df.index.name = 'date_time'
-
-        # Drop original columns
         rawdata_df = rawdata_df.drop(columns=['YYYYDDD', 'HH.HHHHH'])
-
+    
         self.data_frame = rawdata_df
         return self.data_frame
 
@@ -291,23 +389,31 @@ class Isus(object):
     def FilterIsus(self, rmse_cutoff=0.003):
         """
         Filter ISUS data:
+          - Remove dark current readings (NO3_conc == 0).
           - Keep rows with RMS Error > 0 and <= cutoff.
           - Resample to hourly median.
-
+    
         Returns:
         -------
         DataFrame
         """
         assert 'RMS Error' in self.data_frame.columns, "Must have RMS Error column"
+        assert 'NO3_conc' in self.data_frame.columns, "Must have NO3_conc column"
+    
         df = self.data_frame
-
-        # Drop dark fiber readings
-        df_no_dark = df.groupby(pd.Grouper(freq='h')).apply(lambda g: g.iloc[1:])
-        df_no_dark.index = df_no_dark.index.droplevel(0)        
-
-        filtered_df = df_no_dark[(df_no_dark['RMS Error'] > 0) & (df_no_dark['RMS Error'] <= rmse_cutoff)]
+    
+        # Drop dark current readings robustly
+        df_no_dark = df[df['NO3_conc'] != 0]
+    
+        # Apply RMS Error filter
+        filtered_df = df_no_dark[
+            (df_no_dark['RMS Error'] > 0) &
+            (df_no_dark['RMS Error'] <= rmse_cutoff)
+        ]
+    
+        # Resample to hourly median
         filtered_df = filtered_df.resample('1h').median(numeric_only=True)
-
+    
         self.data_frame = filtered_df
         return self.data_frame
 
@@ -536,7 +642,7 @@ def parse_isus_cal(calibration_content):
     for line in lines:
         if line.startswith('H,'):
             # Extract known header constants
-            if 'T_CAL_SWA' in line:
+            if 'T_CAL' in line:
                 ncal['CalTemp'] = extract_isus_value_from_line(line)
             
         elif line.startswith('E,'):
