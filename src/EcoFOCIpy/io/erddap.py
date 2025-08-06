@@ -10,9 +10,9 @@ def test_erddap_connection(url=''):
     url = e.get_search_url(search_for="dy", response="csv")
     r = requests.head(url)
     assert r.raise_for_status() is None
-    
 
-def erddapCTDretrieve(url='',cruiseid='',concastno='001',qclevel='final'):
+
+def erddapCTDretrieve(url=None, cruiseid=None, concastno='001', qclevel='final'):
     """Retrieve a single cast from a FOCI cruise hosted via erddap
 
     Args:
@@ -26,11 +26,11 @@ def erddapCTDretrieve(url='',cruiseid='',concastno='001',qclevel='final'):
       server=url,
       protocol="tabledap",
     )
-    
+
     e.dataset_id = f'CTD_{cruiseid}_{qclevel}'
-    
+
     df = e.to_pandas(parse_dates=True)
-    
+
     try:
         df = df[df.profile_id.str.contains(concastno)]
     except:
@@ -38,8 +38,9 @@ def erddapCTDretrieve(url='',cruiseid='',concastno='001',qclevel='final'):
 
     return df
 
-def erddapMooredInstretrieve(url='',mooringid='',qclevel='',instrid=''):
-    """Retrieve a single cast from a FOCI cruise hosted via erddap
+
+def erddapMooredInstretrieve(url=None, mooringid=None, qclevel='final', instrid=None):
+    """Retrieve a single instrument from a FOCI mooring hosted via erddap
 
     Args:
         url (str, optional): url to foci hosted erddap. Defaults to ''.
@@ -52,15 +53,14 @@ def erddapMooredInstretrieve(url='',mooringid='',qclevel='',instrid=''):
       server=url,
       protocol="tabledap",
     )
-    
+
     e.dataset_id = f'datasets_Mooring_{mooringid}_{qclevel}'
-    
+
     df = e.to_pandas(parse_dates=True)
-    
+
     try:
         df = df[df['timeseries_id'] == instrid].dropna(how='all', axis=1)
     except:
         df = df
-
 
     return df
