@@ -9,13 +9,14 @@ These include:
 
 
 """
-from datetime import datetime
 import os
+import re
+from datetime import datetime
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import requests
-import re
 
 
 # Satlantic Suna CSV
@@ -311,8 +312,7 @@ class Isus(object):
           - RMS Error
           - Spectral data
         """
-        import matplotlib.pyplot as plt
-    
+
         if self.data_frame.empty:
             raise ValueError("Data frame is empty. Please parse a file first.")
     
@@ -607,8 +607,6 @@ def extract_value_from_line(line):
     # Split the line by space and extract the last element, then convert to float
     return float(line.split()[-1])
 
-
-import numpy as np
 
 def parse_isus_cal(calibration_content):
     """

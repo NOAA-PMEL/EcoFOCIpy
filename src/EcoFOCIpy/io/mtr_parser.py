@@ -2,7 +2,7 @@
 
 These include:
 
-* Version 3/4 (old version) [ ]
+* Version 3/4 (old version) [x]
 * Version 5 (MTRduino) [x]
 
 """
@@ -25,18 +25,67 @@ class mtrduino(object):
     def parse(filename=None, datetime_index=True):
         r"""
         Basic Method to open and read mtrduino raw converted csv files
-            
+
+        Assumes five samples per interval with no header row (default)
+
         """
         assert filename != None , 'Must provide a datafile'
 
-        rawdata = pd.read_csv(
-            filename, delimiter=",", parse_dates=["date_time"]
+        rawdata_df = pd.read_csv(
+            filename,
+            header=None,
+            names=['','s1', 's2', 's3', 's4', 's5', 'ref'],
         )
 
         if datetime_index:
-            rawdata_df = rawdata_df.set_index(pd.DatetimeIndex(rawdata_df['date_time'])).drop(['date_time'],axis=1)
+            rawdata_df = rawdata_df.set_index(pd.to_datetime(rawdata_df.index))
+
+            rawdata_df.rename(columns={'':'s1', 's1':'s2', 's2':'s3', 's3':'s4', 's4':'s5', 's5':'ref', 'ref':''},
+                              inplace=True)
 
         return rawdata_df
+
+    @staticmethod
+    def adc2temp(data_df, mtr_coef=None):
+        """Wrapper around steinhart_hart equation to convert resistance into temperature
+
+        Args:
+            mtr_coef (list, optional): _description_. Defaults to [0,0,0].
+
+        Returns:
+            _type_: _description_
+        """
+
+        if mtr_coef is None:
+            mtr_coef = [0, 0, 0]
+
+        def temp_func(resistance):
+            """Convert resistance to temperature using the Steinhart-Hart equation."""
+            A, B, C = mtr_coef
+            logR = np.log10(resistance)
+            return (1 / (A + B * logR + C * logR**3)) - 273.15
+
+        for col in data_df.columns:
+            if col != "ref":
+                data_df[col] = temp_func(data_df[col])
+
+        return data_df
+
+    @staticmethod
+    def time_correction(rawdata_df, offset=None):
+        """ apply a linear time correction in seconds"""
+        samples = len(rawdata_df)
+        offsetpersample = round((offset / samples) * 1e9)
+        rawdata_df.index = rawdata_df.reset_index()['date_time'] + pd.timedelta_range(start=0,periods=len(rawdata_df),freq=f'{offsetpersample}ns').values
+
+        return (rawdata_df, offsetpersample)
+
+    @staticmethod
+    def time_offset_correction(rawdata_df, offset=None):
+        """ apply a time offset in seconds"""
+        rawdata_df.index = rawdata_df.index + pd.Timedelta(seconds=offset)
+
+        return (rawdata_df)
 
 class mtr(object):
     r""" MicroTemperature Recorders (MTR)
@@ -76,7 +125,7 @@ class mtr(object):
                 hexlines[k] = line
 
         if return_header:
-            return(hexlines, header)
+            return (hexlines, header)
         else:
             return hexlines
 
@@ -107,14 +156,14 @@ class mtr(object):
     @staticmethod
     def hex2dec(data_dic, model_factor=4.0e08):
         """
-        model factor parameter is based on serial number range 
+        model factor parameter is based on serial number range
         for counts to resistance conversion
         if (args.SerialNo / 1000 == 3) or (args.SerialNo / 1000 == 4):
             model_factor = 4.0e+08
         """
         sample_num = 0
         data = {}
-        for k, v in data_dic.items():
+        for _k, v in data_dic.items():
             if len(v) == 16:  # timeword mmddyyhhmmssxxxx
                 data[sample_num] = {
                     "time": datetime.datetime.strptime(v[:-4], "%m%d%y%H%M%S")
@@ -143,7 +192,7 @@ class mtr(object):
 
         return data
 
-    def res2temp(self, data_dic, mtr_coef=[0,0,0]):
+    def res2temp(self, data_dic, mtr_coef=None):
         """Wrapper around steinhart_hart equation to convert resistance into temperature
 
         Args:
@@ -153,9 +202,12 @@ class mtr(object):
         Returns:
             _type_: _description_
         """
-        
+
+        if mtr_coef is None:
+            mtr_coef = [0, 0, 0]
+
         for sam_num in data_dic:
-            for k, v in data_dic[sam_num].items():
+            for k, _v in data_dic[sam_num].items():
                 if not k == "time":
                     data_dic[sam_num][k] = [
                         self.steinhart_hart(x, mtr_coef)
@@ -163,7 +215,7 @@ class mtr(object):
                     ]
         return data_dic
 
-    def steinhart_hart(self, resistance, mtr_coef=[0,0,0]):
+    def steinhart_hart(self, resistance, mtr_coef=None):
         """Convert resistance into temperature
 
         Args:
@@ -173,6 +225,10 @@ class mtr(object):
         Returns:
             _type_: _description_
         """
+
+        if mtr_coef is None:
+            mtr_coef = [0, 0, 0]
+
         if resistance <= 0:
             shhh = 0
         else:
@@ -195,7 +251,7 @@ class mtr(object):
             data_dic (_type_): MTR data dictionary
         """
 
-        ### create time and data streams
+        # create time and data streams
         count = 0
         time = {}
         temp = {}
@@ -216,14 +272,14 @@ class mtr(object):
                     count += 1
                     time[count] = time[count - 1] + deltat
 
-        df = pd.DataFrame(temp.values(),list(time.values())[:-1]) #last time stamp is an error in routine
-        df.index.rename('date_time',inplace=True)
-        df.rename(columns = {0:'temperature'}, inplace = True)
+        df = pd.DataFrame(temp.values(), list(time.values())[:-1]) #last time stamp is an error in routine
+        df.index.rename('date_time', inplace=True)
+        df.rename(columns={0: 'temperature'}, inplace=True)
 
         return df
 
     @staticmethod
-    def time_correction(rawdata_df,offset=None):
+    def time_correction(rawdata_df, offset=None):
         """ apply a linear time correction in seconds"""
         samples = len(rawdata_df)
         offsetpersample = round((offset / samples) * 1e9)
@@ -232,8 +288,8 @@ class mtr(object):
         return (rawdata_df, offsetpersample)
 
     @staticmethod
-    def time_offset_correction(rawdata_df,offset=None):
+    def time_offset_correction(rawdata_df, offset=None):
         """ apply a time offset in seconds"""
-        rawdata_df.index = rawdata_df.index + pd.Timedelta(seconds=offset) 
+        rawdata_df.index = rawdata_df.index + pd.Timedelta(seconds=offset)
 
         return (rawdata_df)

@@ -1,0 +1,122 @@
+import pytest
+import pandas as pd
+import numpy as np
+from pandas.testing import assert_series_equal
+
+# Import the functions to be tested from your utility file
+from EcoFOCIpy.qc.ctd_qc import (
+    gross_range_test,
+    spike_test,
+    stuck_value_test,
+    gradient_test,
+    density_inversion_test,
+    run_ctd_qc
+)
+
+# A pytest fixture to create a base "good" DataFrame for our tests
+@pytest.fixture
+def base_df():
+    """Provides a clean, realistic-looking CTD profile DataFrame."""
+    return pd.DataFrame({
+        'pressure': np.arange(1, 11),
+        'temperature': np.linspace(20, 15, 10),
+        'salinity': np.linspace(34, 35, 10)
+    })
+
+# --- Tests for Individual QC Functions ---
+
+def test_gross_range_test():
+    """Tests the gross_range_test function."""
+    data = pd.Series([10.0, -5.0, 35.0, 15.0]) # Value at index 1 is too low, 2 is too high
+    config = {'min': 0.0, 'max': 30.0}
+    
+    result_flags = gross_range_test(data, config)
+    expected_flags = pd.Series([1, 4, 4, 1])
+    
+    assert_series_equal(result_flags, expected_flags, check_names=False)
+
+def test_spike_test():
+    """Tests the spike_test function."""
+    data = pd.Series([10.0, 10.1, 10.2, 15.0, 10.3, 10.4]) # Spike at index 3
+    config = {'threshold': 2.0, 'window': 5}
+    
+    result_flags = spike_test(data, config)
+    expected_flags = pd.Series([1, 1, 1, 4, 1, 1])
+
+    assert_series_equal(result_flags, expected_flags, check_names=False)
+
+def test_stuck_value_test():
+    """Tests the stuck_value_test function."""
+    data = pd.Series([10.1, 10.2, 10.2, 10.2, 10.3]) # Stuck values at index 2 and 3
+    config = {'consecutive_limit': 3}
+
+    result_flags = stuck_value_test(data, config)
+    # The flag should appear on the 3rd consecutive value
+    expected_flags = pd.Series([1, 1, 4, 4, 1])
+
+    assert_series_equal(result_flags, expected_flags, check_names=False)
+
+def test_gradient_test():
+    """Tests the gradient_test function."""
+    data = pd.Series([10.0, 10.5, 15.0, 15.2]) # Large gradient between index 1 and 2
+    config = {'threshold': 4.0}
+
+    result_flags = gradient_test(data, config)
+    # The flag appears on the second point of the gradient pair
+    expected_flags = pd.Series([1, 1, 4, 1])
+
+    assert_series_equal(result_flags, expected_flags, check_names=False)
+
+def test_density_inversion_test(base_df):
+    """Tests the density_inversion_test for an unstable water column."""
+    test_df = base_df.copy()
+    # Manually create a density inversion: make a deeper point warmer
+    test_df.loc[5, 'temperature'] = 25.0
+    
+    config = {'threshold': -0.03}
+    
+    result_flags = density_inversion_test(test_df, config)
+    
+    # The point at original index 5 should be flagged
+    assert result_flags.loc[5] == 4
+    # Ensure other points are not flagged
+    assert result_flags.drop(5).eq(1).all()
+
+# --- Integration Test for the Main Function ---
+
+def test_run_ctd_qc():
+    """
+    Integration test for the main run_ctd_qc function to ensure all
+    flags are applied correctly.
+    """
+    # Create data with multiple known errors
+    df = pd.DataFrame({
+        'pressure': np.arange(1, 11),
+        'temperature': [15.0, 15.1, 99.0, 14.8, 14.8, 14.8, 10.0, 16.0, 14.2, 14.1],
+        'salinity': [34.0, 34.1, 34.2, 34.3, 50.0, 34.5, 34.6, 34.7, 34.8, 34.9]
+    })
+    # T errors: idx 2 (gross range), idx 4/5 (stuck), idx 6 (gradient), idx 7 (inversion)
+    # S errors: idx 4 (gross range), idx 7 (inversion)
+
+    qc_config = {
+        'temperature': {
+            'gross_range': {'min': -2.0, 'max': 40.0},
+            'spike': {'threshold': 5.0},
+            'stuck_value': {'consecutive_limit': 3},
+            'gradient': {'threshold': 4.0},
+        },
+        'salinity': {
+            'gross_range': {'min': 30.0, 'max': 37.0},
+        },
+        'density_inversion': {}
+    }
+
+    # Act: Run the QC
+    result_df = run_ctd_qc(df, qc_config)
+
+    # Assert: Check the final flag columns
+    expected_temp_qc = pd.Series([1, 1, 4, 1, 4, 4, 4, 4, 1, 1])
+    expected_salt_qc = pd.Series([1, 1, 1, 1, 4, 1, 1, 4, 1, 1])
+    
+    assert_series_equal(result_df['temperature_qc'], expected_temp_qc, check_index=False, check_names=False)
+    assert_series_equal(result_df['salinity_qc'], expected_salt_qc, check_index=False, check_names=False)
