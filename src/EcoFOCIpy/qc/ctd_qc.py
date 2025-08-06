@@ -1,6 +1,6 @@
-import pandas as pd
-import numpy as np
 import gsw
+import numpy as np
+import pandas as pd
 
 def gross_range_test(data: pd.Series, config: dict) -> pd.Series:
     """
@@ -163,12 +163,14 @@ def run_ctd_qc(df: pd.DataFrame, config: dict) -> pd.DataFrame:
         if test_name in config['salinity']:
             flags = test_func(df_qc['salinity'], config['salinity'][test_name])
             df_qc['salinity_qc'] = np.maximum(df_qc['salinity_qc'], flags)
-            
+
+
     # --- Run Density Inversion Test ---
     # This test flags both temperature and salinity
     if 'density_inversion' in config:
         density_flags = density_inversion_test(df_qc, config['density_inversion'])
         df_qc['temperature_qc'] = np.maximum(df_qc['temperature_qc'], density_flags)
         df_qc['salinity_qc'] = np.maximum(df_qc['salinity_qc'], density_flags)
-        
+
+
     return df_qc
