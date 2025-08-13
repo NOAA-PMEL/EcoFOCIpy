@@ -206,7 +206,7 @@ def batch_process_isus_files(input_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    dat_files = [f for f in os.listdir(input_dir) if f.endswith('.DAT')]
+    dat_files = [f for f in os.listdir(input_dir) if f.lower().endswith('.dat')]
     print(f"[INFO] Found {len(dat_files)} .DAT files in {input_dir}")
 
     output_csvs = []
