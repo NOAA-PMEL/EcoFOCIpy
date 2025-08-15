@@ -223,7 +223,8 @@ def calculate_no3_concentration(ABS_cor, E_N, WL, M, M_INV):
 
 
 def plot_corrected_data(WL_UV, E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_p,
-                        ABS_SW, ABS_Br_tcor, ABS_cor, time, timestamps, mooring_config, instrument):
+                        ABS_SW, ABS_Br_tcor, ABS_cor, time, timestamps, mooring_config, 
+                        instrument, savepath=None):
     """
     Plot mooring data with four subplots to show results after corrections:
     A. Extinction coefficients
@@ -247,6 +248,8 @@ def plot_corrected_data(WL_UV, E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_
         Mooring information
     instrument : str
         ID for mooring used in plot titles.
+    savepath : str or Path, optional
+        File path to save the figure. If None (default), the plot is displayed but not saved.
     """
     
     fig, axes = plt.subplots(2, 2, figsize=(10, 7))
@@ -273,10 +276,13 @@ def plot_corrected_data(WL_UV, E_S_interp, E_N_interp, ESW_in_situ, ESW_in_situ_
         ax.annotate(labels[i], xy=(-0.15, 1.05), xycoords='axes fraction', fontsize=14, fontweight='bold')
     
     fig.tight_layout()
+    if savepath:
+        fig.savefig(savepath, dpi=150, bbox_inches='tight')
     plt.show()
 
 
-def plot_intensity(ncal, nitrate_data_filtered, timestamps, mooring_config, instrument, inst_shortname='suna'):
+def plot_intensity(ncal, nitrate_data_filtered, timestamps, mooring_config, instrument, 
+                   inst_shortname='suna', savepath=None):
     """
     Plot dark-corrected intensity for selected timestamps with a DIW reference and highlight region.
 
@@ -295,7 +301,9 @@ def plot_intensity(ncal, nitrate_data_filtered, timestamps, mooring_config, inst
     inst_shortname : str, optional
         Short name for the instrument type ('suna' or 'isus').
         Determines which dark value column and UV spectral range to use.
-        Defaults to 'suna'.        
+        Defaults to 'suna'.
+    savepath : str or Path, optional
+        File path to save the figure. If None (default), the plot is displayed but not saved.
     """
     
     # === Instrument-specific dark value and slice ===
@@ -321,13 +329,17 @@ def plot_intensity(ncal, nitrate_data_filtered, timestamps, mooring_config, inst
         ylim=[0, 67000],
         ylabel='Intensity (dark-corrected)',
         xlabel='Wavelength (nm)',
-        title=f'{mooring_config["MooringID"]}, {instrument}'
+        title=f'{mooring_config["MooringID"]}, {instrument}, Dark-corrected intensity compared with reference'
     )
     ax.legend()
+    
+    if savepath:
+        fig.savefig(savepath, dpi=150, bbox_inches='tight')
     plt.show()
 
 
-def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30), inst_shortname='suna'):
+def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30), 
+                          inst_shortname='suna', savepath=None):
     """
     Generate two subplots comparing original and TS-corrected nitrate concentration and RMSE.
 
@@ -341,6 +353,8 @@ def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30)
         Limits for the y-axis in the nitrate concentration plot. Default is (0, 30).
     inst_shortname : str, optional
         Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.
+    savepath : str or Path, optional
+        File path to save the figure. If None (default), the plot is displayed but not saved.
     """
     
     # === Dynamic column names ===
@@ -370,11 +384,13 @@ def plot_nitrate_and_rmse(nitrate_data_filtered, no3_concentration, ylim=(0, 30)
     ax.set(title='RMSE')
 
     fig.tight_layout()
+    if savepath:
+        fig.savefig(savepath, dpi=150, bbox_inches='tight')
     plt.show()
 
 
 def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035, 
-               window_size=50, error_bar=0.0002, ylim=(0, 29), inst_shortname='suna'):
+               window_size=50, error_bar=0.0002, ylim=(0, 29), inst_shortname='suna', savepath=None):
     """
     Filter and analyze nitrate concentration data based on user-defined RMSE cutoff, 
     smoothing parameters, and error band, then plot the results in three subplots.
@@ -394,7 +410,9 @@ def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035,
     ylim : tuple, optional
         Y-axis limits for the nitrate concentration plot (default is (5, 29)).
     inst_shortname : str, optional
-        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.           
+        Short name for instrument type ('suna' or 'isus'). Used to pick correct column names.
+    savepath : str or Path, optional
+        File path to save the figure. If None (default), the plot is displayed but not saved.
     """
 
     # === Dynamic column names ===
@@ -462,6 +480,8 @@ def qc_nitrate(no3_concentration, nitrate_data_filtered, rmse_cutoff=0.0035,
     ax3.set_xlabel('Time')
 
     fig.tight_layout()
+    if savepath:
+        fig.savefig(savepath, dpi=150, bbox_inches='tight')
     plt.show()
 
     return no3_concentration_QC2

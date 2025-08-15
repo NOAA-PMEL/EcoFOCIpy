@@ -75,7 +75,7 @@ class Suna(object):
 
         return self.data_frame
 
-    def plot_data(self, title="SUNA Data"):
+    def plot_data(self, title="SUNA Data", savepath=None):
         """
         Plot nitrate, spectral data, and Fit RMSE from the SUNA instrument for an initial check.
 
@@ -128,6 +128,9 @@ class Suna(object):
 
         # Set the overall title and layout
         plt.suptitle(title, y=0.98)
+
+        if savepath:
+            fig.savefig(savepath, dpi=150, bbox_inches='tight')
         plt.show()
         
     def FilterSuna(self,rmse_cutoff=0.00025):
@@ -203,7 +206,7 @@ def batch_process_isus_files(input_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    dat_files = [f for f in os.listdir(input_dir) if f.endswith('.DAT')]
+    dat_files = [f for f in os.listdir(input_dir) if f.lower().endswith('.dat')]
     print(f"[INFO] Found {len(dat_files)} .DAT files in {input_dir}")
 
     output_csvs = []
@@ -305,7 +308,7 @@ class Isus(object):
         return self.data_frame
 
 
-    def plot_data(self, title="ISUS Data"):
+    def plot_data(self, title="ISUS Data", savepath=None):
         """
         Quick plots for ISUS:
           - Nitrate concentration
@@ -384,6 +387,9 @@ class Isus(object):
         fig.colorbar(im, cax=cbar_ax, label='Intensity')
     
         plt.suptitle(title, y=0.98)
+
+        if savepath:
+            fig.savefig(savepath, dpi=150, bbox_inches='tight')
         plt.show()
 
     def FilterIsus(self, rmse_cutoff=0.003):
