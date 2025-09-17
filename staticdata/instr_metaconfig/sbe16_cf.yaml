@@ -7,7 +7,7 @@
 #
 # SeaBird CT(P) Seacat (sbe16)
 # Occasionally has additional instruments recording off it
-#   but just because they may exist doesn't mean they were installed
+#   but just because they may exist doesnt mean they were installed
 # ----
 #
 # dimensions
@@ -54,84 +54,84 @@ pressure:
   epic_key: P_1
   generic_name: pres
   units: decibar
-  long_name: "Sea water pressure, equals 0 at sea-level"
+  long_name: Sea water pressure, equals 0 at sea-level
   standard_name: sea_water_pressure_due_to_sea_water
 conductivity: 
   epic_key: C_50
   generic_name: cond
-  units: 'mmho/cm'
-  long_name: "Sea water conductivity"
-  standard_name: 'sea_water_electrical_conductivity'
+  units: mmho/cm
+  long_name: Sea water conductivity
+  standard_name: sea_water_electrical_conductivity
 salinity: 
   epic_key: S_41
   generic_name: psal
   units: PSU
-  long_name: "Practical salinity in-situ PSS-78 scale"
+  long_name: Practical salinity in-situ PSS-78 scale
   standard_name: sea_water_practical_salinity
 chlor_fluorescence:
   epic_key: Fch_906
   generic_name: chlor_fluorescence
-  long_name: "Mass Concdentration of chlorophyll from chlorophyll fluorescence"
+  long_name: Mass Concdentration of chlorophyll from chlorophyll fluorescence
   standard_name: mass_concentration_of_chlorophyll_in_sea_water
   units: ugrams/l
 fluor_volts:
   epic_key: Fvt_900
   generic_name: fluor_volts
-  long_name: "Voltage recorded from fluorometer"
+  long_name: Voltage recorded from fluorometer
   standard_name: fluorometer_voltage
   units: Volts
 par: 
   generic_name: par
   epic_key: PAR_905
-  long_name: 'Photosynthetic Active Radiation'
+  long_name: Photosynthetic Active Radiation
   standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
-  units: 'uEin m-2 s-1'
+  units: uEin m-2 s-1
 # par: 
 #   generic_name: par
 #   epic_key: PAR_908
-#   long_name: 'Photosynthetic Active Radiation'
+#   long_name: Photosynthetic Active Radiation
 #   standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
-#   units: 'umol cm-2 s-1'
+#   units: umol cm-2 s-1
 par_volts: 
   generic_name: par_volts
   epic_key: PAR_916
-  long_name: 'Photosynthetic Active Radiation Volts'
+  long_name: Photosynthetic Active Radiation Volts
   standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water_volts
   units: Volts
 oxy_conc_umkg:
   generic_name: oxy_conc_umkg
   epic_key: O_65
-  long_name: 'concentration of oxygen in seawater'
+  long_name: concentration of oxygen in seawater
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: micromole/kg
 oxy_conc:
   generic_name: oxy_conc
   epic_key: ''
-  long_name: 'concentration of oxygen in seawater'
+  long_name: concentration of oxygen in seawater
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: micromole/l
 oxy_concM:
   generic_name: oxy_concM
   epic_key: ''
-  long_name: 'concentration of oxygen in seawater'
+  long_name: concentration of oxygen in seawater
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: micromole/l
 oxy_conc_umkg_ctdcor:
   generic_name: oxy_conc_umkg_ctdcor
   epic_key: O_65
-  long_name: 'concentration of oxygen in seawater - winkler/ctd corrected'
+  long_name: concentration of oxygen in seawater - winkler/ctd corrected
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
   units: micromole/kg
 oxy_percentsat: 
   generic_name: oxy_psat
   epic_key: OST_62
-  units: 'percent'
-  long_name: 'Percent Saturation of oxygen over air' 
-  standard_name: 'fractional_saturation_of_oxygen_in_sea_water'  
+  units: percent
+  long_name: Percent Saturation of oxygen over air
+  standard_name: fractional_saturation_of_oxygen_in_sea_water
 oxy_temperature:
   epic_key: T_20
   generic_name: temp
   long_name: Sea temperature in-situ ITS-90 scale
   standard_name: sea_water_temperature
   units: degree_C
-  comment: 'temperature measurement used for calculating oxygen concentration/saturation'
+  comment: temperature measurement used for calculating oxygen concentration/saturation

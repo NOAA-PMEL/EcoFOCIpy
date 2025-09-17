@@ -1,0 +1,50 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v66
+#
+# Wetlabs (or others) Fluorometry only (chlorophyll fluorescence)
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: depth below surface (meters)
+  standard_name: depth
+  positive: down
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: latitude
+  standard_name: latitude
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: longitude
+  standard_name: longitude
+timeseries_id:
+  cf_role: timeseries_id
+  long_name: timeseries id
+  standard_name: ''
+#variables
+par: 
+  generic_name: par
+  epic_key: PAR_905
+  long_name: Photosynthetic Active Radiation
+  standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
+  units: uEin m-2 s-1
