@@ -2,6 +2,7 @@ import gsw
 import numpy as np
 import pandas as pd
 
+
 def gross_range_test(data: pd.Series, config: dict) -> pd.Series:
     """
     Checks if the data is within the configured min/max range.
