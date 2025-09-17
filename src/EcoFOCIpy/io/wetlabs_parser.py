@@ -24,6 +24,7 @@ class wetlabs(object):
     EcoFLS(B) - single channel fluorometer (B-battery pack)
     EcoFLNT(US) - dual channel fluorometer and Turb
     Triplet - three channels
+    EcoPAR- single channel PAR sensor
 
     Eco's have an array of channels to choose from... files are all the same,
     you must provide the right cal coefs for the data
@@ -68,10 +69,12 @@ class wetlabs(object):
 
         # Programmatically determine number of channels and assign columns
         num_cols = len(rawdata_df.columns)
-        if (num_cols - 3) % 2 != 0 or num_cols < 5:
+        if num_cols == 2:
+            num_channels = 1 # PAR device
+        elif (num_cols - 3) % 2 == 0 and num_cols >= 5:
+            num_channels = (num_cols - 3) // 2
+        else:
             raise ValueError(f"Unrecognized file format with {num_cols} columns.")
-
-        num_channels = (num_cols - 3) // 2
 
         # Combine date and time columns for the datetime index
         datetime_col = pd.to_datetime(rawdata_df[0] + ' ' + rawdata_df[1], format="%m/%d/%y %H:%M:%S")
