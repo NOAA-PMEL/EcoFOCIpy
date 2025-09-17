@@ -1,0 +1,58 @@
+---
+#############################################################
+# Utility to read the following in takes order into account
+#  Dimensions should stay in same order with cf_role id being last
+# 
+# CF Standard Names v66
+#
+# Instrument: PUF (PopTop or PopUp Float)
+# ----
+#
+# dimensions
+#
+time:
+  epic_key: TIM_601
+  name: time
+  generic_name: time
+  standard_name: time
+  long_name: date and time since reference time
+depth: 
+  epic_key: D_3
+  generic_name: depth
+  units: meter
+  long_name: depth below surface (meters)
+  standard_name: depth
+  positive: down
+latitude:
+  epic_key: LON_501
+  name: latitude
+  generic_name: latitude
+  units: degrees_north
+  long_name: latitude
+  standard_name: latitude
+longitude:
+  epic_key: LAT_500
+  name: longitude
+  generic_name: longitude
+  units: degrees_east
+  long_name: longitude
+  standard_name: longitude
+#variables
+temperature:
+  epic_key: T_20
+  generic_name: temp
+  long_name: Sea temperature in-situ ITS-90 scale
+  standard_name: sea_water_temperature
+  units: degree_C
+pressure: 
+  epic_key: P_1
+  generic_name: pres
+  units: decibar
+  long_name: Sea water pressure, equals 0 at sea-level
+  standard_name: sea_water_pressure_due_to_sea_water
+par: 
+  generic_name: par
+  epic_key: PAR_905
+  long_name: Photosynthetic Active Radiation
+  standard_name: omnidirectional_photosynthetic_photon_spherical_irradiance_in_sea_water
+  units: micromole m-2 s-1
