@@ -69,8 +69,10 @@ class wetlabs(object):
 
         # Programmatically determine number of channels and assign columns
         num_cols = len(rawdata_df.columns)
+        ispar = False
         if num_cols == 3:
             num_channels = 1 # PAR device
+            ispar = True
         elif (num_cols - 3) % 2 == 0 and num_cols >= 5:
             num_channels = (num_cols - 3) // 2
         else:
@@ -88,7 +90,10 @@ class wetlabs(object):
             channel_name = str(rawdata_df[channel_id_col_index][0])
             data[channel_name] = rawdata_df[data_col_index]
 
-        data['TempCount'] = rawdata_df[num_cols - 1]
+        if ispar:
+            data['TempCount'] = None
+        else:
+            data['TempCount'] = rawdata_df[num_cols - 1]
 
         self.rawdata_df = pd.DataFrame(data).set_index('date_time')
         return self.rawdata_df, header_lines
