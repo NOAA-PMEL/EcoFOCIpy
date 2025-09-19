@@ -69,6 +69,7 @@ class wetlabs(object):
 
         # Programmatically determine number of channels and assign columns
         num_cols = len(rawdata_df.columns)
+        ispar = False
         if num_cols == 3:
             num_channels = 1 # PAR device
             ispar = True
