@@ -83,16 +83,18 @@ class wetlabs(object):
 
         # Build the final DataFrame
         data = {'date_time': datetime_col}
-        for i in range(num_channels):
-            channel_id_col_index = 2 + (i * 2)
-            data_col_index = 3 + (i * 2)
-            # Use the first row's channel ID as the column name
-            channel_name = str(rawdata_df[channel_id_col_index][0])
-            data[channel_name] = rawdata_df[data_col_index]
 
         if ispar:
-            data['TempCount'] = None
+            data_col_index = 2
+            data['PAR'] = rawdata_df[data_col_index]
         else:
+            for i in range(num_channels):
+                channel_id_col_index = 2 + (i * 2)
+                data_col_index = 3 + (i * 2)
+                # Use the first row's channel ID as the column name
+                channel_name = str(rawdata_df[channel_id_col_index][0])
+                data[channel_name] = rawdata_df[data_col_index]
+            
             data['TempCount'] = rawdata_df[num_cols - 1]
 
         self.rawdata_df = pd.DataFrame(data).set_index('date_time')
