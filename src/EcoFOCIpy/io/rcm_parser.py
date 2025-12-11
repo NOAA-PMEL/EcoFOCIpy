@@ -313,6 +313,7 @@ class rcm_sg(object):
         return (rawdata_df, header)
 
     def load(self, data):
+        """Load the data into the rawdata_df attribute."""
         self.rawdata_df = data
 
     def mag_dec_corr(self, lat, lonW, dep_date, apply_correction=True):

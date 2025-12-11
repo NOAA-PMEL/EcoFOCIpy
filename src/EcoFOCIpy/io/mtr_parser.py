@@ -180,7 +180,7 @@ class MTR(object):
             # This calculates the time delta for each individual measurement
             try:
                 # This calculation is based on the original script's logic
-                time_delta_per_sample = datetime.timedelta(minutes=10) / 120
+                time_delta_per_sample = datetime.timedelta(minutes=10) 
             except ZeroDivisionError:
                 time_delta_per_sample = datetime.timedelta(0)
 
