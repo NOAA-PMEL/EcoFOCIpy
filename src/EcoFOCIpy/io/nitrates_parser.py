@@ -190,7 +190,8 @@ def process_isus_file(file_path, output_dir):
         skiprows=12,
         sep=',',
         names=full_columns,
-        engine='python'
+        engine='c',          
+        on_bad_lines='warn'  # optional, helps survive other weird rows
     )
 
     base_name = os.path.basename(file_path)
@@ -233,25 +234,36 @@ def merge_csvs(csv_files, merged_csv_path):
     df_list = []
     for csv_file in csv_files:
         df = pd.read_csv(csv_file)
+        df["__source_file"] = os.path.basename(csv_file)  # traceability
         df_list.append(df)
 
     merged_df = pd.concat(df_list, ignore_index=True)
 
-    # Build proper datetime index from YYYYDDD + HH.HHHHH
-    base_dates = pd.to_datetime(merged_df['YYYYDDD'].astype(str), format='%Y%j')
-    time_offset = pd.to_timedelta(merged_df['HH.HHHHH'], unit='h')
-    merged_df['date_time'] = base_dates + time_offset
+    # Force YYYYDDD to numeric-looking strings; anything else becomes NaN
+    yyyyddd = pd.to_numeric(merged_df["YYYYDDD"], errors="coerce")
+    hhhhh   = pd.to_numeric(merged_df["HH.HHHHH"], errors="coerce")
 
-    # Sort by the constructed datetime
-    merged_df = merged_df.sort_values('date_time').reset_index(drop=True)
+    bad = yyyyddd.isna() | hhhhh.isna()
+    if bad.any():
+        print("[WARNING] Dropping rows with non-numeric YYYYDDD/HH.HHHHH:")
+        # show a few examples + which file they came from
+        cols = ["__source_file", "YYYYDDD", "HH.HHHHH"]
+        print(merged_df.loc[bad, cols].head(20).to_string(index=False))
 
-    # Drop the helper column, keep original raw columns
-    merged_df.drop(columns=['date_time'], inplace=True)
+    merged_df = merged_df.loc[~bad].copy()
+    merged_df["YYYYDDD"] = yyyyddd.loc[~bad].astype(int).astype(str)
+    merged_df["HH.HHHHH"] = hhhhh.loc[~bad]
 
-    # Save final merged file
+    base_dates = pd.to_datetime(merged_df["YYYYDDD"], format="%Y%j", errors="coerce")
+    time_offset = pd.to_timedelta(merged_df["HH.HHHHH"], unit="h")
+    merged_df["date_time"] = base_dates + time_offset
+
+    merged_df = merged_df.sort_values("date_time").reset_index(drop=True)
+    merged_df.drop(columns=["date_time"], inplace=True)
+
+    merged_df.drop(columns=["__source_file"], inplace=True)
     merged_df.to_csv(merged_csv_path, index=False)
     print(f"[INFO] Merged {len(csv_files)} CSVs --> {merged_csv_path} (sorted by date_time)")
-
     return merged_csv_path
 
 
