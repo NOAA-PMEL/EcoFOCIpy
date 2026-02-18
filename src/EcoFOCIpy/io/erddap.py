@@ -56,6 +56,9 @@ def erddapMooredInstretrieve(url=None, mooringid=None, qclevel='final', instrid=
 
     e.dataset_id = f'datasets_Mooring_{mooringid}_{qclevel}'
 
+    if instrid:
+        e.constraints = {'timeseries_id=': instrid}
+
     df = e.to_pandas(parse_dates=True)
 
     try:
