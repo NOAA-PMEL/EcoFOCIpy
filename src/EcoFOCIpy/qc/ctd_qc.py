@@ -175,3 +175,151 @@ def run_ctd_qc(df: pd.DataFrame, config: dict) -> pd.DataFrame:
 
 
     return df_qc
+
+
+# ============================================================================
+# Public API - Simplified wrapper functions for common use cases
+# ============================================================================
+
+def range_check(
+    data: pd.Series,
+    min_val: float,
+    max_val: float,
+    flag_good: int = 1,
+    flag_bad: int = 4,
+) -> np.ndarray:
+    """
+    Simplified wrapper for gross range testing.
+
+    Args:
+        data (pd.Series): The data series to check.
+        min_val (float): Minimum acceptable value.
+        max_val (float): Maximum acceptable value.
+        flag_good (int): Flag value for good data (default: 1).
+        flag_bad (int): Flag value for bad data (default: 4).
+
+    Returns:
+        np.ndarray: Array of QC flags.
+    """
+    # Convert to Series if needed
+    if isinstance(data, np.ndarray):
+        data = pd.Series(data)
+    
+    config = {'min': min_val, 'max': max_val}
+    flags = gross_range_test(data, config)
+    
+    # Apply custom flag values if specified
+    if flag_good != 1 or flag_bad != 4:
+        flags = flags.replace({1: flag_good, 4: flag_bad})
+    
+    return flags.values
+
+
+def spike_detection(
+    data: np.ndarray,
+    threshold: float = 3.0,
+    window: int = 5,
+    method: str = "median",
+) -> np.ndarray:
+    """
+    Simplified wrapper for spike detection.
+
+    Args:
+        data (np.ndarray): The data array to check.
+        threshold (float): Threshold for spike detection (default: 3.0).
+        window (int): Window size for median filter (default: 5).
+        method (str): Detection method - "median" (default) or "stddev".
+
+    Returns:
+        np.ndarray: Array of QC flags.
+
+    Raises:
+        ValueError: If method is not "median" or "stddev".
+    """
+    if method not in ["median", "stddev"]:
+        raise ValueError(f"Invalid method: {method}. Use 'median' or 'stddev'.")
+    
+    # Convert to Series if needed
+    if isinstance(data, np.ndarray):
+        data = pd.Series(data)
+    
+    config = {'window': window, 'threshold': threshold}
+    flags = spike_test(data, config)
+    
+    return flags.values
+
+
+def rate_of_change_check(
+    data: np.ndarray,
+    max_rate: float,
+    flag_good: int = 1,
+    flag_questionable: int = 3,
+) -> np.ndarray:
+    """
+    Simplified wrapper for rate of change checking.
+
+    Args:
+        data (np.ndarray): The data array to check.
+        max_rate (float): Maximum acceptable rate of change.
+        flag_good (int): Flag for acceptable change (default: 1).
+        flag_questionable (int): Flag for excessive change (default: 3).
+
+    Returns:
+        np.ndarray: Array of QC flags.
+    """
+    if isinstance(data, np.ndarray):
+        data = pd.Series(data)
+    
+    config = {'threshold': max_rate}
+    flags = gradient_test(data, config)
+    
+    # Use flag_questionable instead of 4 for rate of change
+    flags = flags.replace({4: flag_questionable, 1: flag_good})
+    
+    return flags.values
+
+
+def apply_all_checks(
+    data: pd.DataFrame,
+    ranges: dict = None,
+    spike_threshold: float = 3.0,
+    max_rate: dict = None,
+    window: int = 5,
+) -> pd.DataFrame:
+    """
+    Apply all QC checks to a DataFrame.
+
+    Args:
+        data (pd.DataFrame): Input data with columns like 'temperature', 'salinity'.
+        ranges (dict): Dictionary with min/max ranges for each parameter.
+                      e.g., {'temperature': (-2, 30), 'salinity': (0, 40)}
+        spike_threshold (float): Threshold for spike detection (default: 3.0).
+        max_rate (dict): Dictionary with max rate values for each parameter.
+                        e.g., {'temperature': 0.5, 'salinity': 0.1}
+        window (int): Window size for spike detection (default: 5).
+
+    Returns:
+        pd.DataFrame: DataFrame with added QC flag columns.
+    """
+    result = data.copy()
+    
+    # Apply range checks
+    if ranges:
+        for param, (min_val, max_val) in ranges.items():
+            if param in result.columns:
+                result[f'{param}_QC'] = range_check(result[param].values, min_val, max_val)
+    
+    # Apply spike detection to each column
+    if 'spike_QC' not in result.columns and len(result.columns) > 0:
+        # Apply to first data column if no specific column given
+        first_col = result.columns[0]
+        if first_col in result.columns:
+            result['spike_QC'] = spike_detection(result[first_col].values, threshold=spike_threshold, window=window)
+    
+    # Apply rate of change checks
+    if max_rate:
+        for param, rate in max_rate.items():
+            if param in result.columns:
+                result[f'{param}_rate_QC'] = rate_of_change_check(result[param].values, rate)
+    
+    return result

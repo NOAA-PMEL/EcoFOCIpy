@@ -1,0 +1,251 @@
+# pylintrc - EcoFOCIpy Code Quality Configuration
+# Lint configuration for maintaining code quality standards
+
+[MASTER]
+# List of plugins
+load-plugins=
+
+# Minimum Python version to target
+py-version=3.8
+
+# Pickle collected data for later comparisons
+persistent=yes
+
+# Jobs to run in parallel
+jobs=1
+
+# Path to file with regular expressions to exclude from analysis
+# ignore-paths=
+
+# List of files or directories to be skipped
+ignore=
+    .git,
+    .venv,
+    venv,
+    build,
+    dist,
+    .eggs,
+    __pycache__,
+    .pytest_cache,
+    .ipynb_checkpoints
+
+# Add files or directories matching the regular expressions patterns to the ignore-list
+ignore-patterns=
+    ^\..+
+
+[MESSAGES CONTROL]
+# Disable specific warnings and conventions for cleaner output
+disable=
+    # Convention (C) - Code style best practices
+    missing-docstring,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-instance-attributes,
+    too-many-locals,
+    
+    # Refactor (R) - Refactoring suggestions
+    too-many-branches,
+    too-many-statements,
+    duplicate-code,
+    
+    # Warning (W) - Important but non-critical
+    fixme,
+    suppressed-message,
+    file-ignored,
+    
+    # Informational (I)
+    information-report,
+    # Enable by default: E (errors), F (fatal)
+
+# Enable specific categories
+enable=
+    all
+
+[REPORTS]
+# Set score threshold for project assessment
+fail-under=8.0
+
+# Output format
+output-format=colorized
+
+# Include message's id in output
+include-ids=yes
+
+# Include evaluation statistics
+reports=yes
+
+# Evaluation score calculation
+# score=yes
+
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length=88
+
+# Regexp for a line that is considered to be a marker for pragma directives
+indent-after-paren=4
+
+# String used as indentation unit
+indent-string='    '
+
+# Number of spaces of indentation after continuation lines
+continuation-indent-string='    '
+
+# Expected format of line ending, especially useful when checking scripts
+expected-line-ending-type=LF
+
+[LOGGING]
+# Log format
+logging-format-style=new
+
+# Logging modules to check
+logging-modules=logging
+
+
+[VARIABLES]
+# List of strings which can identify a callback function by name
+callbacks=cb_, _cb
+
+# A regular expression matching names should start with a lowercase letter
+# and no additional constraints
+good-names=i, j, k, ex, _, __, x, y, z, df, fig, ax, axes
+
+# Regular expression for names allowed in the global scope
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__)|(_.*)|([a-z_][a-z0-9_]*))$
+
+# Regular expression for names allowed as class attributes
+attr-rgx=[a-z_][a-z0-9_]*$
+
+# Regular expression for private names
+private-attr-rgx=_[a-z0-9_]*$
+
+
+[TYPECHECK]
+# List of strings which can identify typing stub packages
+typing-modules=typing
+
+# List of tuple (name, regex) of decorators that skipped typing
+skip-on-functions=
+    setup,
+    setUp,
+    tearDown
+
+
+[DESIGN]
+# Maximum number of attributes for class
+max-attributes=7
+
+# Minimum number of public methods for a class
+min-public-methods=2
+
+# Maximum number of public methods for a class
+max-public-methods=20
+
+# Maximum number of return/yield per function
+max-returns=6
+
+# Maximum number of branch for function
+max-branches=12
+
+# Maximum number of statements in function body
+max-statements=50
+
+# Maximum number of parents for a class (Max MRO length)
+max-parents=7
+
+# Maximum number of positional arguments for function
+max-args=5
+
+# Maximum number of local variables in function
+max-locals=15
+
+# List of callable names which should always be considered as having protected access
+callbacks=cb_,_cb
+
+
+[SIMILARITIES]
+# Minimum lines number d emitted by the similarities checker
+min-similarity-lines=4
+
+# Ignore comments when computing similarities
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities
+ignore-docstrings=yes
+
+# Ignore imports when computing similarities
+ignore-imports=yes
+
+# List of decorators that define properties (used to avoid false positives)
+property-defined-in-init=yes
+
+
+[BASIC]
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,_,__,x,y,z,df,fig,ax,axes
+
+# Bad variable names which should always be rejected, separated by a comma
+bad-names=foo,baz,toto,tutu,tata
+
+# Regular expression matching correct variable names
+variable-rgx=[a-z_][a-z0-9_]*$
+
+# Regular expression matching correct constant names
+# (with letters only, separated by underscores)
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__)|(_.*)|([a-z_][a-z0-9_]*))$
+
+# Regular expression matching correct function names
+function-rgx=[a-z_][a-z0-9_]*$
+
+# Regular expression matching correct class names
+class-rgx=[A-Z_][a-zA-Z0-9]*$
+
+# Regular expression matching correct method names
+method-rgx=[a-z_][a-z0-9_]*$
+
+# Regular expression for names meant to be private (with leading underscore)
+private-rgx=(_.*|__.*__|.*___)$
+
+# Regular representation for acceptable module names
+module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+
+# Regular expression for docstring names
+docstring-rgx=^__
+
+# Naming style enforcing snake_case
+# name-group and name-style are not applicable anymore
+
+
+[MISCELLANEOUS]
+# List of note tags to take in consideration separated by a comma
+notes=FIXME,XXX,TODO
+
+# Regular expression of note tags to take in consideration
+notes-rgx=(FIXME|XXX|TODO)
+
+# Maximum string usages in a module
+# max-string-usages=
+
+
+[SPELLING]
+# Spelling dictionary name
+spelling-dict=en_US
+
+# List of comma separated words that should be considered as private
+# spelling-private-word-list=
+
+
+[PARAMETER_DOCUMENTATION]
+# Whether to accept totally empty docstrings (default: no).
+accept-empty-docstring=no
+
+# Default docstring format
+default-docstring-type=
+
+
+[ANALYSIS RUN]
+# Regex pattern for a file name to analyze recursively
+include-and-exclude-pattern=(.*\.py|.*\.pyi)$
+
+# Only compute a score if all linting categories are computed
+compute-score-with-all-categories=no
