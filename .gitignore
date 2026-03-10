@@ -18,3 +18,4 @@ MANIFEST
 .eggs/
 tools/_secret/*.yaml
 notebooks/*.nc
+notebooks/.jupyter/desktop-workspaces/default-37a8.jupyterlab-workspace
