@@ -35,6 +35,38 @@ Tools developed within this package are heavily reliant on the following communi
 
 * [akutan](http://ecofoci-field.pmel.noaa.gov:8080/erddap/index.html) ***internal***
 
+## Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+- **[INDEX.md](docs/INDEX.md)** - Start here! Complete documentation guide and navigation
+- **[API_QUICK_REFERENCE.md](docs/API_QUICK_REFERENCE.md)** - Quick lookup for common functions and operations
+- **[MODULE_REFERENCE.md](docs/MODULE_REFERENCE.md)** - Complete API documentation for all modules
+- **[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** - Solutions to common problems
+- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Guidelines for contributing to the project
+- **[tests/TESTING_GUIDE.md](tests/TESTING_GUIDE.md)** - Testing procedures and best practices
+
+### Quick Start
+
+```python
+# Load and calibrate CTD data
+from EcoFOCIpy.instruments import SBE16
+
+ctd = SBE16(config_file='config.yaml')
+data = ctd.load_data('data.cnv')
+calibrated = ctd.calibrate(data)
+
+# Apply quality control
+from EcoFOCIpy.qc.ctd_qc import apply_all_checks
+
+flags = apply_all_checks(calibrated)
+
+# Export to NetCDF
+ctd.to_netcdf('output.nc', data=calibrated)
+```
+
+For more examples and workflows, see [docs/INDEX.md](docs/INDEX.md#quick-navigation).
+
 ## Additional Notes/Guidance
 
 ### Jupyter Notebooks and code examples
