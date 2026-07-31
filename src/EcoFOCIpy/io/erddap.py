@@ -12,6 +12,26 @@ def test_erddap_connection(url=''):
     assert r.raise_for_status() is None
 
 
+def erddapCruiseretrieve(url=None, cruiseid=None, qclevel='final'):
+    """Retrieve a single cast from a FOCI cruise hosted via erddap
+
+    Args:
+        url (str, optional): url to foci hosted erddap. Defaults to ''.
+        cruiseid (str, optional): standard foci cruise id without hyphens. eg dy2103 Defaults to ''.
+        qclevel (str, optional): preliminary or final. Defaults to 'final'.
+    """
+
+    e = ERDDAP(
+      server=url,
+      protocol="tabledap",
+    )
+
+    e.dataset_id = f'CTD_{cruiseid}_{qclevel}'
+
+    df = e.to_pandas(parse_dates=True)
+
+    return df
+
 def erddapCTDretrieve(url=None, cruiseid=None, concastno='001', qclevel='final'):
     """Retrieve a single cast from a FOCI cruise hosted via erddap
 
