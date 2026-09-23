@@ -87,10 +87,13 @@ class Timeseries1dStickPlot(object):
           #                      - negative(+) rotation is equal to ccw of the axis (cw of the vector)
           print("rotating vectors")
           angle_offset_rad = np.deg2rad(kwargs['rotate'])
-          udata = udata*np.cos(angle_offset_rad) + vdata*np.sin(angle_offset_rad)
-          vdata = -1.*udata*np.sin(angle_offset_rad) + vdata*np.cos(angle_offset_rad)
+          udata_r = udata*np.cos(angle_offset_rad) + vdata*np.sin(angle_offset_rad)
+          vdata_r = -1.*udata*np.sin(angle_offset_rad) + vdata*np.cos(angle_offset_rad)
+      else:
+          udata_r = udata
+          vdata_r = vdata
 
-      magnitude = np.sqrt(udata**2 + vdata**2)
+      magnitude = np.sqrt(udata_r**2 + vdata_r**2)
 
       fig, (ax1,ax2) = plt.subplots(2,1,sharex='col',figsize=(11,4.25))
 
@@ -108,7 +111,7 @@ class Timeseries1dStickPlot(object):
       """
 
       # 1D Quiver plot
-      q = ax1.quiver(timedata,0,udata,vdata,color='r',units='y',scale_units='y',
+      q = ax1.quiver(timedata,0,udata_r,vdata_r,color='r',units='y',scale_units='y',
                      scale = 1,headlength=1,headaxislength=1,width=0.04*linescale,alpha=.95)
       qk = plt.quiverkey(q,0.2, 0.05, 5,r'$5 \frac{cm}{s}$',labelpos='W',
                      fontproperties={'weight': 'bold'})
@@ -120,8 +123,8 @@ class Timeseries1dStickPlot(object):
       ax1.axes.get_xaxis().set_visible(False)
       ax1.set_xlim(timedata.min(),timedata.max())
       ax1.set_ylabel("Velocity (cm/s)")
-      ax2.plot(timedata, vdata, 'b-', linewidth=0.25)
-      ax2.plot(timedata, udata, 'g-', linewidth=0.25)
+      ax2.plot(timedata, vdata_r, 'b-', linewidth=0.25)
+      ax2.plot(timedata, udata_r, 'g-', linewidth=0.25)
       ax2.set_xlim(timedata.min(),timedata.max())
       ax2.set_xlabel("Date (UTC)")
       ax2.set_ylabel("Velocity (cm/s)")
