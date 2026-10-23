@@ -31,14 +31,14 @@ Example usage:
     >>> data = ctd.load_data('sbe16_raw.cnv')
     >>> print(f"Data shape: {data.shape}")
 
-Version: 0.2.5
+Version: 0.2.6
 Author: NOAA/PMEL EcoFOCI Team
 License: BSD-3-Clause
 Repository: https://github.com/NOAA-PMEL/EcoFOCIpy
 Documentation: https://github.com/NOAA-PMEL/EcoFOCIpy/wiki
 """
 
-__version__ = "0.2.5"
+__version__ = "0.2.6"
 __author__ = "NOAA/PMEL EcoFOCI Team"
 __license__ = "BSD-3-Clause"
 __all__ = [
@@ -52,7 +52,6 @@ __all__ = [
 
 try:
     from . import epic  # noqa: F401
-    from . import instruments  # noqa: F401
     from . import io  # noqa: F401
     from . import math  # noqa: F401
     from . import plots  # noqa: F401
