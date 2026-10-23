@@ -115,7 +115,7 @@ oxy_concM:
   epic_key: ''
   long_name: concentration of oxygen in seawater
   standard_name: mole_concentration_of_dissolved_molecular_oxygen_in_sea_water
-  units: micromole/l
+  units: uM  
 oxy_conc_umkg_ctdcor:
   generic_name: oxy_conc_umkg_ctdcor
   epic_key: O_65
