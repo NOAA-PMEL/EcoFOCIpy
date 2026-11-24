@@ -16,7 +16,6 @@ instruments including:
 
 Main modules:
 
-    - ``instruments``: Device-specific data parsers and processors
     - ``io``: File I/O operations (NetCDF, CSV, etc.)
     - ``math``: Oceanographic calculations and transformations
     - ``qc``: Quality control and data flagging
@@ -26,10 +25,7 @@ Main modules:
 Example usage:
 
     >>> import EcoFOCIpy
-    >>> from EcoFOCIpy import instruments
-    >>> ctd = instruments.SBE16(config_file='mooring_config.yaml')
-    >>> data = ctd.load_data('sbe16_raw.cnv')
-    >>> print(f"Data shape: {data.shape}")
+    >>> from EcoFOCIpy import epic, io, math, plots, qc
 
 Version: 0.2.6
 Author: NOAA/PMEL EcoFOCI Team
