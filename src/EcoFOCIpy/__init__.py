@@ -42,7 +42,6 @@ __version__ = "0.2.6"
 __author__ = "NOAA/PMEL EcoFOCI Team"
 __license__ = "BSD-3-Clause"
 __all__ = [
-    "instruments",
     "io",
     "math",
     "qc",
