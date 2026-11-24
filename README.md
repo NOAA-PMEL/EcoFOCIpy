@@ -49,23 +49,14 @@ Comprehensive documentation is available in the `docs/` directory:
 ### Quick Start
 
 ```python
-# Load and calibrate CTD data
-from EcoFOCIpy.instruments import SBE16
+import EcoFOCIpy
+from EcoFOCIpy import epic, io, math, plots, qc
 
-ctd = SBE16(config_file='config.yaml')
-data = ctd.load_data('data.cnv')
-calibrated = ctd.calibrate(data)
-
-# Apply quality control
-from EcoFOCIpy.qc.ctd_qc import apply_all_checks
-
-flags = apply_all_checks(calibrated)
-
-# Export to NetCDF
-ctd.to_netcdf('output.nc', data=calibrated)
+print(EcoFOCIpy.__version__)
 ```
 
-For more examples and workflows, see [docs/INDEX.md](docs/INDEX.md#quick-navigation).
+This checkout does not include an `EcoFOCIpy.instruments` subpackage. For
+available modules, import only the subpackages present under `src/EcoFOCIpy`.
 
 ## Additional Notes/Guidance
 

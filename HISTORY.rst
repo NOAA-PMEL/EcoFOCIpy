@@ -12,6 +12,14 @@ bug fixes, contributors, pull requests, and dependency updates, visit the GitHub
 Latest Releases
 ---------------
 
+0.2.6 (September 23, 2026) - September 2026 Release
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Enhancements**:
+- Maintenance: Updated project dependencies
+
+**Full Changelog**: https://github.com/NOAA-PMEL/EcoFOCIpy/compare/v0.2.5...v0.2.6
+
 0.2.5 (February 18, 2026) - February 2026 Release
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
